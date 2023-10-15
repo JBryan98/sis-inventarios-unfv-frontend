@@ -1,6 +1,7 @@
 import ThemeRegistry from '@/utils/mui-config/ThemeRegistry'
 import './globals.css'
 import type { Metadata } from 'next'
+import ResponsiveDrawer from '@/components/ui/navigation/Sidebar'
 
 export const metadata: Metadata = {
   title: 'Sistema Inventarios UNFV',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <ResponsiveDrawer>{children}</ResponsiveDrawer>
+        </ThemeRegistry>
       </body>
     </html>
   );
