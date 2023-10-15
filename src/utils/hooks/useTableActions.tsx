@@ -46,6 +46,12 @@ export const useTableActions = (
           });
           setRowsPerPage(tableState.rowsPerPage);
           break;
+        case "sort": 
+          setParams({
+            ...params,
+            page: "1",
+            sort: `${tableState.sortOrder.name},${tableState.sortOrder.direction}`
+          })  
         case "search":
           if (tableState.searchText && tableState.searchText.length >= 3) {
             setParams({

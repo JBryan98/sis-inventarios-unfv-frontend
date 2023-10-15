@@ -6,7 +6,8 @@ export const options: MUIDataTableOptions = {
   download: false,
   print: false,
   viewColumns: false,
-
+  tableId: "ssr",
+  serverSide: true,
   textLabels: {
     body: {
       noMatch: "Lo sentimos, no se encontraron registros coincidentes",

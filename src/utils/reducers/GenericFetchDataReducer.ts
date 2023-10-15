@@ -25,7 +25,7 @@ export const genericFetchDataReducer =
       case "FETCH_SUCCESS":
         return {
           ...state,
-          payload: payload,
+          data: payload,
         };
       case "FETCH_ERROR":
         return {

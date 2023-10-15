@@ -17,6 +17,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { sidebarLinks } from './sidebarLinks';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import  UNFV_LOGO  from '../../../../public/logo_unfv.jpg'
+import Image from 'next/image';
 
 const drawerWidth = 240;
 
@@ -36,15 +39,21 @@ export default function ResponsiveDrawer(props: Props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const pathname = usePathname();
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar>
+        <Image src={UNFV_LOGO} width={100} alt='UNFV_LOGO'/>
+      </Toolbar>
       <Divider />
       <List>
         {sidebarLinks.map((link) => (
           <Link key={link.label} href={link.href}>
-            <ListItem disablePadding>
+            <ListItem disablePadding sx={{
+              borderLeft: link.href === pathname ? "4px solid #f07613" : "",
+              backgroundColor: link.href === pathname ? "#fff7ed" : "",
+            }}>
               <ListItemButton>
                 <ListItemIcon>{link.icon}</ListItemIcon>
                 <ListItemText primary={link.label} />
@@ -60,7 +69,7 @@ export default function ResponsiveDrawer(props: Props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexGrow: 1 }}>
       <CssBaseline />
       <AppBar
         position="fixed"

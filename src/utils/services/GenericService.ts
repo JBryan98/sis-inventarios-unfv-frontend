@@ -13,7 +13,7 @@ export abstract class GenericCrudServices<T, E>{
         return data;
     }
 
-    public async findById(id: number): Promise<T>{
+    public async findById(id: number | string): Promise<T>{
         const response = await fetch(`${this.url}/${id}`);
         const data = await response.json();
         return data;
@@ -51,7 +51,7 @@ export abstract class GenericCrudServices<T, E>{
         return data;
     }
 
-    public async delete(id: number): Promise<void>{
+    public async deleteById(id: number | string): Promise<void>{
         await fetch(this.url + "/" + id, {
           method: "DELETE",
         });

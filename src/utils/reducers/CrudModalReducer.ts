@@ -1,7 +1,7 @@
 export interface ModalState {
     createEditModal: boolean;
     deleteModal: boolean;
-    id: number | null;
+    id: number | string | null;
 }
 
 export const modalInitialState = {
