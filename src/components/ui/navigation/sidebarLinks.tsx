@@ -1,10 +1,12 @@
-import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';import HomeIcon from '@mui/icons-material/Home';
-import TurnedInIcon from '@mui/icons-material/TurnedIn';
-import SchoolIcon from '@mui/icons-material/School';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import HandymanIcon from '@mui/icons-material/Handyman';
-import RoomIcon from '@mui/icons-material/Room';
-import GridViewIcon from '@mui/icons-material/GridView';
+import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
+import HomeIcon from "@mui/icons-material/Home";
+import TurnedInIcon from "@mui/icons-material/TurnedIn";
+import SchoolIcon from "@mui/icons-material/School";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import RoomIcon from "@mui/icons-material/Room";
+import GridViewIcon from "@mui/icons-material/GridView";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 
 export const sidebarLinks = [
   {
@@ -28,6 +30,11 @@ export const sidebarLinks = [
     icon: <TurnedInIcon />,
   },
   {
+    href: "/modelos",
+    label: "Modelos",
+    icon: <WidgetsIcon />,
+  },
+  {
     href: "/facultades",
     label: "Facultades",
     icon: <ApartmentIcon />,
@@ -40,11 +47,11 @@ export const sidebarLinks = [
   {
     href: "/mantenimiento",
     label: "Mantenimientos",
-    icon: <HandymanIcon/>
+    icon: <HandymanIcon />,
   },
   {
     href: "/ubicaciones",
     label: "Ubicaciones",
-    icon: <RoomIcon/>
-  }
+    icon: <RoomIcon />,
+  },
 ];

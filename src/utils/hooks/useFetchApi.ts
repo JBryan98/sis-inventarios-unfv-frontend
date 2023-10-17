@@ -39,3 +39,26 @@ export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
         ...state
     }
 }
+
+export function useFetchApi<T>(url: string){
+  const dataFetchReducer = genericFetchDataReducer<T>();
+  const [state, dispatch] = useReducer(dataFetchReducer, initialState);
+  useEffect(() => {
+    dispatch({ type: "LOADING_START", payload: null });
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("DATA")
+        console.log(data)
+        dispatch({ type: "FETCH_SUCCESS", payload: data })
+      })
+      .catch((error) => {
+        dispatch({ type: "FETCH_ERROR", payload: error });
+      })
+      .finally(() => {
+        dispatch({ type: "LOADING_END", payload: null });
+      });
+  }, [url])
+
+  return {...state}
+}

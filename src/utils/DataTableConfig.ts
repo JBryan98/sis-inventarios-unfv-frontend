@@ -45,9 +45,8 @@ export const options: MUIDataTableOptions = {
   selectableRows: "none",
   rowsPerPage: 5,
   rowsPerPageOptions: [5, 10, 25, 50],
+  enableNestedDataAccess: "."
   //tableBodyHeight: "auto",
-  tableBodyMaxHeight: "500px",
-  responsive: "standard",
   //Recordar: esta opción estaba deprecada y arrojaba warnings
   //responsive: "scroll"
 };

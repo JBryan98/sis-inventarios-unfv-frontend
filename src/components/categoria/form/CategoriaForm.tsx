@@ -57,7 +57,7 @@ const CategoriaForm = ({modalState, dispatchModal, onPersist}: Props) => {
       .create(values as CreateCategoria)
       .then((response) => {
         onPersist(response, true);
-        notiSuccess("Categoría actualizada con éxito")
+        notiSuccess("Categoría creada con éxito")
         dispatchModal({type: "CLOSE"})
         reset();
       })
