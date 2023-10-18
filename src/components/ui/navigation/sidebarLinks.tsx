@@ -15,11 +15,6 @@ export const sidebarLinks = [
     icon: <HomeIcon />,
   },
   {
-    href: "/componentes",
-    label: "Componentes",
-    icon: <BrowserUpdatedIcon />,
-  },
-  {
     href: "/categorias",
     label: "Categorias",
     icon: <GridViewIcon />,
@@ -33,6 +28,11 @@ export const sidebarLinks = [
     href: "/modelos",
     label: "Modelos",
     icon: <WidgetsIcon />,
+  },
+  {
+    href: "/componentes",
+    label: "Componentes",
+    icon: <BrowserUpdatedIcon />,
   },
   {
     href: "/facultades",
