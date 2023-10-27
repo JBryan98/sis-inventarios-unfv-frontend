@@ -1,7 +1,6 @@
 "use client"
 
 import { ComponenteParams } from '@/app/componentes/page'
-import { categoriaColumns } from '@/components/categoria/table/CategoriaColumns';
 import { Componente } from '@/interface/Componentes.interface';
 import componenteService from '@/services/Componentes.service';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';

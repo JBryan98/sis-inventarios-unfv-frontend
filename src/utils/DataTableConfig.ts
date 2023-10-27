@@ -2,10 +2,11 @@ import { MUIDataTableOptions } from 'mui-datatables';
 
 
 export const options: MUIDataTableOptions = {
-  filter: false,
+  jumpToPage: true,
   download: false,
   print: false,
   viewColumns: false,
+  search: false,
   tableId: "ssr",
   serverSide: true,
   textLabels: {
@@ -19,6 +20,7 @@ export const options: MUIDataTableOptions = {
       previous: "Anterior",
       rowsPerPage: "Filas por página:",
       displayRows: "de",
+      jumpToPage: "Saltar a la página"
     },
     toolbar: {
       search: "Buscar",
@@ -28,9 +30,9 @@ export const options: MUIDataTableOptions = {
       filterTable: "Ordenar tabla",
     },
     filter: {
-      all: "All",
-      title: "FILTERS",
-      reset: "RESET",
+      all: "TODOS",
+      title: "FILTROS",
+      reset: "REINICIAR",
     },
     viewColumns: {
       title: "Ver Columnas",
@@ -42,11 +44,9 @@ export const options: MUIDataTableOptions = {
       deleteAria: "Eliminar filas seleccionadas",
     },
   },
+  enableNestedDataAccess: ".",
   selectableRows: "none",
-  rowsPerPage: 5,
-  rowsPerPageOptions: [5, 10, 25, 50],
-  enableNestedDataAccess: "."
-  //tableBodyHeight: "auto",
-  //Recordar: esta opción estaba deprecada y arrojaba warnings
-  //responsive: "scroll"
+  rowsPerPage: 10,
+  rowsPerPageOptions: [5, 10,  25, 50],
+  responsive: "standard",
 };

@@ -15,7 +15,6 @@ export const useTableActions = (
   dispatchModal: Dispatch<ModalReducerActions>
 ) => {
   const { size } = PAGEABLE_DEFAULT_VALUES;
-  const [rowsPerPage, setRowsPerPage] = useState<number>(Number(size));
   const tableActions: MUIDataTableOptions = {
     ...options,
     page: Number(params.page) - 1,
@@ -44,7 +43,6 @@ export const useTableActions = (
             ...params,
             size: String(tableState.rowsPerPage),
           });
-          setRowsPerPage(tableState.rowsPerPage);
           break;
         case "sort": 
           setParams({
@@ -70,7 +68,8 @@ export const useTableActions = (
       }
     },
     count: totalElements,
-    rowsPerPage: rowsPerPage,
+    rowsPerPageOptions: Array.from(new Set([Number(params.size), 5, 10, 25, 50])).sort((a, b) => a - b),
+    rowsPerPage: Number(params.size),
     customToolbar: () => {
       return (
         <>

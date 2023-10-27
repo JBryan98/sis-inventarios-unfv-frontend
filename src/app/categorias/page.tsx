@@ -3,7 +3,7 @@ import { Pageable } from '@/utils/interface/Pageable'
 import React from 'react'
 
 export interface CategoriaParams extends Pageable{
-
+  referencia?: string;
 }
 
 const page = ({searchParams}: {searchParams: CategoriaParams}) => {

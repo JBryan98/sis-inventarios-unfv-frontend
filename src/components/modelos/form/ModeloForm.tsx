@@ -20,7 +20,7 @@ import FormButtons from '@/components/ui/form/FormButtons';
 interface Props {
     modalState: ModalState,
     dispatchModal: Dispatch<ModalReducerActions>,
-    onPersist: (entityPeristed: Modelo, inser: boolean) => void;
+    onPersist: (entityPeristed: Modelo, insert: boolean) => void;
   }
 
 const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
@@ -69,7 +69,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
             modeloService
             .create(values as CreateModelo)
             .then(response => {
-                onPersist(response, false);
+                onPersist(response, true);
                 dispatchModal({type: "CLOSE"});
                 notiSuccess("Modelo creado con éxito");
                 reset();
