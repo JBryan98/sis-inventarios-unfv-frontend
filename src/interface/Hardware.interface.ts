@@ -1,10 +1,10 @@
 import { Modelo } from "./Modelo.interface";
 
-export interface Componente{
+export interface Hardware{
     id: number;
     serie: string;
     estado: string;
     modelo: Modelo;
 }
 
-export type CreateComponente = Omit<Componente, "id">
+export type HardwareRequest = Omit<Hardware, "id">

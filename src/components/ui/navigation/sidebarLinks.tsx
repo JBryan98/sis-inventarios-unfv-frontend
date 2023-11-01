@@ -30,8 +30,8 @@ export const sidebarLinks = [
     icon: <WidgetsIcon />,
   },
   {
-    href: "/componentes",
-    label: "Componentes",
+    href: "/hardware",
+    label: "Hardware",
     icon: <BrowserUpdatedIcon />,
   },
   {
@@ -40,7 +40,7 @@ export const sidebarLinks = [
     icon: <ApartmentIcon />,
   },
   {
-    href: "/label",
+    href: "/escuelas",
     label: "Escuelas",
     icon: <SchoolIcon />,
   },

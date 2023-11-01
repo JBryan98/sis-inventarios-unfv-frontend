@@ -1,7 +1,7 @@
 export interface Facultad {
     id: number;
-    siglas: string;
+    abreviatura: string;
     nombre: string;
 }
 
-export type CreateFacultad = Omit<Facultad, "id">;
+export type FacultadRequest = Omit<Facultad, "id">;

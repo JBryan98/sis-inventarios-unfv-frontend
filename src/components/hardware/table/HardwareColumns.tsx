@@ -3,7 +3,7 @@ import { ModalReducerActions } from '@/utils/reducers/CrudModalReducer'
 import { MUIDataTableMeta } from 'mui-datatables';
 import React, { Dispatch } from 'react'
 
-const ComponentesColumn = (dispatchModal: Dispatch<ModalReducerActions>) => {
+const HardwareColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
   return [
     {
       name: "id",
@@ -65,4 +65,4 @@ const ComponentesColumn = (dispatchModal: Dispatch<ModalReducerActions>) => {
   ];
 }
 
-export default ComponentesColumn
+export default HardwareColumns

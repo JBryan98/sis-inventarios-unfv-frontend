@@ -19,6 +19,7 @@ import { sidebarLinks } from './sidebarLinks';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import  UNFV_LOGO  from '../../../../public/logo_unfv.jpg'
+import UNFV_LOGO_ANIVERSARIO from '../../../../public/logo_aniversario.png'
 import Image from 'next/image';
 
 const drawerWidth = 240;
@@ -44,7 +45,7 @@ export default function ResponsiveDrawer(props: Props) {
   const drawer = (
     <div>
       <Toolbar>
-        <Image src={UNFV_LOGO} width={100} alt='UNFV_LOGO'/>
+        <Image src={UNFV_LOGO_ANIVERSARIO} width={170} alt='UNFV_LOGO'/>
       </Toolbar>
       <Divider />
       <List>
@@ -76,6 +77,7 @@ export default function ResponsiveDrawer(props: Props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          backgroundColor: "#ff5d0d"
         }}
       >
         <Toolbar>

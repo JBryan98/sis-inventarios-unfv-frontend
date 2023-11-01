@@ -1,9 +1,7 @@
-import { Componente, CreateComponente } from '@/interface/Componentes.interface';
 import { useNotification } from '@/utils/hooks/useNotification';
 import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { Dispatch, useEffect } from 'react'
-import { ComponenteForm, componenteSchema } from './ComponenteValidation';
 import { useForm } from 'react-hook-form';
 import ModalForm from '@/components/ui/form/ModalForm';
 import { Grid, IconButton, InputAdornment, Tooltip } from '@mui/material';
@@ -13,26 +11,28 @@ import { useFetchApi } from '@/utils/hooks/useFetchApi';
 import modeloService from '@/services/Modelo.service';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { Modelo } from '@/interface/Modelo.interface';
-import componenteService from '@/services/Componentes.service';
+import componenteService from '@/services/Hardaware.service';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { v4 as uuidv4 } from 'uuid';
 import FormSelect from '@/components/ui/form/FormSelect';
+import { HardwareForm, hardwareSchema } from './HardwareValidation';
+import { Hardware, HardwareRequest } from '@/interface/Hardware.interface';
 
 interface Props {
     modalState: ModalState;
     dispatchModal: Dispatch<ModalReducerActions>;
-    onPersist: (entityPeristed: Componente, inser: boolean) => void;
+    onPersist: (entityPeristed: Hardware, inser: boolean) => void;
   }
 
-const ComponenteModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     const { notiSuccess, notiApiResponseError } = useNotification();
-    const {control, handleSubmit, formState, setError, setValue, reset } = useForm<ComponenteForm>({
+    const {control, handleSubmit, formState, setError, setValue, reset } = useForm<HardwareForm>({
         defaultValues: {
           serie: "",
           modelo: undefined,
           estado: "",
         },
-        resolver: yupResolver(componenteSchema)
+        resolver: yupResolver(hardwareSchema)
     })
 
     useEffect(() => {
@@ -46,9 +46,9 @@ const ComponenteModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalState.id]);
 
-    const onSubmit = (values: ComponenteForm) => {
+    const onSubmit = (values: HardwareForm) => {
         if(modalState.id){
-          componenteService.update(modalState.id, values as CreateComponente)
+          componenteService.update(modalState.id, values as HardwareRequest)
           .then((response) => {
             onPersist(response, false);
             dispatchModal({type: "CLOSE"})
@@ -63,7 +63,7 @@ const ComponenteModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
             })
           })
         }else{
-          componenteService.create(values as CreateComponente)
+          componenteService.create(values as HardwareRequest)
           .then((response) => {
             onPersist(response, false);
             dispatchModal({type: "CLOSE"})
@@ -142,4 +142,4 @@ const ComponenteModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     );
 }
 
-export default ComponenteModalForm
+export default HardwareModalForm

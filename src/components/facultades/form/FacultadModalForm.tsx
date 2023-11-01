@@ -1,4 +1,4 @@
-import { CreateFacultad, Facultad } from "@/interface/Facultad.interface";
+import { FacultadRequest, Facultad } from "@/interface/Facultad.interface";
 import { ModalReducerActions, ModalState } from "@/utils/reducers/CrudModalReducer";
 import { Dispatch, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ const FacultadModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     const { control, handleSubmit, setError, setValue, reset } = useForm<FacultadForm>({
         defaultValues: {
             nombre: "",
-            siglas: ""
+            abreviatura: ""
         },
         resolver: yupResolver(facultadSchema)
     })
@@ -32,7 +32,7 @@ const FacultadModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
             facultadService.findById(modalState.id)
             .then(response => {
                 setValue("nombre", response.nombre);
-                setValue("siglas", response.siglas);
+                setValue("abreviatura", response.abreviatura);
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,7 +41,7 @@ const FacultadModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
    const onSubmit = (values: FacultadForm) =>{
     if(modalState.id){
         facultadService
-        .update(modalState.id, values as CreateFacultad)
+        .update(modalState.id, values as FacultadRequest)
         .then(response => {
             onPersist(response, false);
             dispatchModal({type: "CLOSE"})
@@ -50,14 +50,14 @@ const FacultadModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
         })
         .catch(error => {
             notiApiResponseError(error)
-            setError("siglas", {
+            setError("abreviatura", {
                 type: "manual",
                 message: error.message
             })
         })
     }else{
         facultadService
-        .create(values as CreateFacultad)
+        .create(values as FacultadRequest)
         .then(response => {
             onPersist(response, true);
             dispatchModal({type: "CLOSE"})
@@ -66,7 +66,7 @@ const FacultadModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
         })
         .catch(error => {
             notiApiResponseError(error)
-            setError("siglas", {
+            setError("abreviatura", {
                 type: "manual",
                 message: error.message
             })
@@ -86,7 +86,7 @@ const FacultadModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
             <InputForm control={control} name="nombre" label="Nombre" />
           </Grid>
           <Grid item xs={6} lg={4}>
-            <InputForm control={control} name="siglas" label="Siglas" />
+            <InputForm control={control} name="abreviatura" label="Abreviatura" />
           </Grid>
           <FormButtons
             handleClose={() => {

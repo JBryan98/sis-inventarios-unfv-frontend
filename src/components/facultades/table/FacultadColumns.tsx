@@ -13,8 +13,8 @@ export const FacultadColumns = (dispatchModal: Dispatch<ModalReducerActions>) =>
       },
     },
     {
-        name: "siglas",
-        label: "SIGLAS",
+        name: "abreviatura",
+        label: "ABREVIATURA",
         options: {
           sort: true,
         },
