@@ -8,6 +8,7 @@ import RoomIcon from "@mui/icons-material/Room";
 import GridViewIcon from "@mui/icons-material/GridView";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import AirplayIcon from '@mui/icons-material/Airplay';
+import CategoryIcon from '@mui/icons-material/Category';
 
 export const sidebarLinks = [
   {
@@ -18,7 +19,12 @@ export const sidebarLinks = [
   {
     href: "/categorias",
     label: "Categorias",
-    icon: <GridViewIcon />,
+    icon: <CategoryIcon />,
+  },
+  {
+    href: "/subcategorias",
+    label: "Subcategorias",
+    icon: <WidgetsIcon />
   },
   {
     href: "/marcas",
@@ -28,7 +34,7 @@ export const sidebarLinks = [
   {
     href: "/modelos",
     label: "Modelos",
-    icon: <WidgetsIcon />,
+    icon: <GridViewIcon />,
   },
   {
     href: "/hardware",
