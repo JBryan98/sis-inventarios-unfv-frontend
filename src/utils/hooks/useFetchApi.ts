@@ -1,8 +1,9 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { genericFetchDataReducer } from "../reducers/GenericFetchDataReducer";
 import { usePathname, useRouter } from "next/navigation";
 import { FetchRequest } from "../interface/FetchRequest";
 import { validateBaseParams } from "../http/BaseParamsHandler";
+import { ApiResponse } from "../interface/ApiResponse";
 
 const initialState = {
     data: null,
@@ -48,8 +49,6 @@ export function useFetchApi<T>(url: string){
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log("DATA")
-        console.log(data)
         dispatch({ type: "FETCH_SUCCESS", payload: data })
       })
       .catch((error) => {
@@ -61,4 +60,30 @@ export function useFetchApi<T>(url: string){
   }, [url])
 
   return {...state}
+}
+
+export function useFetchApi2<T>(url: string){
+  const [data, setData] = useState<T | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(url);
+        if(!response.ok){
+          throw new Error(response.statusText);
+        }
+        const json = await response.json();
+        setData(json);
+      } catch (error: any) {
+        setError(error);
+      } finally{
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, [url])
+
+  return {data, setData, isLoading, error}
 }

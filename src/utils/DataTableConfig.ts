@@ -6,7 +6,7 @@ export const options: MUIDataTableOptions = {
   download: false,
   print: false,
   viewColumns: false,
-  search: false,
+  search: true,
   tableId: "ssr",
   serverSide: true,
   textLabels: {

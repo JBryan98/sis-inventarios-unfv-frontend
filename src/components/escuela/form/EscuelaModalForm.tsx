@@ -94,7 +94,7 @@ const EscuelaModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
   return (
     <ModalForm
       open={modalState.createEditModal}
-      title={modalState.id ? "Editar Facultad" : "Crear Facultad"}
+      title={modalState.id ? "Editar Escuela" : "Crear Escuela"}
       handleClose={() => dispatchModal({ type: "CLOSE" })}
     >
       <form onSubmit={handleSubmit(onSubmit)} noValidate>

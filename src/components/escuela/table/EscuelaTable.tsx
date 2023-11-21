@@ -52,7 +52,7 @@ const EscuelaTable = ({urlSearchParams}: {urlSearchParams: EscuelaParams}) => {
         />
       )}
       <MUIDataTable
-        title="Lista de Escuelaes"
+        title="Lista de Escuelas"
         data={dataState.data?.content || []}
         columns={EscuelaColumns(dispatchModal)}
         options={tableActions}

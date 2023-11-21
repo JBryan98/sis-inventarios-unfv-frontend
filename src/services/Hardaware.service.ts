@@ -6,5 +6,5 @@ class HardwareService extends GenericCrudServices<Hardware, HardwareRequest>{
         super(`${process.env.NEXT_PUBLIC_API_URL}/hardware`)
     }
 }
-const componenteService = new HardwareService();
-export default componenteService;
+const hardwareService = new HardwareService();
+export default hardwareService;

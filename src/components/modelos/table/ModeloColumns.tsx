@@ -14,7 +14,7 @@ const ModeloColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
     },
     {
       name: "nombre",
-      label: "NOMBRE",
+      label: "MODELO",
       options: {
         sort: true,
       },
@@ -27,11 +27,18 @@ const ModeloColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
       },
     },
     {
-      name: "categoria.nombre",
-      label: "CATEGORÍA",
+      name: "subcategoria.nombre",
+      label: "SUBCATEGORIA",
       options: {
         sort: true,
       },
+    },
+    {
+      name: "subcategoria.categoria.nombre",
+      label: "CATEGORIA",
+      options: {
+        sort: true,
+      }
     },
     {
       name: "marca.nombre",
@@ -50,6 +57,7 @@ const ModeloColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
             <TableCrudActions
               dispatchModal={dispatchModal}
               tableMeta={tableMeta}
+              colIndex={0}
             />
           );
         },

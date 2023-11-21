@@ -6,6 +6,7 @@ import { options } from "@/utils/DataTableConfig";
 import Spinner from "@/components/ui/Spinner";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import CustomTableFooter from "../components/CustomTableFooter";
 
 export const useTableActions = (
   params: Record<string, string>,
@@ -44,12 +45,12 @@ export const useTableActions = (
             size: String(tableState.rowsPerPage),
           });
           break;
-        case "sort": 
+        case "sort":
           setParams({
             ...params,
             page: "1",
-            sort: `${tableState.sortOrder.name},${tableState.sortOrder.direction}`
-          })  
+            sort: `${tableState.sortOrder.name},${tableState.sortOrder.direction}`,
+          });
         case "search":
           if (tableState.searchText && tableState.searchText.length >= 3) {
             setParams({
@@ -68,7 +69,9 @@ export const useTableActions = (
       }
     },
     count: totalElements,
-    rowsPerPageOptions: Array.from(new Set([Number(params.size), 5, 10, 25, 50])).sort((a, b) => a - b),
+    rowsPerPageOptions: Array.from(
+      new Set([Number(params.size), 5, 10, 25, 50])
+    ).sort((a, b) => a - b),
     rowsPerPage: Number(params.size),
     customToolbar: () => {
       return (
@@ -85,6 +88,15 @@ export const useTableActions = (
         </>
       );
     },
+    customFooter: (rowCount: number, page: number, rowsPerPage: number) => (
+      <CustomTableFooter
+        rowCount={rowCount}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        params={params}
+        setParams={setParams}
+      />
+    ),
   };
   return { tableActions }
 };

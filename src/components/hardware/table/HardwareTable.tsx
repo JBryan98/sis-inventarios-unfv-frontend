@@ -54,7 +54,7 @@ const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => 
           />
         )}
         <MUIDataTable
-          title="Lista de componentes"
+          title="Lista de hardware"
           data={dataState.data?.content || []}
           columns={ComponentesColumn(dispatchModal)}
           options={tableActions}

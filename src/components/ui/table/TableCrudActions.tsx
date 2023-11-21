@@ -8,9 +8,10 @@ import { MUIDataTableMeta } from 'mui-datatables';
 interface Props {
     dispatchModal: Dispatch<ModalReducerActions>;
     tableMeta: MUIDataTableMeta;
+    colIndex?: number;
 }
 
-const TableCrudActions = ({ dispatchModal, tableMeta }: Props) => {
+const TableCrudActions = ({ dispatchModal, tableMeta, colIndex }: Props) => {
   return (
     <>
       <Tooltip title="Editar">
@@ -18,7 +19,7 @@ const TableCrudActions = ({ dispatchModal, tableMeta }: Props) => {
           onClick={() => {
             dispatchModal({
               type: "UPDATE",
-              payload: tableMeta.rowData[1],
+              payload: tableMeta.rowData[colIndex === 0 ? colIndex : 1],
             });
           }}
         >
@@ -30,7 +31,7 @@ const TableCrudActions = ({ dispatchModal, tableMeta }: Props) => {
           onClick={() => {
             dispatchModal({
               type: "DELETE",
-              payload: tableMeta.rowData[1],
+              payload: tableMeta.rowData[colIndex === 0 ? colIndex : 1],
             });
           }}
         >

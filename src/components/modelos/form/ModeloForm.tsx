@@ -1,4 +1,4 @@
-import { CreateModelo, Modelo } from '@/interface/Modelo.interface';
+import { Modelo, ModeloRequest } from '@/interface/Modelo.interface';
 import { useNotification } from '@/utils/hooks/useNotification';
 import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
 import React, { Dispatch, useEffect } from 'react'
@@ -16,6 +16,8 @@ import { Marca } from '@/interface/Marca.interface';
 import { Categoria } from '@/interface/Categoria.interface';
 import marcaService from '@/services/Marca.service';
 import FormButtons from '@/components/ui/form/FormButtons';
+import { Subcategoria } from '@/interface/Subcategoria.interface';
+import subcategoriaService from '@/services/Subcategoria.service';
 
 interface Props {
     modalState: ModalState,
@@ -29,7 +31,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
         defaultValues: {
             nombre: "",
             descripcion: "",
-            categoria: undefined,
+            subcategoria: undefined,
             marca: undefined
         },
         resolver: yupResolver(modeloSchema)
@@ -41,7 +43,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
             .then(response => {
                 setValue("nombre", response.nombre);
                 setValue("descripcion", response.descripcion);
-                setValue("categoria", response.categoria);
+                setValue("subcategoria", response.subcategoria);
                 setValue("marca", response.marca);
             })
         }
@@ -51,7 +53,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
     const onSubmit = (values: ModeloForm) => {
         if(modalState.id){
             modeloService
-            .update(modalState.id, values as CreateModelo)
+            .update(modalState.id, values as ModeloRequest)
             .then(response => {
                 onPersist(response, false);
                 dispatchModal({type: "CLOSE"});
@@ -67,7 +69,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
             })
         }else{
             modeloService
-            .create(values as CreateModelo)
+            .create(values as ModeloRequest)
             .then(response => {
                 onPersist(response, true);
                 dispatchModal({type: "CLOSE"});
@@ -88,7 +90,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
         page: "1",
         size: "100",
     }
-    const categoriaData = useFetchApi<Categoria>(`${categoriaService.url}?${new URLSearchParams(params)}`)
+    const subcategoriaData = useFetchApi<Subcategoria>(`${subcategoriaService.url}?${new URLSearchParams(params)}`)
     const marcaData = useFetchApi<Marca>(`${marcaService.url}?${new URLSearchParams(params)}`)
 
   return (
@@ -99,12 +101,15 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
     >
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Grid container spacing={2} columns={{ xs: 6, lg: 12 }}>
-        <Grid item xs={6} lg={6}>
+          <Grid item xs={6} lg={6}>
             <FormAutocomplete
               control={control}
-              name="categoria"
-              label="Categoría"
-              fetchData={categoriaData}
+              name="subcategoria"
+              label="Subcategoria"
+              fetchData={subcategoriaData}
+              autoCompleteProps={{
+                groupBy: (option: Subcategoria) => option.categoria.nombre,
+              }}
             />
           </Grid>
           <Grid item xs={6} lg={6}>

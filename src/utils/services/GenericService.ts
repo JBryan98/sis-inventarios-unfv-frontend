@@ -9,6 +9,10 @@ export abstract class GenericCrudServices<T, E>{
 
     public async findAll(params: Record<string, string>): Promise<ApiResponse<T>>{
         const response = await fetch(this.url + "?" + new URLSearchParams(params));
+        if(response.status !== HttpStatus.OK){
+          const error = await response.json();
+          throw error;
+        }
         const data = await response.json();
         return data;
     }
@@ -16,6 +20,10 @@ export abstract class GenericCrudServices<T, E>{
     public async findById(id: number | string): Promise<T>{
         const response = await fetch(`${this.url}/${id}`);
         const data = await response.json();
+        if(response.status !== HttpStatus.OK){
+          const error = await response.json();
+          throw error;
+        }
         return data;
     }
 

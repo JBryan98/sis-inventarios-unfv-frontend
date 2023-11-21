@@ -84,12 +84,13 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
       setValue("serie", uuidv4())
     }
 
-    const modelosData = useFetchApi<Modelo>(modeloService.url + "?size=100&page=1");
+    const modelosData = useFetchApi<Modelo>(modeloService.url + "?size=100&page=1&categoria=Hardware&sort=subcategoria.nombre%2Casc");
+    
 
     return (
       <ModalForm
         open={modalState.createEditModal}
-        title={modalState.id ? "Editar Componentes" : "Crear Componentes"}
+        title={modalState.id ? "Editar Hardware" : "Crear Hardware"}
         handleClose={() => dispatchModal({ type: "CLOSE" })}
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -98,8 +99,13 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
               <FormAutocomplete
                 control={control}
                 name="modelo"
+                optId="id"
+                optLabel="nombre"
                 label="Modelo"
                 fetchData={modelosData}
+                autoCompleteProps={{
+                  groupBy: (option: Modelo) => option.subcategoria.nombre
+                }}
               />
             </Grid>
             <Grid item xs={6} lg={6}>

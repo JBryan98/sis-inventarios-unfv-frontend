@@ -1,3 +1,4 @@
+import { Equipo } from "./Equipo.interface";
 import { Modelo } from "./Modelo.interface";
 
 export interface Hardware{
@@ -5,6 +6,7 @@ export interface Hardware{
     serie: string;
     estado: string;
     modelo: Modelo;
+    equipo: Equipo | null;
 }
 
 export type HardwareRequest = Omit<Hardware, "id">

@@ -7,6 +7,7 @@ import HandymanIcon from "@mui/icons-material/Handyman";
 import RoomIcon from "@mui/icons-material/Room";
 import GridViewIcon from "@mui/icons-material/GridView";
 import WidgetsIcon from "@mui/icons-material/Widgets";
+import AirplayIcon from '@mui/icons-material/Airplay';
 
 export const sidebarLinks = [
   {
@@ -33,6 +34,11 @@ export const sidebarLinks = [
     href: "/hardware",
     label: "Hardware",
     icon: <BrowserUpdatedIcon />,
+  },
+  {
+    href: "/equipos",
+    label: "Equipos",
+    icon: <AirplayIcon />,
   },
   {
     href: "/facultades",

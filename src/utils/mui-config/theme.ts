@@ -26,9 +26,42 @@ const theme = createTheme(
           }),
         },
       },
+      MUIDataTableHeadCell: {
+        styleOverrides: {
+          root: {
+            paddingBlockStart: "4px",
+            paddingBlockEnd: "4px",
+          },
+        },
+      },
+      MUIDataTableBodyCell: {
+        styleOverrides: {
+          root: {
+            paddingBlockStart: "4px",
+            paddingBlockEnd: "4px",
+          },
+        },
+      },
+      MUIDataTableToolbar: {
+        styleOverrides: {
+          root: {
+            paddingBlockStart: "16px",
+            paddingBlockEnd: "16px",
+            paddingInlineStart: "16px",
+          },
+        },
+      },
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            paddingBlockStart: "10px",
+            paddingBlockEnd: "10px",  
+          }
+        },
+      },
     },
   },
-  esES,
+  esES
 );
 
 export default theme;

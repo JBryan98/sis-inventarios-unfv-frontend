@@ -5,7 +5,7 @@ export const modeloSchema = Yup.object({
     nombre: Yup.string().trim().required(),
     descripcion: Yup.string().trim().notRequired(),
     marca: Yup.object().required(),
-    categoria: Yup.object().required(),
+    subcategoria: Yup.object().required(),
 })
 
 export type ModeloForm = Yup.InferType<typeof modeloSchema>;
