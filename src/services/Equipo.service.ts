@@ -1,4 +1,5 @@
-import { Equipo, EquipoRequest } from "@/interface/EquipoConComponentes";
+import { Equipo } from "@/interface/Equipo.interface";
+import { EquipoRequest } from "@/interface/EquipoConComponentes";
 import { GenericCrudServices } from "@/utils/services/GenericService";
 
 class EquipoService extends GenericCrudServices<Equipo, EquipoRequest>{

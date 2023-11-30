@@ -104,6 +104,8 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
           <Grid item xs={6} lg={6}>
             <FormAutocomplete
               control={control}
+              optId={"id"}
+              optLabel={"nombre"}
               name="subcategoria"
               label="Subcategoria"
               fetchData={subcategoriaData}
@@ -115,6 +117,8 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
           <Grid item xs={6} lg={6}>
             <FormAutocomplete
               control={control}
+              optId={"id"}
+              optLabel={"nombre"}
               name="marca"
               label="Marca"
               fetchData={marcaData}

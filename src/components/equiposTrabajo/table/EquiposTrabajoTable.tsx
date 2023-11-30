@@ -1,0 +1,67 @@
+"use client"
+
+import componenteService from '@/services/Hardaware.service';
+import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
+import { useTableActions } from '@/utils/hooks/useTableActions';
+import { useUrlSearchParams } from '@/utils/hooks/useUrlSearchParams';
+import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer';
+import MUIDataTable from 'mui-datatables';
+import React, { useReducer } from 'react'
+import ComponentesColumn from './EquiposTrabajoColumns';
+import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
+import { EquiposTrabajo } from '@/interface/EquiposTrabajo.interface';
+import { EquiposTrabajoParams } from '@/app/equipos-de-trabajo/page';
+import equiposTrabajoService from '@/services/EquiposTrabajo.service';
+import EquiposTrabajoModalForm from '../form/EquiposTrabajoModalForm';
+
+const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajoParams}) => {
+    const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
+    const {params, setParams, setPageOnPersist, setPageAfterDelete} = useUrlSearchParams<EquiposTrabajo, EquiposTrabajoParams>(urlSearchParams);
+    const dataState = useFetchUrlApi<EquiposTrabajo>({params: params, service: equiposTrabajoService});
+    const { tableActions } = useTableActions(
+        params,
+        setParams,
+        dataState.isLoading,
+        dataState.data?.totalElements!,
+        dispatchModal,
+    )
+
+    const onPersist = (entityPersisted: EquiposTrabajo, insert: boolean) => {
+      setPageOnPersist(insert);
+    };
+
+    const onDelete = () => {
+      if (dataState.data) {
+        setPageAfterDelete(dataState.data?.content);
+      }
+    };
+  
+  
+    return (
+      <div>
+        {modalState.createEditModal && (
+          <EquiposTrabajoModalForm
+            modalState={modalState}
+            dispatchModal={dispatchModal}
+            onPersist={onPersist}
+          />
+        )}
+        {modalState.id && (
+          <DeleteDialogAlert
+            modalState={modalState}
+            dispatchModal={dispatchModal}
+            service={componenteService}
+            onDelete={onDelete}
+          />
+        )}
+        <MUIDataTable
+          title="Lista de Equipos de Trabajo"
+          data={dataState.data?.content || []}
+          columns={ComponentesColumn(dispatchModal)}
+          options={tableActions}
+        />
+      </div>
+    );
+}
+
+export default EquiposTrabajoTable

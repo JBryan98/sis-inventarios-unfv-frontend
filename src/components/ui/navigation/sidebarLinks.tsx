@@ -9,6 +9,7 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import AirplayIcon from '@mui/icons-material/Airplay';
 import CategoryIcon from '@mui/icons-material/Category';
+import WorkIcon from '@mui/icons-material/Work';
 
 export const sidebarLinks = [
   {
@@ -35,6 +36,11 @@ export const sidebarLinks = [
     href: "/modelos",
     label: "Modelos",
     icon: <GridViewIcon />,
+  },
+  {
+    href: "equipos-de-trabajo",
+    label: "Equipos de Trabajo",
+    icon: <WorkIcon/>
   },
   {
     href: "/hardware",
