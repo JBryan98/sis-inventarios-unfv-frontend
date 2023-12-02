@@ -64,7 +64,7 @@ const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) 
         }else{
         equiposTrabajoService.create(values as EquiposTrabajoRequest)
           .then((response) => {
-            onPersist(response, false);
+            onPersist(response, true);
             dispatchModal({type: "CLOSE"})
             notiSuccess("Equipo de Trabajo creado con éxito")
             reset();

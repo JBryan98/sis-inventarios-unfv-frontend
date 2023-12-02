@@ -7,18 +7,20 @@ import Spinner from "@/components/ui/Spinner";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CustomTableFooter from "../components/CustomTableFooter";
+import { Pageable } from "../interface/Pageable";
+import { useParamsHandler } from "./useParamsHandler";
 
-export const useTableActions = (
-  params: Record<string, string>,
-  setParams: Dispatch<SetStateAction<Record<string, string>>>,
+export const useTableActions = <T extends Pageable>(
+  params: T,
   isLoading: boolean,
   totalElements: number,
   dispatchModal: Dispatch<ModalReducerActions>
 ) => {
   const { size } = PAGEABLE_DEFAULT_VALUES;
+  const {pushParamsToUrl} = useParamsHandler();
   const tableActions: MUIDataTableOptions = {
     ...options,
-    page: Number(params.page) - 1,
+    page: (+params.page - 1) || 0 ,
     textLabels: {
       ...options.textLabels,
       body: {
@@ -33,46 +35,31 @@ export const useTableActions = (
     searchPlaceholder: "Buscar...",
     onTableChange: (action: string, tableState: MUIDataTableState) => {
       switch (action) {
-        case "changePage":
-          setParams({
-            ...params,
-            page: String(tableState.page + 1),
-          });
-          break;
-        case "changeRowsPerPage":
-          setParams({
-            ...params,
-            size: String(tableState.rowsPerPage),
-          });
-          break;
         case "sort":
-          setParams({
+          pushParamsToUrl({
             ...params,
             page: "1",
             sort: `${tableState.sortOrder.name},${tableState.sortOrder.direction}`,
           });
-        case "search":
-          if (tableState.searchText && tableState.searchText.length >= 3) {
-            setParams({
-              ...params,
-              page: "1",
-              referencia: tableState.searchText,
-            });
-          }
-          break;
-        case "onSearchClose":
-          setParams({
-            ...params,
-            referencia: "",
-          });
-          break;
+        // case "search":
+        //   if (tableState.searchText && tableState.searchText.length >= 3) {
+        //     setParams({
+        //       ...params,
+        //       page: "1",
+        //       referencia: tableState.searchText,
+        //     });
+        //   }
+        //   break;
+        // case "onSearchClose":
+        //   setParams({
+        //     ...params,
+        //     referencia: "",
+        //   });
+        //   break;
       }
     },
     count: totalElements,
-    rowsPerPageOptions: Array.from(
-      new Set([Number(params.size), 5, 10, 25, 50])
-    ).sort((a, b) => a - b),
-    rowsPerPage: Number(params.size),
+    rowsPerPage: +params.size || 10,
     customToolbar: () => {
       return (
         <>
@@ -94,7 +81,6 @@ export const useTableActions = (
         page={page}
         rowsPerPage={rowsPerPage}
         params={params}
-        setParams={setParams}
       />
     ),
   };

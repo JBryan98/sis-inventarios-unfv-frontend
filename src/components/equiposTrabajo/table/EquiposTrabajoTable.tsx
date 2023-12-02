@@ -3,7 +3,6 @@
 import componenteService from '@/services/Hardaware.service';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
 import { useTableActions } from '@/utils/hooks/useTableActions';
-import { useUrlSearchParams } from '@/utils/hooks/useUrlSearchParams';
 import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer';
 import MUIDataTable from 'mui-datatables';
 import React, { useReducer } from 'react'
@@ -13,21 +12,22 @@ import { EquiposTrabajo } from '@/interface/EquiposTrabajo.interface';
 import { EquiposTrabajoParams } from '@/app/equipos-de-trabajo/page';
 import equiposTrabajoService from '@/services/EquiposTrabajo.service';
 import EquiposTrabajoModalForm from '../form/EquiposTrabajoModalForm';
+import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 
 const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajoParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
-    const {params, setParams, setPageOnPersist, setPageAfterDelete} = useUrlSearchParams<EquiposTrabajo, EquiposTrabajoParams>(urlSearchParams);
-    const dataState = useFetchUrlApi<EquiposTrabajo>({params: params, service: equiposTrabajoService});
+    const dataState = useFetchUrlApi<EquiposTrabajo>({params: urlSearchParams, service: equiposTrabajoService});
     const { tableActions } = useTableActions(
-        params,
-        setParams,
+        urlSearchParams,
         dataState.isLoading,
         dataState.data?.totalElements!,
         dispatchModal,
     )
 
+    const {setPageAfterDelete, setPageOnPersist} = usePageActionsHandler(urlSearchParams, dataState.data);
+
     const onPersist = (entityPersisted: EquiposTrabajo, insert: boolean) => {
-      setPageOnPersist(insert);
+      setPageOnPersist(insert, entityPersisted);
     };
 
     const onDelete = () => {

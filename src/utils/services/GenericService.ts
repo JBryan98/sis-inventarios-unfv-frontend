@@ -8,6 +8,14 @@ export abstract class GenericCrudServices<T, E>{
     }
 
     public async findAll(params: Record<string, string>): Promise<ApiResponse<T>>{
+      //Si page = undefined y size = undefined
+      if(params.page === undefined){
+        params.page = "1"
+      }
+      if(params.size === undefined){
+        params.size = "10"
+      }
+
         const response = await fetch(this.url + "?" + new URLSearchParams(params));
         if(response.status !== HttpStatus.OK){
           const error = await response.json();

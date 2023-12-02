@@ -65,7 +65,7 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
         }else{
           componenteService.create(values as HardwareRequest)
           .then((response) => {
-            onPersist(response, false);
+            onPersist(response, true);
             dispatchModal({type: "CLOSE"})
             notiSuccess("Componente creado con éxito")
             reset();

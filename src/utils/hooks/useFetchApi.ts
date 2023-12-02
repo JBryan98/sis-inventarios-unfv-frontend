@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import { genericFetchDataReducer } from "../reducers/GenericFetchDataReducer";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FetchRequest } from "../interface/FetchRequest";
 import { validateBaseParams } from "../http/BaseParamsHandler";
 import { ApiResponse } from "../interface/ApiResponse";
@@ -16,6 +16,7 @@ export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
     const [state, dispatch] = useReducer(dataFetchReducer, initialState)
     const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
     const fetchMethod = fetchRequest.fetchMethod || "findAll";
     useEffect(() => {
       router.push(pathname + "?" + validateBaseParams(fetchRequest.params));
@@ -34,7 +35,7 @@ export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
         });
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchRequest.params]);
+    }, [searchParams.toString()]);
 
     return {
         ...state
