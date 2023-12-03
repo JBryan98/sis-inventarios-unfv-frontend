@@ -1,5 +1,5 @@
 import { Hardware } from "./Hardware.interface";
-import { Software } from "./Softawre.interface";
+import { Software } from "./Software.interface";
 import { Ubicacion } from "./Ubicacion.interface";
 
 export interface EquipoConComponentes {

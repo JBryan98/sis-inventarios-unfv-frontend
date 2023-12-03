@@ -10,6 +10,7 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import AirplayIcon from '@mui/icons-material/Airplay';
 import CategoryIcon from '@mui/icons-material/Category';
 import WorkIcon from '@mui/icons-material/Work';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 
 export const sidebarLinks = [
   {
@@ -48,6 +49,11 @@ export const sidebarLinks = [
     icon: <BrowserUpdatedIcon />,
   },
   {
+    href: "/software",
+    label: "Software",
+    icon: <DisplaySettingsIcon />,
+  },
+  {
     href: "/equipos",
     label: "Equipos",
     icon: <AirplayIcon />,
@@ -56,11 +62,6 @@ export const sidebarLinks = [
     href: "/facultades",
     label: "Facultades",
     icon: <ApartmentIcon />,
-  },
-  {
-    href: "/escuelas",
-    label: "Escuelas",
-    icon: <SchoolIcon />,
   },
   {
     href: "/mantenimiento",

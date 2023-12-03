@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
-import { Software } from '@/interface/Softawre.interface'
+import { Software } from '@/interface/Software.interface'
 import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {

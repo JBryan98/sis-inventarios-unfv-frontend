@@ -2,7 +2,7 @@
 
 import FormAutocomplete from "@/components/ui/form/FormAutocomplete";
 import { Hardware } from "@/interface/Hardware.interface";
-import { Software } from "@/interface/Softawre.interface";
+import { Software } from "@/interface/Software.interface";
 import hardwareService from "@/services/Hardaware.service";
 import softwareService from "@/services/Software.service";
 import { useFetchApi, useFetchApi2 } from "@/utils/hooks/useFetchApi";

@@ -1,4 +1,4 @@
-import { Software, SoftwareRequest } from "@/interface/Softawre.interface";
+import { Software, SoftwareRequest } from "@/interface/Software.interface";
 import { GenericCrudServices } from "@/utils/services/GenericService";
 
 class SoftwareService extends GenericCrudServices<Software, SoftwareRequest> {

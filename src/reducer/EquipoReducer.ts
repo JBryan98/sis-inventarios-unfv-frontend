@@ -1,6 +1,6 @@
 import { EquipoRequest } from "@/interface/EquipoConComponentes";
 import { Hardware } from "@/interface/Hardware.interface";
-import { Software } from "@/interface/Softawre.interface";
+import { Software } from "@/interface/Software.interface";
 
 export const equipoReducerInitialState: EquipoRequest = {
   nombre: "",
