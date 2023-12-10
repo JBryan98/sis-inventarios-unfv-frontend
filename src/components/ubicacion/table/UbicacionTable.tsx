@@ -6,19 +6,20 @@ import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReduc
 import MUIDataTable from 'mui-datatables';
 import React, { useReducer } from 'react'
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
-import { EquipoParams } from '@/app/equipos/page';
-import equipoService from '@/services/Equipo.service';
-import { EquipoColumns } from './EquiposColumns';
-import EquipoModalForm from '../form/EquipoModalForm';
+import UbicacionService from '@/services/Ubicacion.service';
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from 'next/navigation';
-import { Equipo } from '@/interface/Equipo.interface';
+import { Ubicacion } from '@/interface/Ubicacion.interface';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
+import { UbicacionParams } from '@/app/ubicaciones/page';
+import ubicacionService from '@/services/Ubicacion.service';
+import { UbicacionColumns } from './UbicacionColumns';
+import UbicacionModalForm from '../form/UbicacionModalForm';
 
-const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
+const UbicacionTable = ({urlSearchParams}: {urlSearchParams: UbicacionParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
-    const dataState = useFetchUrlApi<Equipo>({params: urlSearchParams, service: equipoService});
+    const dataState = useFetchUrlApi<Ubicacion>({params: urlSearchParams, service: ubicacionService});
     const router = useRouter();
     const { tableActions } = useTableActions(
       urlSearchParams,
@@ -29,7 +30,7 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
 
     const {setPageAfterDelete, setPageOnPersist} = usePageActionsHandler(urlSearchParams, dataState.data);
 
-    const onPersist = (entityPersisted: Equipo, insert: boolean) => {
+    const onPersist = (entityPersisted: Ubicacion, insert: boolean) => {
       setPageOnPersist(insert, entityPersisted);
     };
 
@@ -39,7 +40,7 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
       }
     };
 
-    const equipoTableActions = {
+    const UbicacionTableActions = {
       ...tableActions,
       customToolbar: () => {
         return (
@@ -48,7 +49,7 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
               variant="contained"
               color="success"
               onClick={() => {
-                router.push("/equipos/crear-equipo")
+                router.push("/ubicaciones/crear-ubicacion")
               }}
             >
               <AddIcon /> Nuevo
@@ -61,7 +62,7 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
   return (
     <div>
        {modalState.createEditModal && (
-        <EquipoModalForm
+        <UbicacionModalForm
           modalState={modalState}
           dispatchModal={dispatchModal}
           onPersist={onPersist}
@@ -71,18 +72,18 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
         <DeleteDialogAlert
           modalState={modalState}
           dispatchModal={dispatchModal}
-          service={equipoService}
+          service={UbicacionService}
           onDelete={onDelete}
         />
       )}
       <MUIDataTable
-        title="Lista de Equipos"
+        title="Lista de Escuelas"
         data={dataState.data?.content || []}
-        columns={EquipoColumns(dispatchModal)}
-        options={equipoTableActions}
+        columns={UbicacionColumns(dispatchModal)}
+        options={UbicacionTableActions}
       />
     </div>
   );
 }
 
-export default EquipoTable
+export default UbicacionTable

@@ -1,7 +1,16 @@
 import { Hardware } from '@/interface/Hardware.interface'
-import { Chip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
+import { Chip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, colors } from '@mui/material'
 import React from 'react'
 import DeleteIcon from "@mui/icons-material/Delete";
+
+const chipColor = (value: string) => {
+  switch (value){
+    case "Stock":
+      return "success"
+    case "Operativo":
+      return "primary"  
+  }
+}
 
 interface Props {
     data: Hardware[] | undefined
@@ -34,7 +43,7 @@ const EquipoHardwareTable = ({data, acciones = false, onDelete}: Props) => {
                   <TableCell>
                     <Chip
                       label={hardware.estado}
-                      color="primary"
+                      color={chipColor(hardware.estado)}
                       size="small"
                     />
                   </TableCell>

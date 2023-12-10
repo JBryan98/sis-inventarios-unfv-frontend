@@ -1,6 +1,6 @@
 import TableCrudActions from "@/components/ui/table/TableCrudActions";
 import { ModalReducerActions } from "@/utils/reducers/CrudModalReducer";
-import { Chip, IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { MUIDataTableMeta } from "mui-datatables";
 import { Dispatch } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -8,16 +8,7 @@ import Link from "next/link";
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { useRouter } from "next/navigation";
 
-const chipColor = (value: string) => {
-  switch (value){
-    case "Stock":
-      return "success"
-    case "Operativo":
-      return "primary"  
-  }
-}
-
-export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
+export const UbicacionColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
   const router = useRouter();
   return [
     {
@@ -35,24 +26,11 @@ export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
       },
     },
     {
-      name: "estado",
-      label: "ESTADO",
+      name: "facultad.nombre",
+      label: "FACULTAD",
       options: {
         sort: true,
-        customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
-          <Chip label={value} sx={{marginLeft: "-8px"}} size='small' color={chipColor(value)}/>
-        )
       },
-    },
-    {
-      name: "ubicacion.nombre",
-      label: "UBICACION",
-      options: {
-        sort: true,
-        customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
-          <p>{value ? value : "No asignado"}</p>
-        )
-      }
     },
     {
       name: "detalles",
@@ -62,14 +40,14 @@ export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
         customBodyRender: (value: undefined, tableMeta: MUIDataTableMeta) => {
           return (
             <Tooltip title="Ver detalles">
-              <Link href={`/equipos/${tableMeta.rowData[1]}`}>
-              <IconButton>
-                <VisibilityIcon color="primary"/>
-              </IconButton>
+              <Link href={`/ubicaciones/${tableMeta.rowData[1]}`}>
+                <IconButton>
+                  <VisibilityIcon color="primary" />
+                </IconButton>
               </Link>
             </Tooltip>
-          )
-        }
+          );
+        },
       },
     },
     {
@@ -83,7 +61,9 @@ export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
               <Tooltip title="Administrar Equipo">
                 <IconButton
                   onClick={() => {
-                    router.push("/equipos/administrar-equipo/" + tableMeta.rowData[1])
+                    router.push(
+                      "/ubicaciones/administrar-ubicacion/" + tableMeta.rowData[1]
+                    );
                   }}
                 >
                   <AutoFixHighIcon color="secondary" />

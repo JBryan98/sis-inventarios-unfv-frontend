@@ -15,14 +15,15 @@ export const usePageActionsHandler = <E extends {id: number | string}, T extends
   const currentPage = +urlSearchParams.page || 1;
 
   
-  const setPageAfterDelete = (content: E[]) => {
+  const setPageAfterDelete = (content: E[], id: string | number, key: string) => {
     let newPage = content.length == 1 ? currentPage - 1 : currentPage;
     if (newPage < 1) {
       newPage = 1;
     }
+    updateDataAfterDelete(id, key)
     pushParamsToUrl({
       ...urlSearchParams,
-      page: "1",
+      page: newPage,
     });
   };
 
@@ -81,6 +82,21 @@ export const usePageActionsHandler = <E extends {id: number | string}, T extends
       }
     }
   };
+
+  const updateDataAfterDelete = (id: string | number, key: string) => {
+    console.log(id)
+    console.log("DATA ANTES INCIIAL")
+    console.log(data)
+    if(data) {
+      let index = data.content.findIndex(item => item[key as keyof typeof item] === id);
+      console.log(index)
+      if(index !== -1) {
+        data.content.splice(index, 1)
+      }
+    }
+    console.log("DATA FINAL")
+    console.log(data)
+  }
 
   return { setPageAfterDelete, setPageOnPersist };
 }

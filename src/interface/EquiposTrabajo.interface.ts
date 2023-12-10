@@ -5,6 +5,7 @@ export interface EquiposTrabajo {
     id: number;
     serie: string;
     modelo: Modelo;
+    estado: string;
     ubicacion: Ubicacion | null;
 }
 

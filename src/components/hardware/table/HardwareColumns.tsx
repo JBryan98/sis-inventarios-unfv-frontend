@@ -63,13 +63,13 @@ const HardwareColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
         sort: true,
       },
     },
-    {
-      name: "modelo.subcategoria.categoria.nombre",
-      label: "CATEGORIA",
-      options: {
-        sort: true,
-      },
-    },
+    // {
+    //   name: "modelo.subcategoria.categoria.nombre",
+    //   label: "CATEGORIA",
+    //   options: {
+    //     sort: true,
+    //   },
+    // },
     {
       name: "modelo.marca.nombre",
       label: "MARCA",

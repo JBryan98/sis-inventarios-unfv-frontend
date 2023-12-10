@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { EquiposTrabajo, EquiposTrabajoRequest } from '@/interface/EquiposTrabajo.interface';
 import { EquiposTrabajoForm, equiposTrabajoSchema } from './EquiposTrabajoValidation';
 import equiposTrabajoService from '@/services/EquiposTrabajo.service';
+import FormSelect from '@/components/ui/form/FormSelect';
 
 interface Props {
     modalState: ModalState;
@@ -29,7 +30,7 @@ const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) 
         defaultValues: {
           serie: "",
           modelo: undefined,
-          //estado: "",
+          estado: "",
         },
         resolver: yupResolver(equiposTrabajoSchema)
     })
@@ -39,7 +40,7 @@ const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) 
         equiposTrabajoService.findById(modalState.id).then((response) => {
           setValue("serie", response.serie);
           setValue("modelo", response.modelo);
-            //setValue("estado", response.estado);
+          setValue("estado", response.estado);
         });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,19 +96,6 @@ const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <Grid container spacing={2} columns={{ xs: 6, lg: 12 }}>
             <Grid item xs={6} lg={12}>
-              <FormAutocomplete
-                control={control}
-                name="modelo"
-                optId="id"
-                optLabel="nombre"
-                label="Modelo"
-                fetchData={modelosData}
-                autoCompleteProps={{
-                  groupBy: (option: Modelo) => option.subcategoria.nombre
-                }}
-              />
-            </Grid>
-            <Grid item xs={6} lg={12}>
               <InputForm
                 control={control}
                 name="serie"
@@ -127,14 +115,27 @@ const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) 
                 }}
               />
             </Grid>
-            {/* <Grid item xs={6} lg={6}>
+            <Grid item xs={6} lg={6}>
+              <FormAutocomplete
+                control={control}
+                name="modelo"
+                optId="id"
+                optLabel="nombre"
+                label="Modelo"
+                fetchData={modelosData}
+                autoCompleteProps={{
+                  groupBy: (option: Modelo) => option.subcategoria.nombre
+                }}
+              />
+            </Grid>
+            <Grid item xs={6} lg={6}>
               <FormSelect
                 options={["Operativo", "Stock", "Baja", "Mantenimiento"]}
                 control={control}
                 name="estado"
                 label="Estado"
               />
-            </Grid> */}
+            </Grid>
             <FormButtons
               handleClose={() => {
                 dispatchModal({ type: "CLOSE" });

@@ -1,9 +1,21 @@
-import { Escuela } from "./Escuela.interface";
+import { Equipo } from "./Equipo.interface";
+import { EquiposTrabajo } from "./EquiposTrabajo.interface";
+import { Facultad } from "./Facultad.interface";
 
 export interface Ubicacion {
     id: number;
     nombre: string;
-    escuela: Escuela;
+    facultad: Facultad;
 }
 
-export type UbicacionRequest = Omit<Ubicacion, "id">;
+export interface UbicacionConEquipos extends Ubicacion {
+    equipos: Equipo[];
+    equiposTrabajo: EquiposTrabajo[]
+}
+
+export type UbicacionRequest = {
+    nombre: string;
+    facultad: Facultad | null;
+    equipos: Equipo[];
+    equiposTrabajo: EquiposTrabajo[];
+};

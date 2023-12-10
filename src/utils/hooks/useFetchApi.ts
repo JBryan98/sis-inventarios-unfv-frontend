@@ -19,7 +19,7 @@ export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
     const searchParams = useSearchParams();
     const fetchMethod = fetchRequest.fetchMethod || "findAll";
     useEffect(() => {
-      router.push(pathname + "?" + validateBaseParams(fetchRequest.params));
+      //router.push(pathname + "?" + validateBaseParams(fetchRequest.params));
       dispatch({ type: "LOADING_START", payload: null });
       fetchRequest.service[fetchMethod as keyof typeof fetchRequest.service](
         fetchRequest.params

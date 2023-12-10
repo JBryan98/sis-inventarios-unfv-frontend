@@ -29,16 +29,16 @@ const EquiposTrabajoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => 
         sort: true,
       },
     },
-    // {
-    //   name: "estado",
-    //   label: "ESTADO",
-    //   options: {
-    //     sort: true,
-    //     customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
-    //       <Chip label={value} sx={{marginLeft: "-8px"}} size='small' color={chipColor(value)}/>
-    //     )
-    //   },
-    // },
+    {
+      name: "estado",
+      label: "ESTADO",
+      options: {
+        sort: true,
+        customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
+          <Chip label={value} sx={{marginLeft: "-8px"}} size='small' color={chipColor(value)}/>
+        )
+      },
+    },
     {
       name: "ubicacion.nombre",
       label: "UBICACIÓN",

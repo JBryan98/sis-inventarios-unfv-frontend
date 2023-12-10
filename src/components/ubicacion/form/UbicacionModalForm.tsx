@@ -7,55 +7,49 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InputForm from "@/components/ui/form/InputForm";
 import FormButtons from '@/components/ui/form/FormButtons';
 import { useNotification } from '@/utils/hooks/useNotification';
-import { EquipoForm, equipoSchema } from './CrearEquipoValidation';
-import equipoService from '@/services/Equipo.service';
-import { EquipoRequest } from '@/interface/EquipoConComponentes';
-import { EditarEquipoForm, editarEquipoSchema } from './EditarEquipoValidation';
-import { Equipo } from '@/interface/Equipo.interface';
-import FormSelect from '@/components/ui/form/FormSelect';
+import { Ubicacion, UbicacionRequest } from '@/interface/Ubicacion.interface';
+import { EditarUbicacionForm, editarUbicacionSchema } from './EditarEquipoValidation';
+import ubicacionService from '@/services/Ubicacion.service';
+import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
+import { useFetchApi } from '@/utils/hooks/useFetchApi';
+import facultadService from '@/services/Facultad.service';
+import { Facultad } from '@/interface/Facultad.interface';
 
 interface Props {
   modalState: ModalState,
   dispatchModal: Dispatch<ModalReducerActions>,
-  onPersist: (entityPeristed: Equipo, insert: boolean) => void;
+  onPersist: (entityPeristed: Ubicacion, insert: boolean) => void;
 }
 
-const EquipoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+const UbicacionModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
   const { notiSuccess, notiApiResponseError } = useNotification();
-  const {control, handleSubmit, formState, setError, setValue, reset } = useForm<EditarEquipoForm>({
+  const {control, handleSubmit, formState, setError, setValue, reset } = useForm<EditarUbicacionForm>({
     defaultValues: {
       nombre: "",
-      estado: "",
-      ubicacion: "",
-      hardware: [],
-      software: []
+      facultad: undefined,
     },
-    resolver: yupResolver(editarEquipoSchema)
+    resolver: yupResolver(editarUbicacionSchema)
   })
-
-  console.log(formState)
 
   useEffect(() => {
     if (modalState.id) {
-      equipoService.findById(modalState.id).then((response: any) => {
+      ubicacionService.findById(modalState.id).then((response: any) => {
         setValue("nombre", response.nombre);
-        setValue("ubicacion", response.ubicacion)
-        setValue("estado", response.estado);
-        setValue("hardware", response.hardware);
-        setValue("software", response.software)
+        setValue("facultad", response.facultad);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalState.id]);
 
-  const onSubmit = (values: EquipoForm) => {
+  const onSubmit = (values: EditarUbicacionForm) => {
+    alert(JSON.stringify(values, null, 2))
     if(modalState.id){
-      equipoService
-      .update(modalState.id, values as EquipoRequest)
+      ubicacionService
+      .update(modalState.id, values as UbicacionRequest)
       .then(response => {
         onPersist(response, false);
         dispatchModal({type: "CLOSE"})
-        notiSuccess("Equipo actualizado con éxito")
+        notiSuccess("Ubicacion actualizado con éxito")
         reset();
       })
       .catch(error => {
@@ -66,11 +60,11 @@ const EquipoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
         })
       })
     }else{
-    equipoService
-      .create(values as EquipoRequest)
+        ubicacionService
+      .create(values as UbicacionRequest)
       .then((response) => {
         onPersist(response, true);
-        notiSuccess("Equipo creado con éxito")
+        notiSuccess("Ubicacion creado con éxito")
         dispatchModal({type: "CLOSE"})
         reset();
       })
@@ -84,10 +78,12 @@ const EquipoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     }
   }
 
+  const facultadData = useFetchApi<Facultad>(facultadService.url)
+
   return (
     <ModalForm
       open={modalState.createEditModal}
-      title={modalState.id ? "Editar Equipo" : "Crear Equipo"}
+      title={modalState.id ? "Editar Ubicacion" : "Crear Ubicacion"}
       handleClose={() => dispatchModal({ type: "CLOSE" })}
     >
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -96,11 +92,13 @@ const EquipoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
             <InputForm control={control} name="nombre" label="Nombre" />
           </Grid>
           <Grid item xs={6} lg={12}>
-            <FormSelect
+            <FormAutocomplete
               control={control}
-              label='Estado'
-              name='estado'
-              options={["Stock", "Operativo", "Baja", "Mantenimiento"]}
+              optId={"id"}
+              optLabel={"nombre"}
+              fetchData={facultadData}
+              name="facultad"
+              label="Facultad"
             />
           </Grid>
           <FormButtons
@@ -115,4 +113,4 @@ const EquipoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
   );
 }
 
-export default EquipoModalForm
+export default UbicacionModalForm

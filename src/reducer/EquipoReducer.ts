@@ -4,6 +4,7 @@ import { Software } from "@/interface/Software.interface";
 
 export const equipoReducerInitialState: EquipoRequest = {
   nombre: "",
+  ubicacion: null,
   hardware: [],
   software: [],
 };

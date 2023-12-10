@@ -28,7 +28,10 @@ const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
     },
   });
 
+  console.log(data)
+
   const handleAgregar = (values: any) => {
+    console.log(values)
     if (values.hardware) {
       agregarHardawre(values.hardware);
     }
@@ -38,23 +41,33 @@ const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
   };
 
   const agregarHardawre = (hardware: Hardware) => {
-    if (hardware !== null && data !== null) {
-      if (!(data.hardware.filter((hw) => hw.id === hardware.id).length > 0)) {
+    if (hardware && data) {
+      if (!(data.hardware.some((hw) => hw.id === hardware.id))) {
         const finalHardware = {...hardware, equipo: {
-            ...hardware.equipo,
-            id: data.id,
-            nombre: data.nombre,
-            ubicacion: data.ubicacion
+          ...hardware.equipo,
+          id: data.id,
+          nombre: data.nombre,
+          estado: data.estado,
+          ubicacion: data.ubicacion
         }}
-        setData({ ...data, hardware: [...data.hardware, finalHardware] });
+        const finalData = {
+          ...data,
+          hardware: [
+            ...data.hardware,
+            finalHardware
+          ],
+        };
+        setData(finalData);
       }
     }
   };
 
   const agregarSoftware = (software: Software) => {
-    if (software !== null && data !== null) {
-      if (!(data.software.filter((sw) => sw.id === software.id).length > 0))
-      setData({ ...data, software: [...data.software, software] });
+    if (software && data) {
+      if (!(data.software.some((sw) => sw.id === software.id))){
+        const finalData = { ...data, software: [...data.software, software] }
+        setData(finalData);
+      }
     }
   };
 
@@ -62,9 +75,15 @@ const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
     if(data){
         const hardwareActualizado = [...data.hardware];
         const hardwareIndex = hardwareActualizado.findIndex(hardware => hardware.id === id);
-        hardwareActualizado[hardwareIndex].equipo = null;
-        setData({...data, hardware: hardwareActualizado})
-
+        if(hardwareActualizado[hardwareIndex].estado === "Stock"){
+          setData({
+            ...data,
+            hardware: hardwareActualizado.filter(hw => hw.id !== id),
+          })
+        }else{
+          hardwareActualizado[hardwareIndex].equipo = null;
+          setData({...data, hardware: hardwareActualizado})
+        }
     }
   };
 
@@ -82,7 +101,7 @@ const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
 
   const onSubmit = (values: any) => {
     equipoService
-    .update(params.nombre, data as EquipoRequest)
+    .administrarEquipo(data as EquipoRequest)
     .then(() => {
       notiSuccess("Equipo actualizado con éxito");
       router.push("/equipos")

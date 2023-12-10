@@ -5,6 +5,7 @@ import { Ubicacion } from "./Ubicacion.interface";
 export interface EquipoConComponentes {
     id: number;
     nombre: string;
+    estado: string;
     ubicacion: Ubicacion | null;
     hardware: Hardware[];
     software: Software[];

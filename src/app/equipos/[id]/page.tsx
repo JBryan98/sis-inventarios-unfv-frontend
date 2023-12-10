@@ -5,8 +5,10 @@ import { EquipoConComponentes } from '@/interface/EquipoConComponentes';
 import equipoService from '@/services/Equipo.service'
 import BotonVolver from '@/utils/components/BotonVolver';
 import { useFetchApi2 } from '@/utils/hooks/useFetchApi';
-import { Box, Paper } from '@mui/material'
+import { Box, Paper, Stack } from '@mui/material'
 import ComputerIcon from '@mui/icons-material/Computer';
+import RoomIcon from "@mui/icons-material/Room";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 
 const EquipoDetalles = ({params}: {params: {id: string}}) => {
     const {data} = useFetchApi2<EquipoConComponentes>(equipoService.url + "/" + params.id);
@@ -25,9 +27,18 @@ const EquipoDetalles = ({params}: {params: {id: string}}) => {
           </Box>
           <BotonVolver href="/equipos" />
         </Box>
+        <Stack flexDirection={"row"} alignItems={"center"} gap={1}>
+          <RoomIcon sx={{marginBottom: "3px"}}/>
         <h4>
-          {data?.ubicacion?.nombre ? data.ubicacion.nombre : "Sin asignar"}
+          {data?.ubicacion ? data?.ubicacion?.nombre : "No asignado"}
         </h4>
+        </Stack>
+        <Stack flexDirection={"row"} alignItems={"center"} gap={1}>
+        <ApartmentIcon sx={{marginBottom: "6px"}}/>
+        <h4>
+          {data?.ubicacion ? data?.ubicacion?.facultad.abreviatura + " - " + data?.ubicacion?.facultad.nombre : "No asignado"}
+        </h4>
+        </Stack>
         <EquipoHardwareTable data={data?.hardware} />
         <EquipoSoftwareTable data={data?.software} />
       </Paper>

@@ -7,7 +7,7 @@ import { equipoReducer, equipoReducerInitialState } from "@/reducer/EquipoReduce
 import hardwareService from "@/services/Hardaware.service";
 import softwareService from "@/services/Software.service";
 import { useFetchApi } from "@/utils/hooks/useFetchApi";
-import { Box, Button, Card, CardContent, Container, Divider, Grid, Paper, Stack } from "@mui/material";
+import { Box, Button, Card, CardContent, Divider, Grid, Paper, Stack } from "@mui/material";
 import React, { useReducer } from "react";
 import { useForm } from "react-hook-form";
 import InputForm from "@/components/ui/form/InputForm";
@@ -96,8 +96,7 @@ const CrearEquipo = () => {
   }
 
   return (
-    <Container>
-      <Paper elevation={2} sx={{ padding: "16px" }}>
+      <Paper elevation={2} sx={{ padding: "16px", width: "calc(100%-16px)" }}>
         <Box
           sx={{
             display: "flex",
@@ -177,7 +176,6 @@ const CrearEquipo = () => {
           <EquipoSoftwareTable data={state.software} acciones={true} onDelete={removerSoftware}/>
         </Stack>
       </Paper>
-    </Container>
   );
 };
 

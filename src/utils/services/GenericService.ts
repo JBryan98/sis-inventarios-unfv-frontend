@@ -9,6 +9,7 @@ export abstract class GenericCrudServices<T, E>{
 
     public async findAll(params: Record<string, string>): Promise<ApiResponse<T>>{
       //Si page = undefined y size = undefined
+
       if(params.page === undefined){
         params.page = "1"
       }

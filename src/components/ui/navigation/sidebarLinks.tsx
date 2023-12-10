@@ -1,7 +1,6 @@
 import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
 import HomeIcon from "@mui/icons-material/Home";
 import TurnedInIcon from "@mui/icons-material/TurnedIn";
-import SchoolIcon from "@mui/icons-material/School";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import RoomIcon from "@mui/icons-material/Room";
