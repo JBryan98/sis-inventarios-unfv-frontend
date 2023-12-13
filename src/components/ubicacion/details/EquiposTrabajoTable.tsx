@@ -20,6 +20,7 @@ const EquiposTrabajoTable = ({data, acciones = false, onDelete}: Props) => {
               <TableCell>ID</TableCell>
               <TableCell>SERIE</TableCell>
               <TableCell>MODELO</TableCell>
+              <TableCell>SUBCATEGORIA</TableCell>
               <TableCell>MARCA</TableCell>
               {acciones && <TableCell>ACCIONES</TableCell>}
             </TableRow>
@@ -31,6 +32,7 @@ const EquiposTrabajoTable = ({data, acciones = false, onDelete}: Props) => {
                   <TableCell>{equipo.id}</TableCell>
                   <TableCell>{equipo.serie}</TableCell>
                   <TableCell>{equipo.modelo.nombre}</TableCell>
+                  <TableCell>{equipo.modelo.subcategoria.nombre}</TableCell>
                   <TableCell>{equipo.modelo.marca.nombre}</TableCell>
                   {acciones && onDelete && (
                     <TableCell>
