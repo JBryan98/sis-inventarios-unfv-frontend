@@ -118,32 +118,36 @@ const CrearUbicacion = () => {
                   </Grid>
                   <Grid item xs={6} lg={12}>
                     <FormAutocomplete
-                        optId={"id"}
-                        optLabel={(item: Facultad) => item.abreviatura + " - " + item.nombre}
-                        control={control}
-                        fetchData={facultadData}
-                        name='facultad'
-                        label='Facultad'
+                      optId={"id"}
+                      optLabel={(item: Facultad) =>
+                        item.abreviatura + " - " + item.nombre
+                      }
+                      control={control}
+                      fetchData={facultadData}
+                      name="facultad"
+                      label="Facultad"
                     />
                   </Grid>
                   <Grid item xs={6} lg={12}>
                     <FormAutocomplete
-                        optId={"id"}
-                        optLabel={"nombre"}
-                        control={control}
-                        fetchData={equiposData}
-                        name='equipos'
-                        label='Equipos'
+                      optId={"id"}
+                      optLabel={"nombre"}
+                      control={control}
+                      fetchData={equiposData}
+                      name="equipos"
+                      label="Equipos"
                     />
                   </Grid>
                   <Grid item xs={6} lg={12}>
                     <FormAutocomplete
-                        optId={"id"}
-                        optLabel={(item: EquiposTrabajo) => item.modelo.nombre + " - " + item.serie}
-                        control={control}
-                        fetchData={equiposTrabajoData}
-                        name='equiposTrabajo'
-                        label='Equipos de Trabajo'
+                      optId={"id"}
+                      optLabel={(item: EquiposTrabajo) =>
+                        item.modelo.nombre + " - " + item.serie
+                      }
+                      control={control}
+                      fetchData={equiposTrabajoData}
+                      name="equiposTrabajo"
+                      label="Equipos de Trabajo"
                     />
                   </Grid>
                   <Grid item xs={6} lg={6}>
@@ -176,9 +180,19 @@ const CrearUbicacion = () => {
               </form>
             </CardContent>
           </Card>
-          <Divider/>
-          <EquipoTable data={state.equipos} acciones={true} onDelete={removerEquipo}/>
-          <EquiposTrabajoTable data={state.equiposTrabajo} acciones={true} onDelete={removerEquipoTrabajo}/>
+          <Stack spacing={2}>
+            <Divider />
+            <EquipoTable
+              data={state.equipos}
+              acciones={true}
+              onDelete={removerEquipo}
+            />
+            <EquiposTrabajoTable
+              data={state.equiposTrabajo}
+              acciones={true}
+              onDelete={removerEquipoTrabajo}
+            />
+          </Stack>
         </Stack>
       </Paper>
     </Container>

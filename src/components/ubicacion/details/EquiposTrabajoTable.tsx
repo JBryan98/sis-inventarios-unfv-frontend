@@ -48,7 +48,7 @@ const EquiposTrabajoTable = ({data, acciones = false, onDelete}: Props) => {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={acciones ? 5 : 4}
+                  colSpan={acciones ? 6 : 5}
                   sx={{ textAlign: "center" }}
                 >
                   {acciones

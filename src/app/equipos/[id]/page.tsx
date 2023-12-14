@@ -13,7 +13,7 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 const EquipoDetalles = ({params}: {params: {id: string}}) => {
     const {data} = useFetchApi2<EquipoConComponentes>(equipoService.url + "/" + params.id);
     return (
-      <Paper sx={{ width: "calc(100%-16px)", padding: 2 }} elevation={2}>
+      <Paper sx={{ width: "calc(100%-16px)", padding: 2, display: "flex", flexDirection: "column", gap: 2 }} elevation={2}>
         <Box
           sx={{
             display: "flex",

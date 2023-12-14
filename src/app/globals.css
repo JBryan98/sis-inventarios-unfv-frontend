@@ -8,3 +8,9 @@ a{
     text-decoration: none;
     color: inherit;
 }
+
+/* Deshabilitar la opción de mostrar contraseña nativa de Microsoft Edge*/
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}

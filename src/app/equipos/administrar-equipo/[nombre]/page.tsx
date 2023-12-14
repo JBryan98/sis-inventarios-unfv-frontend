@@ -112,82 +112,91 @@ const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
   }
 
   return (
-      <Paper elevation={2} sx={{ padding: "16px", width: "calc(100%-16px)" }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <h3>ADMINISTRAR EQUIPO {data?.nombre}</h3>
-          <BotonVolver href="/equipos"/>
-        </Box>
-        <Divider />
-        <Stack>
-          <Card elevation={0} sx={{ maxWidth: "600PX", margin: "auto" }}>
-            <CardContent>
-              <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <Grid container spacing={2} columns={{ xs: 6, lg: 12 }}>
-                  <Grid item xs={6} lg={12}>
-                    <FormAutocomplete
-                      optId={"id"}
-                      fetchData={softwareData}
-                      optLabel={"nombre"}
-                      control={control}
-                      name="software"
-                      label="Software"
-                    />
-                  </Grid>
-                  <Grid item xs={6} lg={12}>
-                    <FormAutocomplete
-                      optId={"id"}
-                      fetchData={hardwareData}
-                      optLabel={(item) =>
-                        item.serie +
-                        " - " +
-                        item.modelo.subcategoria.nombre +
-                        " " +
-                        item.modelo.nombre
-                      }
-                      control={control}
-                      name="hardware"
-                      label="Hardware"
-                    />
-                  </Grid>
-                  <Grid item xs={6} lg={6}>
-                    <Button
-                      onClick={() => handleAgregar(getValues())}
-                      color="success"
-                      variant="contained"
-                      fullWidth
-                    >
-                      Agregar
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} lg={6}>
-                    <Button
-                      type="submit"
-                      color="primary"
-                      variant="contained"
-                      fullWidth
-                      disabled={
-                        data?.hardware.length === 0 &&
-                        data?.software.length === 0
-                      }
-                    >
-                      Finalizar
-                    </Button>
-                  </Grid>
+    <Paper elevation={2} sx={{ padding: "16px", width: "calc(100%-16px)" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h3>ADMINISTRAR EQUIPO {data?.nombre}</h3>
+        <BotonVolver href="/equipos" />
+      </Box>
+      <Divider />
+      <Stack>
+        <Card elevation={0} sx={{ maxWidth: "600PX", margin: "auto" }}>
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <Grid container spacing={2} columns={{ xs: 6, lg: 12 }}>
+                <Grid item xs={6} lg={12}>
+                  <FormAutocomplete
+                    optId={"id"}
+                    fetchData={softwareData}
+                    optLabel={"nombre"}
+                    control={control}
+                    name="software"
+                    label="Software"
+                  />
                 </Grid>
-              </form>
-            </CardContent>
-          </Card>
+                <Grid item xs={6} lg={12}>
+                  <FormAutocomplete
+                    optId={"id"}
+                    fetchData={hardwareData}
+                    optLabel={(item) =>
+                      item.serie +
+                      " - " +
+                      item.modelo.subcategoria.nombre +
+                      " " +
+                      item.modelo.nombre
+                    }
+                    control={control}
+                    name="hardware"
+                    label="Hardware"
+                  />
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                  <Button
+                    onClick={() => handleAgregar(getValues())}
+                    color="success"
+                    variant="contained"
+                    fullWidth
+                  >
+                    Agregar
+                  </Button>
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    disabled={
+                      data?.hardware.length === 0 && data?.software.length === 0
+                    }
+                  >
+                    Finalizar
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </CardContent>
+        </Card>
+        <Stack spacing={2}>
           <Divider />
-          <EquipoHardwareTable data={data?.hardware.filter(hardware => hardware.equipo !== null)} onDelete={removerHardware} acciones={true}/>
-          <EquipoSoftwareTable data={data?.software} acciones={true} onDelete={removerSoftware}/>
+          <EquipoHardwareTable
+            data={data?.hardware.filter((hardware) => hardware.equipo !== null)}
+            onDelete={removerHardware}
+            acciones={true}
+          />
+          <EquipoSoftwareTable
+            data={data?.software}
+            acciones={true}
+            onDelete={removerSoftware}
+          />
         </Stack>
-      </Paper>
+      </Stack>
+    </Paper>
   );
 };
 

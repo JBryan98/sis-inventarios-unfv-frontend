@@ -123,7 +123,7 @@ const AdministrarUbicacion = ({params}: {params: {nombre: string}}) => {
           <Card elevation={0} sx={{ maxWidth: "600PX", margin: "auto" }}>
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid container spacing={2} columns={{ xs: 6, lg: 12}}>
+                <Grid container spacing={2} columns={{ xs: 6, lg: 12 }}>
                   <Grid item xs={6} lg={12}>
                     <FormAutocomplete
                       optId={"id"}
@@ -138,7 +138,9 @@ const AdministrarUbicacion = ({params}: {params: {nombre: string}}) => {
                     <FormAutocomplete
                       optId={"id"}
                       fetchData={equiposTrabajoData}
-                      optLabel={(item) => item.modelo.nombre + " - " + item.serie}
+                      optLabel={(item) =>
+                        item.modelo.nombre + " - " + item.serie
+                      }
                       control={control}
                       name="equiposTrabajo"
                       label="Equipos de Trabajo"
@@ -172,9 +174,21 @@ const AdministrarUbicacion = ({params}: {params: {nombre: string}}) => {
               </form>
             </CardContent>
           </Card>
-          <Divider/>
-          <EquipoTable data={data?.equipos.filter(equipo => equipo.ubicacion !== null)} onDelete={removerEquipo} acciones={true}/>
-          <EquiposTrabajoTable data={data?.equiposTrabajo.filter(equipoTrabajo => equipoTrabajo.ubicacion !== null)} onDelete={removerEquipoTrabajo} acciones={true}/>
+          <Stack spacing={2}>
+            <Divider />
+            <EquipoTable
+              data={data?.equipos.filter((equipo) => equipo.ubicacion !== null)}
+              onDelete={removerEquipo}
+              acciones={true}
+            />
+            <EquiposTrabajoTable
+              data={data?.equiposTrabajo.filter(
+                (equipoTrabajo) => equipoTrabajo.ubicacion !== null
+              )}
+              onDelete={removerEquipoTrabajo}
+              acciones={true}
+            />
+          </Stack>
         </Stack>
       </Paper>
     );
