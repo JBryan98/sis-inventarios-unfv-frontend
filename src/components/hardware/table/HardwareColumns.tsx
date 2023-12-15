@@ -1,17 +1,8 @@
+import EstadoChip from '@/components/ui/chip/EstadoChip';
 import TableCrudActions from '@/components/ui/table/TableCrudActions';
 import { ModalReducerActions } from '@/utils/reducers/CrudModalReducer'
-import { Chip } from '@mui/material';
 import { MUIDataTableMeta } from 'mui-datatables';
 import React, { Dispatch } from 'react'
-
-const chipColor = (value: string) => {
-  switch (value){
-    case "Stock":
-      return "success"
-    case "Operativo":
-      return "primary"  
-  }
-}
 
 const HardwareColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
   return [
@@ -35,7 +26,7 @@ const HardwareColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
       options: {
         sort: true,
         customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
-          <Chip label={value} sx={{marginLeft: "-8px"}} size='small' color={chipColor(value)}/>
+          <EstadoChip label={value}/>
         )
       },
     },
@@ -63,13 +54,6 @@ const HardwareColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
         sort: true,
       },
     },
-    // {
-    //   name: "modelo.subcategoria.categoria.nombre",
-    //   label: "CATEGORIA",
-    //   options: {
-    //     sort: true,
-    //   },
-    // },
     {
       name: "modelo.marca.nombre",
       label: "MARCA",

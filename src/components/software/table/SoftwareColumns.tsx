@@ -1,6 +1,5 @@
 import TableCrudActions from '@/components/ui/table/TableCrudActions';
 import { ModalReducerActions } from '@/utils/reducers/CrudModalReducer'
-import { Chip } from '@mui/material';
 import { MUIDataTableMeta } from 'mui-datatables';
 import React, { Dispatch } from 'react'
 

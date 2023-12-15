@@ -1,21 +1,13 @@
 import TableCrudActions from "@/components/ui/table/TableCrudActions";
 import { ModalReducerActions } from "@/utils/reducers/CrudModalReducer";
-import { Chip, IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { MUIDataTableMeta } from "mui-datatables";
 import { Dispatch } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { useRouter } from "next/navigation";
-
-const chipColor = (value: string) => {
-  switch (value){
-    case "Stock":
-      return "success"
-    case "Operativo":
-      return "primary"  
-  }
-}
+import EstadoChip from "@/components/ui/chip/EstadoChip";
 
 export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
   const router = useRouter();
@@ -40,7 +32,7 @@ export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
       options: {
         sort: true,
         customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
-          <Chip label={value} sx={{marginLeft: "-8px"}} size='small' color={chipColor(value)}/>
+          <EstadoChip label={value}/>
         )
       },
     },
