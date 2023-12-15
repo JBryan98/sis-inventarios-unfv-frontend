@@ -31,7 +31,7 @@ const SoftwareTable = ({urlSearchParams}: {urlSearchParams: SoftwareParams}) => 
 
     const onDelete = () => {
       if (dataState.data) {
-        setPageAfterDelete(dataState.data?.content);
+        setPageAfterDelete(modalState.id!, "nombre");
       }
     };
   

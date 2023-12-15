@@ -31,7 +31,7 @@ const CategoriaTable = ({urlSearchParams}: {urlSearchParams: CategoriaParams}) =
 
     const onDelete = () => {
       if (dataState.data) {
-        setPageAfterDelete(dataState.data?.content);
+        setPageAfterDelete(modalState.id!, "nombre");
       }
     };
 

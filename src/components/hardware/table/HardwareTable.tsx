@@ -31,7 +31,7 @@ const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => 
 
     const onDelete = () => {
       if (dataState.data) {
-        setPageAfterDelete(dataState.data?.content);
+        setPageAfterDelete(modalState.id!, "serie");
       }
     };
   

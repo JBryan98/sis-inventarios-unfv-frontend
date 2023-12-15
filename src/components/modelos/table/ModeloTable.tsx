@@ -29,7 +29,7 @@ const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
 
     const onDelete = () => {
       if (dataState.data) {
-        setPageAfterDelete(dataState.data?.content);
+        setPageAfterDelete(modalState.id!, "id");
       }
     };
   

@@ -31,7 +31,7 @@ const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaPara
 
     const onDelete = () => {
       if (dataState.data && modalState) {
-        setPageAfterDelete(dataState.data?.content, modalState.id!, "nombre");
+        setPageAfterDelete(modalState.id!, "nombre");
       }
     };
 

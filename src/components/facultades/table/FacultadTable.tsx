@@ -31,7 +31,7 @@ const FacultadTable = ({urlSearchParams}: {urlSearchParams: FacultadParams}) => 
 
     const onDelete = () => {
       if (dataState.data) {
-        setPageAfterDelete(dataState.data?.content);
+        setPageAfterDelete(modalState.id!, "abreviatura");
       }
     };
   return (
