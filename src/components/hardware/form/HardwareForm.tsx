@@ -17,6 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { HardwareForm, hardwareSchema } from './HardwareValidation';
 import { Hardware, HardwareRequest } from '@/interface/Hardware.interface';
+import { estadoOptions } from '@/utils/constants/Estado';
 
 interface Props {
     modalState: ModalState;
@@ -130,7 +131,7 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
             </Grid>
             <Grid item xs={6} lg={6}>
               <FormSelect
-                options={["Operativo", "Stock", "Baja", "Mantenimiento"]}
+                options={estadoOptions}
                 control={control}
                 name="estado"
                 label="Estado"

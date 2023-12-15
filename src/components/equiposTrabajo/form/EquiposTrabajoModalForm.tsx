@@ -17,6 +17,7 @@ import { EquiposTrabajo, EquiposTrabajoRequest } from '@/interface/EquiposTrabaj
 import { EquiposTrabajoForm, equiposTrabajoSchema } from './EquiposTrabajoValidation';
 import equiposTrabajoService from '@/services/EquiposTrabajo.service';
 import FormSelect from '@/components/ui/form/FormSelect';
+import { estadoOptions } from '@/utils/constants/Estado';
 
 interface Props {
     modalState: ModalState;
@@ -130,7 +131,7 @@ const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) 
             </Grid>
             <Grid item xs={6} lg={6}>
               <FormSelect
-                options={["Operativo", "Stock", "Baja", "Mantenimiento"]}
+                options={estadoOptions}
                 control={control}
                 name="estado"
                 label="Estado"

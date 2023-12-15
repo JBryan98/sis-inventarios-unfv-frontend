@@ -1,17 +1,9 @@
+import EstadoChip from '@/components/ui/chip/EstadoChip';
 import TableCrudActions from '@/components/ui/table/TableCrudActions';
+import { Estado } from '@/utils/constants/Estado';
 import { ModalReducerActions } from '@/utils/reducers/CrudModalReducer'
-import { Chip } from '@mui/material';
 import { MUIDataTableMeta } from 'mui-datatables';
 import React, { Dispatch } from 'react'
-
-const chipColor = (value: string) => {
-  switch (value){
-    case "Stock":
-      return "success"
-    case "Operativo":
-      return "primary"  
-  }
-}
 
 const EquiposTrabajoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
   return [
@@ -34,8 +26,8 @@ const EquiposTrabajoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => 
       label: "ESTADO",
       options: {
         sort: true,
-        customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
-          <Chip label={value} sx={{marginLeft: "-8px"}} size='small' color={chipColor(value)}/>
+        customBodyRender: (value: Estado, tableMeta: MUIDataTableMeta) => (
+          <EstadoChip label={value}/>
         )
       },
     },

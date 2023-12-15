@@ -1,12 +1,13 @@
+import { Estado } from '@/utils/constants/Estado';
 import { Chip } from '@mui/material'
 import React from 'react'
 
 interface Props {
-    label: string;
+    label: Estado;
 }
 
 const EstadoChip = ({ label }: Props) => {
-  const chipColorHandler = (value: string) => {
+  const chipColorHandler = (value: Estado) => {
     switch (value) {
       case "Stock":
         return "success";

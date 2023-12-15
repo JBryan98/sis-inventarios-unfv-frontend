@@ -1,5 +1,6 @@
 import EstadoChip from '@/components/ui/chip/EstadoChip';
 import TableCrudActions from '@/components/ui/table/TableCrudActions';
+import { Estado } from '@/utils/constants/Estado';
 import { ModalReducerActions } from '@/utils/reducers/CrudModalReducer'
 import { MUIDataTableMeta } from 'mui-datatables';
 import React, { Dispatch } from 'react'
@@ -25,7 +26,7 @@ const HardwareColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
       label: "ESTADO",
       options: {
         sort: true,
-        customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
+        customBodyRender: (value: Estado, tableMeta: MUIDataTableMeta) => (
           <EstadoChip label={value}/>
         )
       },
