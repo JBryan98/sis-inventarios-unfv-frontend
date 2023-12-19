@@ -1,51 +1,51 @@
-import { HardwareParams } from '@/app/hardware/page'
+import { EquiposTrabajoParams } from '@/app/equipos-de-trabajo/page';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { Marca } from '@/interface/Marca.interface';
 import { Modelo } from '@/interface/Modelo.interface';
 import { Subcategoria } from '@/interface/Subcategoria.interface';
+import FilterContainer from '@/utils/components/FilterContainer';
 import { estadoOptions } from '@/utils/constants/Estado';
 import { useParamsHandler } from '@/utils/hooks/useParamsHandler';
+import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer'
 import { Grid } from '@mui/material';
 import React, { Dispatch } from 'react'
 import { useForm } from 'react-hook-form';
 import {string, object, InferType} from "Yup";
-import FilterContainer from '../../../../utils/components/FilterContainer';
-import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
 
 interface Props {
     modalState: ModalState;
     dispatchModal: Dispatch<ModalReducerActions>;
-    hardwareParams: HardwareParams;
+    equiposTrabajoParams: EquiposTrabajoParams;
     subcategorias: Subcategoria[];
     marcas: Marca[];
     modelos: Modelo[];
 }
 
-const HardwareFilterForm = ({hardwareParams, modalState, dispatchModal, subcategorias, marcas, modelos}: Props) => {
-    const {pushParamsToUrl} = useParamsHandler();
+const EquiposTrabajoFilterForm = ({modalState, dispatchModal, equiposTrabajoParams, subcategorias, marcas, modelos}: Props) => {
+    const { pushParamsToUrl } = useParamsHandler();
 
     const defaultValues = object({
-      estado: string().optional().default(hardwareParams.estado || ""),
-      marca: object().nullable().default(hardwareParams.marca ? marcas.find(m => m.nombre === hardwareParams.marca) : null),
-      modelo: object().nullable().default(hardwareParams.modelo ? modelos.find(m => m.nombre === hardwareParams.modelo) : null),
-      subcategorias: object().nullable().default(hardwareParams.subcategorias ? subcategorias.find(s => s.nombre === hardwareParams.subcategorias) : null)
+        estado: string().optional().default(equiposTrabajoParams.estado || ""),
+        marca: object().nullable().default(equiposTrabajoParams.marca ? marcas.find(m => m.nombre === equiposTrabajoParams.marca) : null),
+        modelo: object().nullable().default(equiposTrabajoParams.modelo ? modelos.find(m => m.nombre === equiposTrabajoParams.modelo) : null),
+        subcategoria: object().nullable().default(equiposTrabajoParams.subcategorias ? subcategorias.find(s => s.nombre === equiposTrabajoParams.subcategorias) : null)    
     })
 
-    type HardwareFilterForm = InferType<typeof defaultValues>
+    type EquiposTrabajoFilterForm = InferType<typeof defaultValues>;
 
-    const {control, handleSubmit, reset, watch } = useForm<HardwareFilterForm>({
+    const { control, handleSubmit, reset, watch } = useForm<EquiposTrabajoFilterForm>({
         defaultValues: defaultValues.getDefault()
-    })
+    });
 
     const onSubmit = (values: any) => {
         pushParamsToUrl({
             estado: values.estado,
             marca: values.marca?.nombre,
             modelo: values.modelo?.nombre,
-            subcategorias: values.subcategorias?.nombre,
+            subcategorias: values.subcategoria?.nombre
         })
-        dispatchModal({type: "CLOSE"});
+        dispatchModal({type: "CLOSE"})
     }
 
   return (
@@ -53,8 +53,8 @@ const HardwareFilterForm = ({hardwareParams, modalState, dispatchModal, subcateg
       modalState={modalState}
       dispatchModal={dispatchModal}
       defaultValues={defaultValues.getDefault()}
-      searchParams={hardwareParams}
-      modalFormTitle="Filtrar Hardware"
+      searchParams={equiposTrabajoParams}
+      modalFormTitle="Filtrar Equipos de Trabajo"
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       reset={reset}
@@ -85,7 +85,7 @@ const HardwareFilterForm = ({hardwareParams, modalState, dispatchModal, subcateg
       <Grid item xs={6} lg={6}>
         <FormAutocomplete
           control={control}
-          name="subcategorias"
+          name="subcategoria"
           optId={"id"}
           optLabel={"nombre"}
           data={subcategorias}
@@ -104,4 +104,4 @@ const HardwareFilterForm = ({hardwareParams, modalState, dispatchModal, subcateg
   );
 }
 
-export default HardwareFilterForm
+export default EquiposTrabajoFilterForm

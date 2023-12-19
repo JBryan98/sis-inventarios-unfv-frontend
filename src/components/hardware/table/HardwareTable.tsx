@@ -12,7 +12,7 @@ import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { Hardware } from '@/interface/Hardware.interface';
 import HardwareModalForm from '../form/HardwareForm';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
-import { Paper, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import HardwareFilterContainer from '../form/filter/HardwareFilterContainer';
 
 const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => {
@@ -40,13 +40,11 @@ const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => 
 
     return (
       <Stack flexDirection="column" gap={2}>
-        <Paper sx={{ padding: "16px" }}>
-          <HardwareFilterContainer
-            hardwareParams={urlSearchParams}
-            modalState={modalState}
-            dispatchModal={dispatchModal}
-          />
-        </Paper>
+        <HardwareFilterContainer
+          hardwareParams={urlSearchParams}
+          modalState={modalState}
+          dispatchModal={dispatchModal}
+        />
         {modalState.createEditModal && (
           <HardwareModalForm
             modalState={modalState}

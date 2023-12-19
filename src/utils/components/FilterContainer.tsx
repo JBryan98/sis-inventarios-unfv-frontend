@@ -1,5 +1,5 @@
 import { SearchForm } from '@/utils/components/SearchForm';
-import { Button, Stack } from '@mui/material';
+import { Button, Paper, Stack } from '@mui/material';
 import React, { Dispatch } from 'react'
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
@@ -26,7 +26,7 @@ const FilterContainer = <T extends Pageable, TField extends FieldValues>({ modal
     const {cleanFilterParamsFromUrl} = useParamsHandler();
     const {resetValues} = useForceResetForm();
   return (
-    <div>
+    <Paper sx={{ padding: "16px"}}>
       <Stack flexDirection="row" justifyContent="space-between">
         <SearchForm params={searchParams} />
         <Stack flexDirection="row" gap={1}>
@@ -64,7 +64,7 @@ const FilterContainer = <T extends Pageable, TField extends FieldValues>({ modal
       >
         {children}
       </FilterForm>
-    </div>
+    </Paper>
   );
 };
 

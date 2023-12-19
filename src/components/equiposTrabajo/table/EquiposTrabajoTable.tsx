@@ -13,6 +13,8 @@ import { EquiposTrabajoParams } from '@/app/equipos-de-trabajo/page';
 import equiposTrabajoService from '@/services/EquiposTrabajo.service';
 import EquiposTrabajoModalForm from '../form/EquiposTrabajoModalForm';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
+import { Stack } from '@mui/material';
+import EquiposTrabajoFilterContainer from '../form/filter/EquiposTrabajoFilterContainer';
 
 const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajoParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
@@ -38,7 +40,12 @@ const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajo
   
   
     return (
-      <div>
+      <Stack flexDirection="column" gap={2}>
+        <EquiposTrabajoFilterContainer
+          equiposTrabajoParams={urlSearchParams}
+          modalState={modalState}
+          dispatchModal={dispatchModal}
+        />
         {modalState.createEditModal && (
           <EquiposTrabajoModalForm
             modalState={modalState}
@@ -60,7 +67,7 @@ const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajo
           columns={ComponentesColumn(dispatchModal)}
           options={tableActions}
         />
-      </div>
+      </Stack>
     );
 }
 
