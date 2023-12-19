@@ -88,3 +88,32 @@ export function useFetchApi2<T>(url: string){
 
   return {data, setData, isLoading, error}
 }
+
+export const useFetchFindAllPromiseAllSettled = (
+  fetchs:
+    | (() => Promise<ApiResponse<any>>)[]
+    | (() => Promise<any> | undefined)[]
+) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<ApiResponse<any>[] | any[]>([]);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    Promise.allSettled(fetchs.map((c) => c())).then((list) => {
+      const errores = (
+        list.filter((c) => c.status === "rejected") as PromiseRejectedResult[]
+      ).map((c) => c.reason);
+      if (errores.length > 0) {
+        setError(errores.join("\n"));
+      }
+      setData((list as PromiseFulfilledResult<any>[]).map((c) => c.value));
+      setIsLoading(false);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {
+    isLoading,
+    error,
+    data,
+  };
+};
