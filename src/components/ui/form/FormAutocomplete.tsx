@@ -10,11 +10,12 @@ interface Props<T, TField extends FieldValues>{
     name: Path<TField>;
     optId: string | ((item: T) => T[keyof T]);
     optLabel: string | ((item: T) => string);
-    fetchData: FetchData<T>;
+    fetchData?: FetchData<T>;
+    data?: T[];
     autoCompleteProps?: any;
 }
 
-const FormAutocomplete = <T, TField extends FieldValues>({control, label, fetchData, name, autoCompleteProps, optId, optLabel}: Props<T, TField>) => {
+const FormAutocomplete = <T, TField extends FieldValues>({control, label, fetchData, data, name, autoCompleteProps, optId, optLabel}: Props<T, TField>) => {
   const optionId = (item: T) => {
     if (typeof optId === "string") {
       return item[optId as keyof typeof item];
@@ -41,7 +42,7 @@ const FormAutocomplete = <T, TField extends FieldValues>({control, label, fetchD
       }) => (
         <Autocomplete
           loading={fetchData?.isLoading}
-          options={fetchData.data?.content || []}
+          options={fetchData?.data?.content || data || []}
           getOptionLabel={optionLabel}
           isOptionEqualToValue={(option, value) => optionId(option) === optionId(value)}
           onChange={(_, value) => {
@@ -72,7 +73,7 @@ const FormAutocomplete = <T, TField extends FieldValues>({control, label, fetchD
                 ...params.InputProps,
                 endAdornment: (
                   <React.Fragment>
-                    {fetchData.isLoading ? (
+                    {fetchData?.isLoading ? (
                       <CircularProgress color="inherit" size={20} />
                     ) : null}
                     {params.InputProps.endAdornment}
