@@ -12,6 +12,8 @@ import ModeloColumns from './ModeloColumns';
 import ModeloForm from '../form/ModeloForm';
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
+import { Stack } from '@mui/material';
+import ModeloFilterContainer from '../form/filter/ModeloFilterContainer';
 
 const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
@@ -34,7 +36,12 @@ const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
     };
   
   return (
-    <div>
+    <Stack flexDirection="column" gap={2}>
+      <ModeloFilterContainer
+        modalState={modalState}
+        dispatchModal={dispatchModal}
+        modeloParams={urlSearchParams}
+      />
       {modalState.createEditModal && (
         <ModeloForm
           modalState={modalState}
@@ -56,7 +63,7 @@ const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
         columns={ModeloColumns(dispatchModal)}
         options={tableActions}
       />
-    </div>
+    </Stack>
   );
 }
 
