@@ -10,11 +10,12 @@ import { EquipoParams } from '@/app/equipos/page';
 import equipoService from '@/services/Equipo.service';
 import { EquipoColumns } from './EquiposColumns';
 import EquipoModalForm from '../form/EquipoModalForm';
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from 'next/navigation';
 import { Equipo } from '@/interface/Equipo.interface';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
+import EquipoFilterContainer from '../form/filter/EquipoFilterContainer';
 
 const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
@@ -59,7 +60,12 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
     }
 
   return (
-    <div>
+    <Stack gap={2}>
+      <EquipoFilterContainer
+        equipoParams={urlSearchParams}
+        modalState={modalState}
+        dispatchModal={dispatchModal}
+      />
        {modalState.createEditModal && (
         <EquipoModalForm
           modalState={modalState}
@@ -81,7 +87,7 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
         columns={EquipoColumns(dispatchModal)}
         options={equipoTableActions}
       />
-    </div>
+    </Stack>
   );
 }
 

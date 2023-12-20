@@ -3,7 +3,9 @@ import { Pageable } from '@/utils/interface/Pageable'
 import React from 'react'
 
 export interface EquipoParams extends Pageable {
-  referencia?: string;
+  referencia: string;
+  estado: string;
+  ubicacion: string;
 }
 
 const EquiposPage = ({searchParams}: {searchParams: EquipoParams}) => {

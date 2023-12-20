@@ -12,6 +12,8 @@ import subcategoriaService from '@/services/Subcategoria.service';
 import { subcategoriaColumns } from './SubcategoriaColumns';
 import SubcategoriaModalForm from '../form/SubcategoriaModalForm';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
+import { Stack } from '@mui/material';
+import SubcategoriaFilterContainer from '../form/filter/SubcategoriaFilterContainer';
 
 const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
@@ -36,7 +38,12 @@ const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaPara
     };
 
   return (
-    <div>
+    <Stack spacing={2}>
+      <SubcategoriaFilterContainer
+        modalState={modalState}
+        dispatchModal={dispatchModal}
+        subcategoriaParams={urlSearchParams}
+      />
       {modalState.createEditModal && (
         <SubcategoriaModalForm
           modalState={modalState}
@@ -44,23 +51,21 @@ const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaPara
           onPersist={onPersist}
         />
       )}
-      {
-        modalState.id && (
-          <DeleteDialogAlert
-              modalState={modalState}
-              dispatchModal={dispatchModal}
-              service={subcategoriaService}
-              onDelete={onDelete}
-          />
-        )
-      }
+      {modalState.id && (
+        <DeleteDialogAlert
+          modalState={modalState}
+          dispatchModal={dispatchModal}
+          service={subcategoriaService}
+          onDelete={onDelete}
+        />
+      )}
       <MUIDataTable
         title="Lista de subcategorias"
         data={dataState.data?.content || []}
         columns={subcategoriaColumns(dispatchModal)}
         options={tableActions}
       />
-    </div>
+    </Stack>
   );
 }
 

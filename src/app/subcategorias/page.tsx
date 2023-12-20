@@ -3,6 +3,8 @@ import { Pageable } from '@/utils/interface/Pageable'
 import React from 'react'
 
 export interface SubcategoriaParams extends Pageable {
+  referencia: string;
+  categoria: string;
 }
 
 const SubcategoriaPage = ({searchParams}: {searchParams: SubcategoriaParams}) => {
