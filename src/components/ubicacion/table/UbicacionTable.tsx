@@ -7,7 +7,7 @@ import MUIDataTable from 'mui-datatables';
 import React, { useReducer } from 'react'
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import UbicacionService from '@/services/Ubicacion.service';
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from 'next/navigation';
 import { Ubicacion } from '@/interface/Ubicacion.interface';
@@ -16,6 +16,7 @@ import { UbicacionParams } from '@/app/ubicaciones/page';
 import ubicacionService from '@/services/Ubicacion.service';
 import { UbicacionColumns } from './UbicacionColumns';
 import UbicacionModalForm from '../form/UbicacionModalForm';
+import UbicacionFilterContainer from '../form/filter/UbicacionFilterContainer';
 
 const UbicacionTable = ({urlSearchParams}: {urlSearchParams: UbicacionParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
@@ -60,8 +61,13 @@ const UbicacionTable = ({urlSearchParams}: {urlSearchParams: UbicacionParams}) =
     }
 
   return (
-    <div>
-       {modalState.createEditModal && (
+    <Stack gap={2}>
+      <UbicacionFilterContainer
+        modalState={modalState}
+        dispatchModal={dispatchModal}
+        ubicacionParams={urlSearchParams}
+      />
+      {modalState.createEditModal && (
         <UbicacionModalForm
           modalState={modalState}
           dispatchModal={dispatchModal}
@@ -77,12 +83,12 @@ const UbicacionTable = ({urlSearchParams}: {urlSearchParams: UbicacionParams}) =
         />
       )}
       <MUIDataTable
-        title="Lista de Escuelas"
+        title="Lista de Ubicaciones"
         data={dataState.data?.content || []}
         columns={UbicacionColumns(dispatchModal)}
         options={UbicacionTableActions}
       />
-    </div>
+    </Stack>
   );
 }
 
