@@ -39,7 +39,7 @@ const ModeloFilterForm = ({modalState, dispatchModal, modeloParams, categorias, 
       pushParamsToUrl({
         marca: values.marca?.nombre,
         categoria: values.categoria?.nombre,
-        subcategorias: values.subcategoria?.nombre,
+        subcategorias: values.subcategorias?.nombre,
       });
       dispatchModal({ type: "CLOSE" });
     };
@@ -81,7 +81,7 @@ const ModeloFilterForm = ({modalState, dispatchModal, modeloParams, categorias, 
             name="subcategorias"
             optId={"id"}
             optLabel={"nombre"}
-            data={subcategorias}
+            data={subcategorias.filter(subcategoria => subcategoria.categoria.nombre !== "Software")}
             label="Subcategoría"
           />
         </Grid>
