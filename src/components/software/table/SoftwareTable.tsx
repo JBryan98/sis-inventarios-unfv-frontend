@@ -12,6 +12,8 @@ import { Software } from '@/interface/Software.interface';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import softwareService from '@/services/Software.service';
 import SoftwareModalForm from '../form/SoftwareModalForm';
+import { Stack } from '@mui/material';
+import SoftwareFilterContainer from '../form/filter/SoftwareFilterContainer';
 
 const SoftwareTable = ({urlSearchParams}: {urlSearchParams: SoftwareParams}) => {
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
@@ -37,7 +39,12 @@ const SoftwareTable = ({urlSearchParams}: {urlSearchParams: SoftwareParams}) => 
   
   
     return (
-      <div>
+      <Stack gap={2}>
+        <SoftwareFilterContainer
+          modalState={modalState}
+          dispatchModal={dispatchModal}
+          softwareParams={urlSearchParams}
+        />
         {modalState.createEditModal && (
           <SoftwareModalForm
             modalState={modalState}
@@ -59,7 +66,7 @@ const SoftwareTable = ({urlSearchParams}: {urlSearchParams: SoftwareParams}) => 
           columns={ComponentesColumn(dispatchModal)}
           options={tableActions}
         />
-      </div>
+      </Stack>
     );
 }
 
