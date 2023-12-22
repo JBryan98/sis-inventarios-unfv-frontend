@@ -1,6 +1,5 @@
 "use client"
 
-import componenteService from '@/services/Hardaware.service';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
 import { useTableActions } from '@/utils/hooks/useTableActions';
 import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer';
@@ -40,7 +39,7 @@ const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajo
   
   
     return (
-      <Stack flexDirection="column" gap={2}>
+      <Stack gap={2}>
         <EquiposTrabajoFilterContainer
           equiposTrabajoParams={urlSearchParams}
           modalState={modalState}
@@ -57,7 +56,7 @@ const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajo
           <DeleteDialogAlert
             modalState={modalState}
             dispatchModal={dispatchModal}
-            service={componenteService}
+            service={equiposTrabajoService}
             onDelete={onDelete}
           />
         )}
