@@ -21,6 +21,7 @@ import { usePathname } from 'next/navigation';
 import  UNFV_LOGO  from '../../../../public/logo_unfv.jpg'
 import UNFV_LOGO_ANIVERSARIO from '../../../../public/logo_aniversario.png'
 import Image from 'next/image';
+import AccountMenu from '../AccountMenu';
 
 const drawerWidth = 240;
 
@@ -93,6 +94,7 @@ export default function ResponsiveDrawer(props: Props) {
           <Typography variant="h6" noWrap component="div">
             Sistema de inventarios de TI UNFV
           </Typography>
+          <AccountMenu/>
         </Toolbar>
       </AppBar>
       <Box
