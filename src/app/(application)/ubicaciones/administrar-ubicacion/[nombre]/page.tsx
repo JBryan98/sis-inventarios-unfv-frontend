@@ -5,12 +5,11 @@ import EquiposTrabajoTable from '@/components/ubicacion/details/EquiposTrabajoTa
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { Equipo } from '@/interface/Equipo.interface';
 import { EquiposTrabajo } from '@/interface/EquiposTrabajo.interface';
-import { UbicacionConEquipos } from '@/interface/Ubicacion.interface';
-import equipoService from '@/services/Equipo.service';
-import equiposTrabajoService from '@/services/EquiposTrabajo.service';
-import ubicacionService from '@/services/Ubicacion.service';
+import { useEquipoService } from '@/services/Equipo.service';
+import  { useEquiposTrabajoService } from '@/services/EquiposTrabajo.service';
+import { useUbicacionService } from '@/services/Ubicacion.service';
 import BotonVolver from '@/utils/components/BotonVolver';
-import { useFetchApi, useFetchApi2 } from '@/utils/hooks/useFetchApi';
+import { useFetchApi, useFetchApi2, useFetchById } from '@/utils/hooks/useFetchApi';
 import { useNotification } from '@/utils/hooks/useNotification';
 import { Box, Button, Card, CardContent, Divider, Grid, Paper, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
@@ -18,8 +17,12 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 
 const AdministrarUbicacion = ({params}: {params: {nombre: string}}) => {
+    const ubicacionService = useUbicacionService();
+    const equiposTrabajoService = useEquiposTrabajoService();
+    const equipoService = useEquipoService();
+
     const { notiSuccess, notiApiResponseError } = useNotification();
-    const {data, setData} = useFetchApi2<UbicacionConEquipos>(ubicacionService.url + "/" + params.nombre);
+    const {data, setData} = useFetchById<any>(ubicacionService, params.nombre);
     const router = useRouter();
     const { control, handleSubmit, getValues } = useForm({
       defaultValues: {
@@ -89,15 +92,12 @@ const AdministrarUbicacion = ({params}: {params: {nombre: string}}) => {
       }
     }
 
-    console.log(data)
-
-    const equiposData = useFetchApi<Equipo>(equipoService.url + "?size=100&estado=Stock");
-    const equiposTrabajoData = useFetchApi<EquiposTrabajo>(equiposTrabajoService.url + "?size=100&estado=Stock");
+    const equiposData = useFetchApi({service: equipoService, params: {size: "100", estado: "Stock"}});
+    const equiposTrabajoData = useFetchApi({service: equiposTrabajoService, params: {size: "100", estado: "Stock"}});
 
     const onSubmit = (values: any) => {
       ubicacionService.administrarUbicacion(data)
       .then((response) => {
-        console.log(response);
         notiSuccess("Ubicación administrada exitosamente");
         router.push("/ubicaciones");
       })

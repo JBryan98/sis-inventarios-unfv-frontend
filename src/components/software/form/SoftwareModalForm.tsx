@@ -4,17 +4,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { Dispatch, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import ModalForm from '@/components/ui/form/ModalForm';
-import { Grid, IconButton, InputAdornment, Tooltip } from '@mui/material';
+import { Grid } from '@mui/material';
 import InputForm from '@/components/ui/form/InputForm';
 import FormButtons from '@/components/ui/form/FormButtons';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
-import modeloService from '@/services/Modelo.service';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
-import { Modelo } from '@/interface/Modelo.interface';
 import { Software, SoftwareRequest } from '@/interface/Software.interface';
 import { SoftwareForm, softwareSchema } from './SoftwareValidation';
-import softwareService from '@/services/Software.service';
-import subcategoriaService from '@/services/Subcategoria.service';
+import { useSoftwareService } from '@/services/Software.service';
+import { useSubcategoriaService } from '@/services/Subcategoria.service';
+import { Subcategoria } from '@/interface/Subcategoria.interface';
 
 interface Props {
     modalState: ModalState;
@@ -23,6 +22,8 @@ interface Props {
   }
 
 const SoftwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+    const softwareService = useSoftwareService();
+    const subcategoriaService = useSubcategoriaService();
     const { notiSuccess, notiApiResponseError } = useNotification();
     const {control, handleSubmit, formState, setError, setValue, reset } = useForm<SoftwareForm>({
         defaultValues: {
@@ -76,7 +77,11 @@ const SoftwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
         }
     }
 
-    const subcategoriaData = useFetchApi<Modelo>(subcategoriaService.url + "?size=100&page=1&categoria=Software");
+    const subcategoriaData = useFetchApi<Subcategoria>({service: subcategoriaService, params: {
+      size: "100",
+      page: "1",
+      categoria: "Software"
+    }});
     
 
     return (

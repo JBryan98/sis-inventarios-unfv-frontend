@@ -8,14 +8,15 @@ import React, { useReducer } from 'react'
 import ComponentesColumn from './EquiposTrabajoColumns';
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { EquiposTrabajo } from '@/interface/EquiposTrabajo.interface';
-import { EquiposTrabajoParams } from '@/app/equipos-de-trabajo/page';
-import equiposTrabajoService from '@/services/EquiposTrabajo.service';
 import EquiposTrabajoModalForm from '../form/EquiposTrabajoModalForm';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import { Stack } from '@mui/material';
 import EquiposTrabajoFilterContainer from '../form/filter/EquiposTrabajoFilterContainer';
+import { EquiposTrabajoParams } from '@/app/(application)/equipos-de-trabajo/page';
+import { useEquiposTrabajoService } from '@/services/EquiposTrabajo.service';
 
 const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajoParams}) => {
+    const equiposTrabajoService = useEquiposTrabajoService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<EquiposTrabajo>({params: urlSearchParams, service: equiposTrabajoService});
     const { tableActions } = useTableActions(

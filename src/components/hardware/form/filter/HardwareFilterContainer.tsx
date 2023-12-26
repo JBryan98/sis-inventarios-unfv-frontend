@@ -1,13 +1,13 @@
-import { HardwareParams } from '@/app/hardware/page'
-import marcaService from '@/services/Marca.service';
-import modeloService from '@/services/Modelo.service';
-import subcategoriaService from '@/services/Subcategoria.service';
+import { HardwareParams } from '@/app/(application)/hardware/page'
 import { useFetchFindAllPromiseAllSettled } from '@/utils/hooks/useFetchApi';
 import React, { Dispatch } from 'react'
 import HardwareFilterForm from './HardwareFilterForm';
 import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
 import LoadingFilter from '@/utils/components/LoadingFilter';
 import ErrorFilter from '@/utils/components/ErrorFilter';
+import { useModeloService } from '@/services/Modelo.service';
+import { useMarcaService } from '@/services/Marca.service';
+import { useSubcategoriaService } from '@/services/Subcategoria.service';
 
 interface Props {
     hardwareParams: HardwareParams;
@@ -17,6 +17,10 @@ interface Props {
 
 
 const HardwareFilterContainer = ({hardwareParams, modalState, dispatchModal}: Props) => {  
+    const modeloService = useModeloService();
+    const marcaService = useMarcaService();
+    const subcategoriaService= useSubcategoriaService();
+    
     const fetchFilter = useFetchFindAllPromiseAllSettled([
       () =>
         modeloService.findAll({

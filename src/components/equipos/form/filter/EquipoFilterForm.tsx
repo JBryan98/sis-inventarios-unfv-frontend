@@ -1,4 +1,4 @@
-import { EquipoParams } from '@/app/equipos/page';
+import { EquipoParams } from '@/app/(application)/equipos/page';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { Ubicacion } from '@/interface/Ubicacion.interface';

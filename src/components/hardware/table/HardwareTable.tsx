@@ -1,7 +1,5 @@
 "use client"
 
-import { HardwareParams } from '@/app/hardware/page'
-import componenteService from '@/services/Hardaware.service';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
 import { useTableActions } from '@/utils/hooks/useTableActions';
 import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer';
@@ -14,10 +12,13 @@ import HardwareModalForm from '../form/HardwareForm';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import { Stack } from '@mui/material';
 import HardwareFilterContainer from '../form/filter/HardwareFilterContainer';
+import { HardwareParams } from '@/app/(application)/hardware/page';
+import { useHardwareService } from '@/services/Hardaware.service';
 
 const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => {
+    const hardwareService = useHardwareService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
-    const dataState = useFetchUrlApi<Hardware>({params: urlSearchParams, service: componenteService});
+    const dataState = useFetchUrlApi<Hardware>({params: urlSearchParams, service: hardwareService});
     const { tableActions } = useTableActions(
         urlSearchParams,
         dataState.isLoading,
@@ -56,7 +57,7 @@ const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => 
           <DeleteDialogAlert
             modalState={modalState}
             dispatchModal={dispatchModal}
-            service={componenteService}
+            service={hardwareService}
             onDelete={onDelete}
           />
         )}

@@ -1,4 +1,4 @@
-import { UbicacionParams } from '@/app/ubicaciones/page';
+import { UbicacionParams } from '@/app/(application)/ubicaciones/page';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { Facultad } from '@/interface/Facultad.interface';
 import FilterContainer from '@/utils/components/FilterContainer';

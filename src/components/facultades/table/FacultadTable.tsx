@@ -1,8 +1,6 @@
 "use client"
 
-import { FacultadParams } from '@/app/facultades/page';
 import { Facultad } from '@/interface/Facultad.interface';
-import facultadService from '@/services/Facultad.service';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
 import { useTableActions } from '@/utils/hooks/useTableActions';
 import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer';
@@ -12,8 +10,11 @@ import { FacultadColumns } from './FacultadColumns';
 import FacultadModalForm from '../form/FacultadModalForm';
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
+import { FacultadParams } from '@/app/(application)/facultades/page';
+import { useFacultadService } from '@/services/Facultad.service';
 
 const FacultadTable = ({urlSearchParams}: {urlSearchParams: FacultadParams}) => {
+    const facultadService = useFacultadService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Facultad>({params: urlSearchParams, service: facultadService});
     const { tableActions } = useTableActions(

@@ -1,11 +1,6 @@
 import { Categoria, CreateCategoria } from "@/interface/Categoria.interface";
-import { GenericCrudServices } from "@/utils/services/GenericService";
+import { useCrudService } from "@/utils/services/useCrudService";
 
-class CategoriaService extends GenericCrudServices<Categoria, CreateCategoria>{
-    constructor(){
-        super(`${process.env.NEXT_PUBLIC_API_URL}/categorias`)
-    }
+export const useCategoriaService = () => {
+    return useCrudService<Categoria, CreateCategoria>(`${process.env.NEXT_PUBLIC_API_URL}/categorias`)
 }
-
-const categoriaService = new CategoriaService();
-export default categoriaService;

@@ -1,8 +1,8 @@
 "use client"
 
-import { CategoriaParams } from '@/app/categorias/page'
+import { CategoriaParams } from '@/app/(application)/categorias/page';
 import { Categoria } from '@/interface/Categoria.interface';
-import categoriaService from '@/services/Categoria.service';
+import { useCategoriaService } from '@/services/Categoria.service';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
 import { useTableActions } from '@/utils/hooks/useTableActions';
 import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer'
@@ -14,6 +14,7 @@ import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 
 const CategoriaTable = ({urlSearchParams}: {urlSearchParams: CategoriaParams}) => {
+    const categoriaService = useCategoriaService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Categoria>({params: urlSearchParams, service: categoriaService});
     const { tableActions } = useTableActions(

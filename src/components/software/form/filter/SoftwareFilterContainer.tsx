@@ -1,12 +1,12 @@
-import { SoftwareParams } from '@/app/software/page'
+import { SoftwareParams } from '@/app/(application)/software/page'
 import { Subcategoria } from '@/interface/Subcategoria.interface';
-import subcategoriaService from '@/services/Subcategoria.service';
 import ErrorFilter from '@/utils/components/ErrorFilter';
 import LoadingFilter from '@/utils/components/LoadingFilter';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
 import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
 import React, { Dispatch } from 'react'
 import SoftwareFilterForm from './SoftwareFilterForm';
+import { useSubcategoriaService } from '@/services/Subcategoria.service';
 
 interface Props {
     softwareParams: SoftwareParams;
@@ -15,8 +15,12 @@ interface Props {
 }
 
 const SoftwareFilterContainer = ({softwareParams, modalState, dispatchModal}: Props) => {
-    
-    const subcategorias = useFetchApi<Subcategoria>(subcategoriaService.url + "?size=100&page=1&categoria=Software");
+    const subcategoriaService = useSubcategoriaService();
+    const subcategorias = useFetchApi<Subcategoria>({service: subcategoriaService, params: {
+      size: "100",
+      page: "1",
+      categoria: "Software"
+    }});
 
     if (subcategorias.isLoading) {
       return <LoadingFilter />;

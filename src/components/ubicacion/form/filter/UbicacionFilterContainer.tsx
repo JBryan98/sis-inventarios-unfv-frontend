@@ -1,6 +1,6 @@
-import { UbicacionParams } from '@/app/ubicaciones/page';
+import { UbicacionParams } from '@/app/(application)/ubicaciones/page';
 import { Facultad } from '@/interface/Facultad.interface';
-import facultadService from '@/services/Facultad.service';
+import { useFacultadService } from '@/services/Facultad.service';
 import ErrorFilter from '@/utils/components/ErrorFilter';
 import LoadingFilter from '@/utils/components/LoadingFilter';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
@@ -15,7 +15,8 @@ interface Props {
 }
 
 const UbicacionFilterContainer = ({modalState, dispatchModal, ubicacionParams}: Props) => {
-    const facultades = useFetchApi<Facultad>(facultadService.url + "?size=100&page=1")
+    const facultadService = useFacultadService();
+    const facultades = useFetchApi<Facultad>({service: facultadService, params: {size: "100", page: "1"}})
     
     if (facultades.isLoading) {
       return <LoadingFilter />;

@@ -1,6 +1,6 @@
 "use client"
 
-import { SoftwareParams } from '@/app/software/page';
+import { SoftwareParams } from '@/app/(application)/software/page';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
 import { useTableActions } from '@/utils/hooks/useTableActions';
 import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer';
@@ -10,12 +10,13 @@ import ComponentesColumn from './SoftwareColumns';
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { Software } from '@/interface/Software.interface';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
-import softwareService from '@/services/Software.service';
 import SoftwareModalForm from '../form/SoftwareModalForm';
 import { Stack } from '@mui/material';
 import SoftwareFilterContainer from '../form/filter/SoftwareFilterContainer';
+import { useSoftwareService } from '@/services/Software.service';
 
 const SoftwareTable = ({urlSearchParams}: {urlSearchParams: SoftwareParams}) => {
+    const softwareService = useSoftwareService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Software>({params: urlSearchParams, service: softwareService});
     const { tableActions } = useTableActions(

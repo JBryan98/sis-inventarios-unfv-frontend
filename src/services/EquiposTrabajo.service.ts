@@ -1,11 +1,6 @@
 import { EquiposTrabajo, EquiposTrabajoRequest } from "@/interface/EquiposTrabajo.interface";
-import { GenericCrudServices } from "@/utils/services/GenericService";
+import { useCrudService } from "@/utils/services/useCrudService";
 
-class EquiposTrabajoService extends GenericCrudServices<EquiposTrabajo, EquiposTrabajoRequest>{
-    constructor(){
-        super(`${process.env.NEXT_PUBLIC_API_URL}/equiposTrabajo`)
-    }
+export const useEquiposTrabajoService = () => {
+    return useCrudService<EquiposTrabajo, EquiposTrabajoRequest>(`${process.env.NEXT_PUBLIC_API_URL}/equiposTrabajo`);
 }
-
-const equiposTrabajoService = new EquiposTrabajoService();
-export default equiposTrabajoService;

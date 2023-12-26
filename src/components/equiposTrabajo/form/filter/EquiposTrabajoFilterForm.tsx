@@ -1,4 +1,4 @@
-import { EquiposTrabajoParams } from '@/app/equipos-de-trabajo/page';
+import { EquiposTrabajoParams } from '@/app/(application)/equipos-de-trabajo/page';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { Marca } from '@/interface/Marca.interface';

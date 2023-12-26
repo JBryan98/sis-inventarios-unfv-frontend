@@ -1,5 +1,4 @@
-import { EquipoParams } from '@/app/equipos/page'
-import ubicacionService from '@/services/Ubicacion.service';
+import { useUbicacionService } from '@/services/Ubicacion.service';
 import ErrorFilter from '@/utils/components/ErrorFilter';
 import LoadingFilter from '@/utils/components/LoadingFilter';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
@@ -7,6 +6,7 @@ import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReduc
 import React, { Dispatch } from 'react'
 import EquipoFilterForm from './EquipoFilterForm';
 import { Ubicacion } from '@/interface/Ubicacion.interface';
+import { EquipoParams } from '@/app/(application)/equipos/page';
 
 interface Props {
     equipoParams: EquipoParams;
@@ -15,8 +15,8 @@ interface Props {
 }
 
 const EquipoFilterContainer = ({equipoParams, modalState, dispatchModal}: Props) => {
-
-    const ubicaciones = useFetchApi<Ubicacion>(ubicacionService.url + "?size=100&page=1")
+    const ubicacionService = useUbicacionService();
+    const ubicaciones = useFetchApi<Ubicacion>({service: ubicacionService, params: {size: "100"}})
 
     if (ubicaciones.isLoading) {
       return <LoadingFilter />;

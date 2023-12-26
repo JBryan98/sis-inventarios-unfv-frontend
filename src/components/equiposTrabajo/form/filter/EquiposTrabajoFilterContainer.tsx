@@ -1,13 +1,13 @@
-import { EquiposTrabajoParams } from '@/app/equipos-de-trabajo/page'
-import marcaService from '@/services/Marca.service';
-import modeloService from '@/services/Modelo.service';
-import subcategoriaService from '@/services/Subcategoria.service';
+import { EquiposTrabajoParams } from '@/app/(application)/equipos-de-trabajo/page';
 import { useFetchFindAllPromiseAllSettled } from '@/utils/hooks/useFetchApi';
 import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
 import React, { Dispatch } from 'react'
 import EquiposTrabajoFilterForm from './EquiposTrabajoFilterForm';
 import LoadingFilter from '@/utils/components/LoadingFilter';
 import ErrorFilter from '@/utils/components/ErrorFilter';
+import { useModeloService } from '@/services/Modelo.service';
+import { useMarcaService } from '@/services/Marca.service';
+import { useSubcategoriaService } from '@/services/Subcategoria.service';
 
 interface Props {
     equiposTrabajoParams: EquiposTrabajoParams;
@@ -16,6 +16,9 @@ interface Props {
 }
 
 const EquiposTrabajoFilterContainer = ({equiposTrabajoParams, modalState, dispatchModal}: Props) => {
+    const modeloService = useModeloService();
+    const marcaService = useMarcaService();
+    const subcategoriaService = useSubcategoriaService();
     const fetchFilter = useFetchFindAllPromiseAllSettled([
       () => modeloService.findAll({
           size: "100",

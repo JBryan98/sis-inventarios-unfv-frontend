@@ -1,11 +1,6 @@
-import { CreateModelo, Modelo } from "@/interface/Modelo.interface";
-import { GenericCrudServices } from "@/utils/services/GenericService";
+import { ModeloRequest, Modelo } from "@/interface/Modelo.interface";
+import { useCrudService } from "@/utils/services/useCrudService";
 
-class ModeloService extends GenericCrudServices<Modelo, CreateModelo>{
-    constructor(){
-        super(`${process.env.NEXT_PUBLIC_API_URL}/modelos`)
-    }
+export const useModeloService = () => {
+    return useCrudService<Modelo, ModeloRequest>(`${process.env.NEXT_PUBLIC_API_URL}/modelos`);
 }
-
-const modeloService = new ModeloService();
-export default modeloService;

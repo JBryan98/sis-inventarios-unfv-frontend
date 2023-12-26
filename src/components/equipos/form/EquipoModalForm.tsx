@@ -7,8 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InputForm from "@/components/ui/form/InputForm";
 import FormButtons from '@/components/ui/form/FormButtons';
 import { useNotification } from '@/utils/hooks/useNotification';
-import { EquipoForm, equipoSchema } from './CrearEquipoValidation';
-import equipoService from '@/services/Equipo.service';
+import { EquipoForm } from './CrearEquipoValidation';
+import { useEquipoService } from '@/services/Equipo.service';
 import { EquipoRequest } from '@/interface/EquipoConComponentes';
 import { EditarEquipoForm, editarEquipoSchema } from './EditarEquipoValidation';
 import { Equipo } from '@/interface/Equipo.interface';
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const EquipoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+  const equipoService=  useEquipoService();
   const { notiSuccess, notiApiResponseError } = useNotification();
   const {control, handleSubmit, formState, setError, setValue, reset } = useForm<EditarEquipoForm>({
     defaultValues: {
@@ -33,7 +34,6 @@ const EquipoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     resolver: yupResolver(editarEquipoSchema)
   })
 
-  console.log(formState)
 
   useEffect(() => {
     if (modalState.id) {

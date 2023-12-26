@@ -1,6 +1,6 @@
-import { SubcategoriaParams } from '@/app/subcategorias/page';
+import { SubcategoriaParams } from '@/app/(application)/subcategorias/page';
 import { Categoria } from '@/interface/Categoria.interface';
-import categoriaService from '@/services/Categoria.service';
+import { useCategoriaService } from '@/services/Categoria.service';
 import ErrorFilter from '@/utils/components/ErrorFilter';
 import LoadingFilter from '@/utils/components/LoadingFilter';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
@@ -15,8 +15,11 @@ interface Props {
 }
 
 const SubcategoriaFilterContainer = ({modalState, dispatchModal, subcategoriaParams}: Props) => {
-
-    const categorias = useFetchApi<Categoria>(categoriaService.url + "?size=100&page=1")
+    const categoriaService = useCategoriaService();
+    const categorias = useFetchApi<Categoria>({service: categoriaService, params: {
+      size: "100",
+      page: "1"
+    }})
 
     if(categorias.isLoading){
         return <LoadingFilter/>

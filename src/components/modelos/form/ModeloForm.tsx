@@ -5,19 +5,19 @@ import React, { Dispatch, useEffect } from 'react'
 import { useForm } from "react-hook-form";
 import { ModeloForm, modeloSchema } from './ModeloValidation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import modeloService from '@/services/Modelo.service';
+import { useModeloService } from '@/services/Modelo.service';
 import ModalForm from '@/components/ui/form/ModalForm';
 import { Grid } from "@mui/material";
 import InputForm from '@/components/ui/form/InputForm';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
-import categoriaService from '@/services/Categoria.service';
+import  { useCategoriaService } from '@/services/Categoria.service';
 import { Marca } from '@/interface/Marca.interface';
 import { Categoria } from '@/interface/Categoria.interface';
-import marcaService from '@/services/Marca.service';
+import { useMarcaService } from '@/services/Marca.service';
 import FormButtons from '@/components/ui/form/FormButtons';
 import { Subcategoria } from '@/interface/Subcategoria.interface';
-import subcategoriaService from '@/services/Subcategoria.service';
+import { useSubcategoriaService } from '@/services/Subcategoria.service';
 
 interface Props {
     modalState: ModalState,
@@ -26,6 +26,10 @@ interface Props {
   }
 
 const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
+    const modeloService = useModeloService();
+    const categoriaService = useCategoriaService();
+    const marcaService = useMarcaService();
+    const subcategoriaService = useSubcategoriaService();
     const { notiSuccess, notiApiResponseError } = useNotification();
     const { control, handleSubmit, setError, setValue, reset } = useForm<ModeloForm>({
         defaultValues: {
@@ -90,8 +94,8 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
         page: "1",
         size: "100",
     }
-    const subcategoriaData = useFetchApi<Subcategoria>(`${subcategoriaService.url}?${new URLSearchParams(params)}`)
-    const marcaData = useFetchApi<Marca>(`${marcaService.url}?${new URLSearchParams(params)}`)
+    const subcategoriaData = useFetchApi<Subcategoria>({service: subcategoriaService, params: params})
+    const marcaData = useFetchApi<Marca>({service: marcaService, params: params})
 
   return (
     <ModalForm
@@ -108,7 +112,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
               optLabel={"nombre"}
               name="subcategoria"
               label="Subcategoria"
-              fetchData={subcategoriaData}
+              data={subcategoriaData.data?.content.filter(subcategoria => subcategoria.categoria.nombre !== "Software")}
               autoCompleteProps={{
                 groupBy: (option: Subcategoria) => option.categoria.nombre,
               }}

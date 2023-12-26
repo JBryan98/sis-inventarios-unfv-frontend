@@ -10,9 +10,6 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("fetching")
-        console.log(credentials?.email)
-        console.log(credentials?.password)
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
           {
@@ -25,7 +22,6 @@ const handler = NextAuth({
           }
         );
         const user = await response.json();
-        console.log(user)
         if (user.message === "Credenciales incorrectas") throw user;
         return user;
       },

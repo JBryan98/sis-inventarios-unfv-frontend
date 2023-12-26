@@ -9,10 +9,10 @@ import FormButtons from '@/components/ui/form/FormButtons';
 import { useNotification } from '@/utils/hooks/useNotification';
 import { Ubicacion, UbicacionRequest } from '@/interface/Ubicacion.interface';
 import { EditarUbicacionForm, editarUbicacionSchema } from './EditarEquipoValidation';
-import ubicacionService from '@/services/Ubicacion.service';
+import { useUbicacionService } from '@/services/Ubicacion.service';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
-import facultadService from '@/services/Facultad.service';
+import { useFacultadService } from '@/services/Facultad.service';
 import { Facultad } from '@/interface/Facultad.interface';
 
 interface Props {
@@ -22,6 +22,8 @@ interface Props {
 }
 
 const UbicacionModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+  const ubicacionService = useUbicacionService();
+  const facultadService = useFacultadService();
   const { notiSuccess, notiApiResponseError } = useNotification();
   const {control, handleSubmit, formState, setError, setValue, reset } = useForm<EditarUbicacionForm>({
     defaultValues: {
@@ -78,7 +80,7 @@ const UbicacionModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     }
   }
 
-  const facultadData = useFetchApi<Facultad>(facultadService.url)
+  const facultadData = useFetchApi<Facultad>({service: facultadService, params: {size: "100", page: "1"}})
 
   return (
     <ModalForm

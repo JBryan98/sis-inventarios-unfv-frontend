@@ -1,4 +1,4 @@
-import { ModeloParams } from '@/app/modelos/page';
+import { ModeloParams } from '@/app/(application)/modelos/page';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { Categoria } from '@/interface/Categoria.interface';
 import { Marca } from '@/interface/Marca.interface';

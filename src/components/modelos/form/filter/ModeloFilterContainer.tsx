@@ -1,13 +1,13 @@
-import { ModeloParams } from '@/app/modelos/page'
-import categoriaService from '@/services/Categoria.service';
-import marcaService from '@/services/Marca.service';
-import subcategoriaService from '@/services/Subcategoria.service';
+import { ModeloParams } from '@/app/(application)/modelos/page'
 import ErrorFilter from '@/utils/components/ErrorFilter';
 import LoadingFilter from '@/utils/components/LoadingFilter';
 import { useFetchFindAllPromiseAllSettled } from '@/utils/hooks/useFetchApi';
 import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
 import React, { Dispatch } from 'react'
 import ModeloFilterForm from './ModeloFilterForm';
+import { useMarcaService } from '@/services/Marca.service';
+import { useSubcategoriaService } from '@/services/Subcategoria.service';
+import { useCategoriaService } from '@/services/Categoria.service';
 
 interface Props {
     modeloParams: ModeloParams;
@@ -16,6 +16,10 @@ interface Props {
 }
 
 const ModeloFilterContainer = ({modeloParams, modalState, dispatchModal}: Props) => {
+    const marcaService = useMarcaService();
+    const subcategoriaService = useSubcategoriaService();
+    const categoriaService = useCategoriaService();
+    
     const fetchFilter = useFetchFindAllPromiseAllSettled([
       () => marcaService.findAll({ size: "100" }),
       () => subcategoriaService.findAll({ size: "100" }),

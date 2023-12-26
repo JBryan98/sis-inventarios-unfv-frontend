@@ -8,14 +8,14 @@ import { Grid, IconButton, InputAdornment, Tooltip } from '@mui/material';
 import InputForm from '@/components/ui/form/InputForm';
 import FormButtons from '@/components/ui/form/FormButtons';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
-import modeloService from '@/services/Modelo.service';
+import { useModeloService } from '@/services/Modelo.service';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { Modelo } from '@/interface/Modelo.interface';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { v4 as uuidv4 } from 'uuid';
 import { EquiposTrabajo, EquiposTrabajoRequest } from '@/interface/EquiposTrabajo.interface';
 import { EquiposTrabajoForm, equiposTrabajoSchema } from './EquiposTrabajoValidation';
-import equiposTrabajoService from '@/services/EquiposTrabajo.service';
+import { useEquiposTrabajoService } from '@/services/EquiposTrabajo.service';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { estadoOptions } from '@/utils/constants/Estado';
 
@@ -26,6 +26,8 @@ interface Props {
   }
 
 const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+    const equiposTrabajoService = useEquiposTrabajoService();
+    const modeloService = useModeloService();
     const { notiSuccess, notiApiResponseError } = useNotification();
     const {control, handleSubmit, formState, setError, setValue, reset } = useForm<EquiposTrabajoForm>({
         defaultValues: {
@@ -85,7 +87,15 @@ const EquiposTrabajoModalForm = ({modalState, dispatchModal, onPersist}: Props) 
       setValue("serie", uuidv4())
     }
 
-    const modelosData = useFetchApi<Modelo>(modeloService.url + "?size=100&page=1&categoria=Equipos de Trabajo&sort=subcategoria.nombre%2Casc");
+    const modelosData = useFetchApi<Modelo>({
+      service: modeloService,
+      params: {
+        size: "100",
+        page: "1",
+        categoria: "Equipos de Trabajo",
+        sort: "subcategoria.nombre,asc",
+      },
+    });
     
 
     return (

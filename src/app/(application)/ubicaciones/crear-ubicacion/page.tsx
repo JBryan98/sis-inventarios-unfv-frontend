@@ -13,17 +13,22 @@ import { Box, Button, Card, CardContent, Container, Divider, Grid, Paper, Stack 
 import BotonVolver from '@/utils/components/BotonVolver';
 import InputForm from '@/components/ui/form/InputForm';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
-import equipoService from '@/services/Equipo.service';
-import equiposTrabajoService from '@/services/EquiposTrabajo.service';
+import { useEquipoService } from '@/services/Equipo.service';
+import { useEquiposTrabajoService } from '@/services/EquiposTrabajo.service';
 import { Facultad } from '@/interface/Facultad.interface';
-import facultadService from '@/services/Facultad.service';
+import { useFacultadService } from '@/services/Facultad.service';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import EquipoTable from '@/components/ubicacion/details/EquipoTable';
 import EquiposTrabajoTable from '@/components/ubicacion/details/EquiposTrabajoTable';
-import ubicacionService from '@/services/Ubicacion.service';
+import { useUbicacionService } from '@/services/Ubicacion.service';
 import { UbicacionRequest } from '@/interface/Ubicacion.interface';
 
 const CrearUbicacion = () => {
+    const ubicacionService = useUbicacionService();
+    const equiposTrabajoService = useEquiposTrabajoService();
+    const equipoService = useEquipoService();
+    const facultadService = useFacultadService();
+
     const { notiSuccess, notiApiResponseError } = useNotification();
     const router = useRouter();
     const [state, dispatch] = useReducer(ubicacionReducer, ubicacionReducerInitialState);
@@ -90,9 +95,9 @@ const CrearUbicacion = () => {
           });
       };
 
-      const equiposData = useFetchApi<Equipo>(equipoService.url + "?estado=Stock&size=500")
-      const equiposTrabajoData = useFetchApi<EquiposTrabajo>(equiposTrabajoService.url + "?estado=Stock&size=500")
-      const facultadData = useFetchApi<Facultad>(facultadService.url)
+      const equiposData = useFetchApi<Equipo>({service: equipoService, params: {estado: "Stock", size: "500"}})
+      const equiposTrabajoData = useFetchApi<EquiposTrabajo>({service: equiposTrabajoService, params: {estado: "Stock", size: "500"}})
+      const facultadData = useFetchApi<Facultad>({service: facultadService, params: {size: "100"}})
 
   return (
     <Container>
