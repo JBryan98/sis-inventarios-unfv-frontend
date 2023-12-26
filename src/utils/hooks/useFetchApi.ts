@@ -14,6 +14,8 @@ const initialState = {
 export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
     const dataFetchReducer = genericFetchDataReducer<T>();
     const [state, dispatch] = useReducer(dataFetchReducer, initialState)
+    const router = useRouter();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
     const fetchMethod = fetchRequest.fetchMethod || "findAll";
     useEffect(() => {
@@ -43,7 +45,6 @@ export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
 export function useFetchApi<T>(fetchRequest: FetchRequest<T>) {
   const dataFetchReducer = genericFetchDataReducer<T>();
   const [state, dispatch] = useReducer(dataFetchReducer, initialState);
-  const fetchMethod = fetchRequest.fetchMethod || "findAll";
   useEffect(() => {
     //router.push(pathname + "?" + validateBaseParams(fetchRequest.params));
     dispatch({ type: "LOADING_START", payload: null });
@@ -59,9 +60,7 @@ export function useFetchApi<T>(fetchRequest: FetchRequest<T>) {
       .finally(() => {
         dispatch({ type: "LOADING_END", payload: null });
       });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [url])
 
   return {
     ...state,

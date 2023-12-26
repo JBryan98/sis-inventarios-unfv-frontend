@@ -2,6 +2,23 @@ import ThemeRegistry from "@/utils/mui-config/ThemeRegistry";
 import "./globals.css";
 import type { Metadata } from "next";
 import SessionAuthProvider from "@/auth/context/SessionAuthProvider";
+import { Session } from "inspector";
+import { headers } from 'next/headers'
+
+
+async function getMySession(cookie: string): Promise<Session> {
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/session`, {
+    headers: {
+      "Content-Type": "application/json",
+      cookie,
+    }
+  })
+
+  const session = await response.json()
+
+  return Object.keys(session).length > 0 ? session : null
+}
+
 import { headers } from "next/headers";
 import { Session } from "next-auth";
 
@@ -28,8 +45,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getMySession(headers().get("cookie") ?? "");
-
   return (
     <html lang="en">
       <body>
