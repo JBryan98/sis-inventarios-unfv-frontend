@@ -6,19 +6,19 @@ import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReduc
 import MUIDataTable from 'mui-datatables';
 import React, { useReducer } from 'react'
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
-import UbicacionService from '@/services/Ubicacion.service';
+import { useUbicacionService } from '@/services/Ubicacion.service';
 import { Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from 'next/navigation';
 import { Ubicacion } from '@/interface/Ubicacion.interface';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
-import { UbicacionParams } from '@/app/ubicaciones/page';
-import ubicacionService from '@/services/Ubicacion.service';
+import { UbicacionParams } from '@/app/(application)/ubicaciones/page';
 import { UbicacionColumns } from './UbicacionColumns';
 import UbicacionModalForm from '../form/UbicacionModalForm';
 import UbicacionFilterContainer from '../form/filter/UbicacionFilterContainer';
 
 const UbicacionTable = ({urlSearchParams}: {urlSearchParams: UbicacionParams}) => {
+    const ubicacionService = useUbicacionService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Ubicacion>({params: urlSearchParams, service: ubicacionService});
     const router = useRouter();
@@ -78,7 +78,7 @@ const UbicacionTable = ({urlSearchParams}: {urlSearchParams: UbicacionParams}) =
         <DeleteDialogAlert
           modalState={modalState}
           dispatchModal={dispatchModal}
-          service={UbicacionService}
+          service={ubicacionService}
           onDelete={onDelete}
         />
       )}

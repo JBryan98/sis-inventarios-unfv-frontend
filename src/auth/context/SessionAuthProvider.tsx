@@ -9,9 +9,9 @@ interface Props {
     session?: Session;
 }
 
-const SessionAuthProvider = ({ children }: Props) => {
+const SessionAuthProvider = ({ children, session }: Props) => {
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
         {children}
     </SessionProvider>
   )

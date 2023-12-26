@@ -1,17 +1,17 @@
 "use client"
 import EquipoHardwareTable from '@/components/equipos/details/EquipoHardwareTable';
 import EquipoSoftwareTable from '@/components/equipos/details/EquipoSoftwareTable';
-import { EquipoConComponentes } from '@/interface/EquipoConComponentes';
-import equipoService from '@/services/Equipo.service'
+import { useEquipoService } from '@/services/Equipo.service'
 import BotonVolver from '@/utils/components/BotonVolver';
-import { useFetchApi2 } from '@/utils/hooks/useFetchApi';
+import { useFetchById } from '@/utils/hooks/useFetchApi';
 import { Box, Paper, Stack } from '@mui/material'
 import ComputerIcon from '@mui/icons-material/Computer';
 import RoomIcon from "@mui/icons-material/Room";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 
 const EquipoDetalles = ({params}: {params: {id: string}}) => {
-    const {data} = useFetchApi2<EquipoConComponentes>(equipoService.url + "/" + params.id);
+    const equipoService = useEquipoService();
+    const {data} = useFetchById<any>(equipoService, params.id)
     return (
       <Paper sx={{ width: "calc(100%-16px)", padding: 2, display: "flex", flexDirection: "column", gap: 2 }} elevation={2}>
         <Box

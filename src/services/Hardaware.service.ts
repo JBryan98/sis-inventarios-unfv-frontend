@@ -1,10 +1,6 @@
 import { Hardware, HardwareRequest } from "@/interface/Hardware.interface";
-import { GenericCrudServices } from "@/utils/services/GenericService";
+import { useCrudService } from "@/utils/services/useCrudService";
 
-class HardwareService extends GenericCrudServices<Hardware, HardwareRequest>{
-    constructor(){
-        super(`${process.env.NEXT_PUBLIC_API_URL}/hardware`)
-    }
+export const useHardwareService = () => {
+    return useCrudService<Hardware, HardwareRequest>(`${process.env.NEXT_PUBLIC_API_URL}/hardware`)
 }
-const hardwareService = new HardwareService();
-export default hardwareService;

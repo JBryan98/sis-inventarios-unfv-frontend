@@ -8,16 +8,16 @@ import { Grid, IconButton, InputAdornment, Tooltip } from '@mui/material';
 import InputForm from '@/components/ui/form/InputForm';
 import FormButtons from '@/components/ui/form/FormButtons';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
-import modeloService from '@/services/Modelo.service';
+import { useModeloService } from '@/services/Modelo.service';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { Modelo } from '@/interface/Modelo.interface';
-import componenteService from '@/services/Hardaware.service';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { v4 as uuidv4 } from 'uuid';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { HardwareForm, hardwareSchema } from './HardwareValidation';
 import { Hardware, HardwareRequest } from '@/interface/Hardware.interface';
 import { estadoOptions } from '@/utils/constants/Estado';
+import { useHardwareService } from '@/services/Hardaware.service';
 
 interface Props {
     modalState: ModalState;
@@ -26,6 +26,8 @@ interface Props {
   }
 
 const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+    const hardwareService = useHardwareService();
+    const modeloService = useModeloService();
     const { notiSuccess, notiApiResponseError } = useNotification();
     const {control, handleSubmit, formState, setError, setValue, reset } = useForm<HardwareForm>({
         defaultValues: {
@@ -38,7 +40,7 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
 
     useEffect(() => {
       if (modalState.id) {
-        componenteService.findById(modalState.id).then((response) => {
+        hardwareService.findById(modalState.id).then((response) => {
           setValue("serie", response.serie),
             setValue("modelo", response.modelo),
             setValue("estado", response.estado);
@@ -49,7 +51,7 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
 
     const onSubmit = (values: HardwareForm) => {
         if(modalState.id){
-          componenteService.update(modalState.id, values as HardwareRequest)
+          hardwareService.update(modalState.id, values as HardwareRequest)
           .then((response) => {
             onPersist(response, false);
             dispatchModal({type: "CLOSE"})
@@ -64,7 +66,7 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
             })
           })
         }else{
-          componenteService.create(values as HardwareRequest)
+          hardwareService.create(values as HardwareRequest)
           .then((response) => {
             onPersist(response, true);
             dispatchModal({type: "CLOSE"})
@@ -85,7 +87,12 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
       setValue("serie", uuidv4())
     }
 
-    const modelosData = useFetchApi<Modelo>(modeloService.url + "?size=100&page=1&categoria=Hardware&sort=subcategoria.nombre%2Casc");
+    const modelosData = useFetchApi<Modelo>({service: modeloService, params: {
+      size: "100",
+      page: "1",
+      categoria: "Hardware",
+      sort: "subcategoria.nombre,asc"
+    }});
     
 
     return (

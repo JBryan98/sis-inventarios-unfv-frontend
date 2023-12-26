@@ -1,4 +1,4 @@
-import { HardwareParams } from '@/app/hardware/page'
+import { HardwareParams } from '@/app/(application)/hardware/page'
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import FormSelect from '@/components/ui/form/FormSelect';
 import { Marca } from '@/interface/Marca.interface';

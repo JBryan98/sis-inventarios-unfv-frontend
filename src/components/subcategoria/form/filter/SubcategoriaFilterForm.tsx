@@ -1,4 +1,4 @@
-import { SubcategoriaParams } from '@/app/subcategorias/page';
+import { SubcategoriaParams } from '@/app/(application)/subcategorias/page';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { Categoria } from '@/interface/Categoria.interface';
 import FilterContainer from '@/utils/components/FilterContainer';

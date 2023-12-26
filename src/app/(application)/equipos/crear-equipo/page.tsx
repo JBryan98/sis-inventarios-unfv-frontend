@@ -4,8 +4,8 @@ import FormAutocomplete from "@/components/ui/form/FormAutocomplete";
 import { Hardware } from "@/interface/Hardware.interface";
 import { Software } from "@/interface/Software.interface";
 import { equipoReducer, equipoReducerInitialState } from "@/reducer/EquipoReducer";
-import hardwareService from "@/services/Hardaware.service";
-import softwareService from "@/services/Software.service";
+import { useHardwareService } from "@/services/Hardaware.service";
+import { useSoftwareService } from "@/services/Software.service";
 import { useFetchApi } from "@/utils/hooks/useFetchApi";
 import { Box, Button, Card, CardContent, Divider, Grid, Paper, Stack } from "@mui/material";
 import React, { useReducer } from "react";
@@ -15,13 +15,17 @@ import { EquipoRequest } from "@/interface/EquipoConComponentes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { equipoSchema } from "@/components/equipos/form/CrearEquipoValidation";
 import { useRouter } from "next/navigation";
-import equipoService from "@/services/Equipo.service";
+import { useEquipoService } from "@/services/Equipo.service";
 import { useNotification } from "@/utils/hooks/useNotification";
 import BotonVolver from "@/utils/components/BotonVolver";
 import EquipoHardwareTable from "@/components/equipos/details/EquipoHardwareTable";
 import EquipoSoftwareTable from "@/components/equipos/details/EquipoSoftwareTable";
 
 const CrearEquipo = () => {
+  const equipoService = useEquipoService();
+  const hardwareService = useHardwareService();
+  const softwareService = useSoftwareService();
+
   const { notiSuccess, notiApiResponseError } = useNotification();
   const router = useRouter();
   const [state, dispatch] = useReducer(equipoReducer, equipoReducerInitialState);
@@ -72,10 +76,8 @@ const CrearEquipo = () => {
     dispatch({ type: "REMOVER_SOFTWARE", payload: arrayUpdated });
   };
 
-  const softwareData = useFetchApi<Software>(softwareService.url);
-  const hardwareData = useFetchApi<Hardware>(
-    hardwareService.url + "?estado=stock&size=500"
-  );
+  const softwareData = useFetchApi<Software>({service: softwareService, params: {size: "100"}});
+  const hardwareData = useFetchApi<Hardware>({service: hardwareService, params: {estado: "Stock", size: "500"}});
 
   const onSubmit = (values: any) => {
     const finalObj = {

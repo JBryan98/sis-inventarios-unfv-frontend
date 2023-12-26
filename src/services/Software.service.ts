@@ -1,11 +1,6 @@
 import { Software, SoftwareRequest } from "@/interface/Software.interface";
-import { GenericCrudServices } from "@/utils/services/GenericService";
+import { useCrudService } from "@/utils/services/useCrudService";
 
-class SoftwareService extends GenericCrudServices<Software, SoftwareRequest> {
-  constructor() {
-    super(`${process.env.NEXT_PUBLIC_API_URL}/software`);
-  }
+export const useSoftwareService = () => {
+  return useCrudService<Software, SoftwareRequest>(`${process.env.NEXT_PUBLIC_API_URL}/software`);
 }
-
-const softwareService = new SoftwareService();
-export default softwareService;

@@ -2,7 +2,6 @@ import { FieldValues } from "react-hook-form";
 
 export const useForceResetForm = () => {
   const resetValues = (values: FieldValues) => {
-    console.log(values)
     const obj: any = {};
     Object.entries(values).forEach(([key, value]) => {
       const tipo = typeof value;
@@ -25,7 +24,6 @@ export const useForceResetForm = () => {
           break;
       }
     });
-    console.log(obj)
     return obj;
   };
 

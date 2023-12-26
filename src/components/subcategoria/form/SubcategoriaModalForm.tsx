@@ -4,7 +4,7 @@ import React, { Dispatch, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { SubcategoriaForm, subcategoriaSchema } from './SubcategoriaValidation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import subcategoriaService from '@/services/Subcategoria.service';
+import { useSubcategoriaService } from '@/services/Subcategoria.service';
 import ModalForm from '@/components/ui/form/ModalForm';
 import { Grid } from '@mui/material';
 import FormButtons from '@/components/ui/form/FormButtons';
@@ -12,8 +12,8 @@ import InputForm from '@/components/ui/form/InputForm';
 import FormAutocomplete from '@/components/ui/form/FormAutocomplete';
 import { useFetchApi } from '@/utils/hooks/useFetchApi';
 import { Categoria } from '@/interface/Categoria.interface';
-import categoriaService from '@/services/Categoria.service';
 import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReducer';
+import { useCategoriaService } from '@/services/Categoria.service';
 
 interface Props {
     modalState: ModalState,
@@ -22,6 +22,8 @@ interface Props {
   }
 
 const SubcategoriaModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+    const subcategoriaService = useSubcategoriaService();
+    const categoriaService = useCategoriaService();
     const { notiSuccess, notiApiResponseError } = useNotification();
     const {control, handleSubmit, formState, setError, setValue, reset } = useForm<SubcategoriaForm>({
       defaultValues: {
@@ -77,7 +79,7 @@ const SubcategoriaModalForm = ({modalState, dispatchModal, onPersist}: Props) =>
       }
     }
 
-  const categoriaData = useFetchApi<Categoria>(categoriaService.url)  
+  const categoriaData = useFetchApi<Categoria>({service: categoriaService, params: {}})  
   return (
     <ModalForm
       open={modalState.createEditModal}

@@ -14,8 +14,6 @@ const initialState = {
 export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
     const dataFetchReducer = genericFetchDataReducer<T>();
     const [state, dispatch] = useReducer(dataFetchReducer, initialState)
-    const router = useRouter();
-    const pathname = usePathname();
     const searchParams = useSearchParams();
     const fetchMethod = fetchRequest.fetchMethod || "findAll";
     useEffect(() => {
@@ -42,15 +40,19 @@ export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
     }
 }
 
-export function useFetchApi<T>(url: string){
+export function useFetchApi<T>(fetchRequest: FetchRequest<T>) {
   const dataFetchReducer = genericFetchDataReducer<T>();
   const [state, dispatch] = useReducer(dataFetchReducer, initialState);
+  const searchParams = useSearchParams();
+  const fetchMethod = fetchRequest.fetchMethod || "findAll";
   useEffect(() => {
+    //router.push(pathname + "?" + validateBaseParams(fetchRequest.params));
     dispatch({ type: "LOADING_START", payload: null });
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch({ type: "FETCH_SUCCESS", payload: data })
+    fetchRequest.service[fetchMethod as keyof typeof fetchRequest.service](
+      fetchRequest.params
+    )
+      .then((response) => {
+        dispatch({ type: "FETCH_SUCCESS", payload: response });
       })
       .catch((error) => {
         dispatch({ type: "FETCH_ERROR", payload: error });
@@ -58,9 +60,13 @@ export function useFetchApi<T>(url: string){
       .finally(() => {
         dispatch({ type: "LOADING_END", payload: null });
       });
-  }, [url])
 
-  return {...state}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams.toString()]);
+
+  return {
+    ...state,
+  };
 }
 
 export function useFetchApi2<T>(url: string){
@@ -116,4 +122,41 @@ export const useFetchFindAllPromiseAllSettled = (
     error,
     data,
   };
+};
+
+/**
+ * Custom hook para realizar fetch findById() a la API
+ * @param repo Repositorio que tiene el método findById()
+ * @param id Id de la entidad
+ * @returns Un objeto que contiene la data, el estado isLoading y error
+ */
+
+type repo<T> = {
+  findById: (id: string | number) => Promise<T>
+}
+
+export const useFetchById = <T>(repo: repo<T>, id: string | number | null) => {
+  const [data, setData] = useState<T | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (id) {
+        setIsLoading(true);
+        try {
+          const json = await repo.findById(id);
+          setData(json);
+        } catch (error: any) {
+          setError(error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  return { data, setData, isLoading, error };
 };

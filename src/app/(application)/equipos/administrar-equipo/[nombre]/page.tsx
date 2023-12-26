@@ -3,23 +3,27 @@
 import FormAutocomplete from "@/components/ui/form/FormAutocomplete";
 import { Hardware } from "@/interface/Hardware.interface";
 import { Software } from "@/interface/Software.interface";
-import hardwareService from "@/services/Hardaware.service";
-import softwareService from "@/services/Software.service";
-import { useFetchApi, useFetchApi2 } from "@/utils/hooks/useFetchApi";
+import { useHardwareService } from "@/services/Hardaware.service";
+import { useSoftwareService } from "@/services/Software.service";
+import { useFetchApi, useFetchById } from "@/utils/hooks/useFetchApi";
 import { Box, Button, Card, CardContent, Divider, Grid, Paper, Stack } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { EquipoConComponentes, EquipoRequest } from "@/interface/EquipoConComponentes";
+import { EquipoRequest } from "@/interface/EquipoConComponentes";
 import { useRouter } from "next/navigation";
-import equipoService from "@/services/Equipo.service";
+import { useEquipoService } from "@/services/Equipo.service";
 import { useNotification } from "@/utils/hooks/useNotification";
 import EquipoHardwareTable from "@/components/equipos/details/EquipoHardwareTable";
 import EquipoSoftwareTable from "@/components/equipos/details/EquipoSoftwareTable";
 import BotonVolver from "@/utils/components/BotonVolver";
 
 const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
+  const equipoService = useEquipoService();
+  const hardwareService = useHardwareService();
+  const softwareService = useSoftwareService();
+
   const { notiSuccess, notiApiResponseError } = useNotification();
-  const {data, setData} = useFetchApi2<EquipoConComponentes>(equipoService.url + "/" + params.nombre);
+  const {data, setData} = useFetchById<any>(equipoService, params.nombre);
   const router = useRouter();
   const { control, handleSubmit, getValues } = useForm({
     defaultValues: {
@@ -28,10 +32,8 @@ const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
     },
   });
 
-  console.log(data)
 
   const handleAgregar = (values: any) => {
-    console.log(values)
     if (values.hardware) {
       agregarHardawre(values.hardware);
     }
@@ -94,10 +96,8 @@ const AdministrarEquipoPage = ({params}: {params: {nombre: string}}) => {
     }
   };
 
-  const softwareData = useFetchApi<Software>(softwareService.url);
-  const hardwareData = useFetchApi<Hardware>(
-    hardwareService.url + "?estado=stock&size=500"
-  );
+  const softwareData = useFetchApi<Software>({service: softwareService, params: {size: "100"}});
+  const hardwareData = useFetchApi<Hardware>({service: hardwareService, params: {estado: "Stock", size: "500"}});
 
   const onSubmit = (values: any) => {
     equipoService

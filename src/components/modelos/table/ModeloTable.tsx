@@ -1,8 +1,7 @@
 "use client"
 
-import { ModeloParams } from '@/app/modelos/page'
 import { Modelo } from '@/interface/Modelo.interface';
-import modeloService from '@/services/Modelo.service';
+import { useModeloService } from '@/services/Modelo.service';
 import { useFetchUrlApi } from '@/utils/hooks/useFetchApi';
 import { useTableActions } from '@/utils/hooks/useTableActions';
 import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReducer';
@@ -14,8 +13,10 @@ import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import { Stack } from '@mui/material';
 import ModeloFilterContainer from '../form/filter/ModeloFilterContainer';
+import { ModeloParams } from '@/app/(application)/modelos/page';
 
 const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
+    const modeloService = useModeloService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Modelo>({params: urlSearchParams, service: modeloService});
     const { tableActions } = useTableActions(

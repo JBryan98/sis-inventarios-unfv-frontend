@@ -1,8 +1,7 @@
 "use client";
 
-import { UbicacionConEquipos } from "@/interface/Ubicacion.interface";
-import ubicacionService from "@/services/Ubicacion.service";
-import { useFetchApi2 } from "@/utils/hooks/useFetchApi";
+import { useUbicacionService } from "@/services/Ubicacion.service";
+import { useFetchById } from "@/utils/hooks/useFetchApi";
 import { Box, Paper, Stack } from "@mui/material";
 import React from "react";
 import BotonVolver from "@/utils/components/BotonVolver";
@@ -12,9 +11,8 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import RoomIcon from "@mui/icons-material/Room";
 
 const UbicacionDetalles = ({ params }: { params: { id: string } }) => {
-  const { data } = useFetchApi2<UbicacionConEquipos>(
-    ubicacionService.url + "/" + params.id
-  );
+  const ubicacionService = useUbicacionService();
+  const { data } = useFetchById<any>(ubicacionService, params.id);
   return (
     <Paper sx={{ width: "calc(100%-16px)", padding: 2, display: "flex", flexDirection: "column", gap: 2 }} elevation={2}>
       <Box

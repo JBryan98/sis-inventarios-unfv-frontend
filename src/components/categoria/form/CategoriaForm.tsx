@@ -8,7 +8,7 @@ import { CategoriaForm, categoriaSchema } from "./CategoriaValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputForm from "@/components/ui/form/InputForm";
 import FormButtons from '@/components/ui/form/FormButtons';
-import categoriaService from '@/services/Categoria.service';
+import { useCategoriaService } from '@/services/Categoria.service';
 import { useNotification } from '@/utils/hooks/useNotification';
 
 interface Props {
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const CategoriaForm = ({modalState, dispatchModal, onPersist}: Props) => {
+  const categoriaService = useCategoriaService();
   const { notiSuccess, notiApiResponseError } = useNotification();
   const {control, handleSubmit, formState, setError, setValue, reset } = useForm<CategoriaForm>({
     defaultValues: {

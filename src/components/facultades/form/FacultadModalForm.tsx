@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { FacultadForm, facultadSchema } from "./FacultadValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNotification } from "@/utils/hooks/useNotification";
-import facultadService from "@/services/Facultad.service";
+import { useFacultadService } from "@/services/Facultad.service";
 import ModalForm from "@/components/ui/form/ModalForm";
 import { Grid } from "@mui/material";
 import InputForm from "@/components/ui/form/InputForm";
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const FacultadModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
+    const facultadService = useFacultadService();
     const { notiSuccess, notiApiResponseError } = useNotification();
     const { control, handleSubmit, setError, setValue, reset } = useForm<FacultadForm>({
         defaultValues: {

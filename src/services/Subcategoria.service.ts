@@ -1,11 +1,6 @@
 import { Subcategoria, SubcategoriaRequest } from "@/interface/Subcategoria.interface";
-import { GenericCrudServices } from "@/utils/services/GenericService";
+import { useCrudService } from "@/utils/services/useCrudService";
 
-class SubcategoriaService extends GenericCrudServices<Subcategoria, SubcategoriaRequest>{
-    constructor(){
-        super(`${process.env.NEXT_PUBLIC_API_URL}/subcategorias`)
-    }
+export const useSubcategoriaService = () => {
+    return useCrudService<Subcategoria, SubcategoriaRequest>(`${process.env.NEXT_PUBLIC_API_URL}/subcategorias`);
 }
-
-const subcategoriaService = new SubcategoriaService();
-export default subcategoriaService;

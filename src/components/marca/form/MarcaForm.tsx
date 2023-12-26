@@ -4,7 +4,7 @@ import React, { Dispatch, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { MarcaForm, marcaSchema } from './MarcaValidation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import marcaService from '@/services/Marca.service';
+import { useMarcaService } from '@/services/Marca.service';
 import { useNotification } from '@/utils/hooks/useNotification';
 import ModalForm from '@/components/ui/form/ModalForm';
 import { Grid } from '@mui/material';
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const MarcaForm = ({ modalState, dispatchModal, onPersist }: Props) => {
+    const marcaService = useMarcaService();
     const { notiSuccess, notiApiResponseError } = useNotification();
     const {control, handleSubmit, formState, setError, setValue, reset } = useForm<MarcaForm>({
         defaultValues: {

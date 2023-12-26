@@ -6,8 +6,6 @@ import { modalInitialState, modalReducer } from '@/utils/reducers/CrudModalReduc
 import MUIDataTable from 'mui-datatables';
 import React, { useReducer } from 'react'
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
-import { EquipoParams } from '@/app/equipos/page';
-import equipoService from '@/services/Equipo.service';
 import { EquipoColumns } from './EquiposColumns';
 import EquipoModalForm from '../form/EquipoModalForm';
 import { Button, Stack } from "@mui/material";
@@ -16,8 +14,11 @@ import { useRouter } from 'next/navigation';
 import { Equipo } from '@/interface/Equipo.interface';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import EquipoFilterContainer from '../form/filter/EquipoFilterContainer';
+import { EquipoParams } from '@/app/(application)/equipos/page';
+import { useEquipoService } from '@/services/Equipo.service';
 
 const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
+    const equipoService = useEquipoService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Equipo>({params: urlSearchParams, service: equipoService});
     const router = useRouter();
