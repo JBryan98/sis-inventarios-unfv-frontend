@@ -8,20 +8,16 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { sidebarLinks } from './sidebarLinks';
-import Link from 'next/link';
+import { sidebarLinksHandler } from './sidebarLinks';
 import { usePathname } from 'next/navigation';
-import  UNFV_LOGO  from '../../../../public/logo_unfv.jpg'
 import UNFV_LOGO_ANIVERSARIO from '../../../../public/logo_aniversario.png'
 import Image from 'next/image';
 import AccountMenu from '../AccountMenu';
+import SidebarItem from './SidebarItem';
+import { useSession } from 'next-auth/react';
 
 const drawerWidth = 240;
 
@@ -37,6 +33,8 @@ interface Props {
 export default function ResponsiveDrawer(props: Props) {
   const { window, children } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const {data: session} = useSession();
+  const sidebarLinks = sidebarLinksHandler(session!.user.roles)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -50,19 +48,7 @@ export default function ResponsiveDrawer(props: Props) {
       </Toolbar>
       <Divider />
       <List>
-        {sidebarLinks.map((link) => (
-          <Link key={link.label} href={link.href}>
-            <ListItem disablePadding sx={{
-              borderLeft: link.href === pathname ? "4px solid #f07613" : "",
-              backgroundColor: link.href === pathname ? "#fff7ed" : "",
-            }}>
-              <ListItemButton>
-                <ListItemIcon>{link.icon}</ListItemIcon>
-                <ListItemText primary={link.label} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+        {sidebarLinks?.map(link => <SidebarItem key={link.label} item={link} handleDrawerClose={handleDrawerToggle}/>)}
       </List>
       <Divider />
     </div>

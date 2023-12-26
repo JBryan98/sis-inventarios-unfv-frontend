@@ -10,66 +10,121 @@ import AirplayIcon from '@mui/icons-material/Airplay';
 import CategoryIcon from '@mui/icons-material/Category';
 import WorkIcon from '@mui/icons-material/Work';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import GroupIcon from '@mui/icons-material/Group';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { Authority } from "@/auth/interfaces/Authority";
 
-export const sidebarLinks = [
+export interface SidebarLink {
+  href?: string;
+  label: string;
+  icon: JSX.Element;
+  roles: Authority[];
+  children?: {
+    href: string;
+    label: string;
+    icon: JSX.Element;
+    roles: Authority[];
+  }[],
+}
+
+export const sidebarLinks: SidebarLink[] = [
   {
     href: "/",
     label: "Inicio",
     icon: <HomeIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/categorias",
     label: "Categorias",
     icon: <CategoryIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/subcategorias",
     label: "Subcategorias",
-    icon: <WidgetsIcon />
+    icon: <WidgetsIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/marcas",
     label: "Marcas",
     icon: <TurnedInIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/modelos",
     label: "Modelos",
     icon: <GridViewIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "equipos-de-trabajo",
     label: "Equipos de Trabajo",
-    icon: <WorkIcon/>
+    icon: <WorkIcon/>,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/hardware",
     label: "Hardware",
     icon: <BrowserUpdatedIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/software",
     label: "Software",
     icon: <DisplaySettingsIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/equipos",
     label: "Equipos",
     icon: <AirplayIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/facultades",
     label: "Facultades",
     icon: <ApartmentIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/mantenimiento",
     label: "Mantenimientos",
     icon: <HandymanIcon />,
+    roles: ["ADMIN", "USER"]
   },
   {
     href: "/ubicaciones",
     label: "Ubicaciones",
     icon: <RoomIcon />,
+    roles: ["ADMIN", "USER"]
+  },
+  {
+    href: "/auth",
+    label: "Autenticación",
+    icon: <AdminPanelSettingsIcon />,
+    roles: ["ADMIN"],
+    children: [
+      {
+        href: "/auth/usuarios",
+        label: "Usuarios",
+        icon: <GroupIcon />,
+        roles: ["ADMIN"],
+      },
+      {
+        href: "/auth/roles",
+        label: "Roles",
+        icon: <VerifiedUserIcon />,
+        roles: ["ADMIN"],
+      }
+    ]
   },
 ];
+
+export const sidebarLinksHandler = (roles: Authority[]) => {
+  return sidebarLinks.filter(link => {
+    return link.roles.some(rol => roles.some(r => r == rol))
+  })
+}
