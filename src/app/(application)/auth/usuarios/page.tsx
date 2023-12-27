@@ -1,9 +1,18 @@
+import UsuarioTable from '@/auth/components/usuario/table/UsuarioTable';
+import { Pageable } from '@/utils/interface/Pageable';
 import React from 'react'
 
-const page = () => {
+export interface UsuarioParams extends Pageable{
+  referencia: string;
+  rol: string;
+}
+
+const UsuariosPage = ({searchParams}: {searchParams: UsuarioParams}) => {
   return (
-    <div>page</div>
+    <div>
+      <UsuarioTable urlSearchParams={searchParams}/>
+    </div>
   )
 }
 
-export default page
+export default UsuariosPage

@@ -1,4 +1,4 @@
-import { Authority } from "../interfaces/Authority";
+import { Authority } from "../interfaces/Authority.interface";
 import "next-auth"
 import { JWT } from "next-auth/jwt"
 

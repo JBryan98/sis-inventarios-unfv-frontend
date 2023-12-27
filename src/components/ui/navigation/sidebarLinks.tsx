@@ -13,7 +13,7 @@ import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import GroupIcon from '@mui/icons-material/Group';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import { Authority } from "@/auth/interfaces/Authority";
+import { Authority } from "@/auth/interfaces/Authority.interface";
 
 export interface SidebarLink {
   href?: string;
