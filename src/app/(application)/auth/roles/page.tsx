@@ -1,9 +1,17 @@
+import RolTable from '@/auth/components/rol/table/RolTable';
+import { Pageable } from '@/utils/interface/Pageable';
 import React from 'react'
 
-const page = () => {
+export interface RolParams extends Pageable{
+  referencia: string;
+}
+
+const RolPage = ({searchParams}: {searchParams: RolParams}) => {
   return (
-    <div>page</div>
+    <div>
+      <RolTable urlSearchParams={searchParams}/>
+    </div>
   )
 }
 
-export default page
+export default RolPage

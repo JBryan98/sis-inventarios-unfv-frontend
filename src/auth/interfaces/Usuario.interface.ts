@@ -8,3 +8,5 @@ export interface Usuario {
     email: string;
     roles: Rol[]
 }
+
+export type UsuarioRequest = Omit<Usuario, "id">;
