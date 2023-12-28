@@ -6,6 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import EmailIcon from '@mui/icons-material/Email';
 import React from 'react'
+import ChangeMyPasswordModal from '@/auth/components/password/ChangeMyPasswordModal';
 
 const AccountMenu = () => {
   const { data: session, status} = useSession();  
@@ -84,7 +85,7 @@ const AccountMenu = () => {
          <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
            <Avatar
              alt={session?.user.nombreCompleto}
-             src="/gigachad.jpg"
+             src="/avatar.jpg"
            />
            <Typography textAlign="center" variant="button">{session?.user.roles.join(", ")}</Typography>
          </Box>
@@ -119,12 +120,12 @@ const AccountMenu = () => {
          Cerrar Sesión
        </MenuItem>
      </Menu>
-     {/* {changeMyPasswordModal && (
-        <ChangeMyPasswordModalForm
-          changeMyPasswordModal={changeMyPasswordModal}
-          setChangeMyPasswordModal={setChangeMyPasswordModal}
+     {changeMyPasswordModal && (
+        <ChangeMyPasswordModal
+          openChangePassswordModal={changeMyPasswordModal}
+          setChangePassswordModal={setChangeMyPasswordModal}
         />
-      )} */}
+      )}
    </React.Fragment>
  );
 }

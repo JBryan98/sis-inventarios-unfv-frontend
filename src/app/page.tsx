@@ -12,6 +12,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import InputForm from "@/components/ui/form/InputForm";
 import PasswordInput from "@/components/ui/form/PasswordInput";
 import { signIn } from "next-auth/react";
+import "@/utils/validations/YupLocale";
+
 
 const LoginPage = () => {
   const [error, setError] = useState<boolean>(false);
@@ -19,7 +21,7 @@ const LoginPage = () => {
 
   const authSchema = object({
     email: string().email().required().default(""),
-    password: string().trim().min(8).required().default(""),
+    password: string().trim().required().min(8).default(""),
   });
 
   type AuthForm = InferType<typeof authSchema>;
