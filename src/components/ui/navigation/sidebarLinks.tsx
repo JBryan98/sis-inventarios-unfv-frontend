@@ -1,5 +1,5 @@
 import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
-import HomeIcon from "@mui/icons-material/Home";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import TurnedInIcon from "@mui/icons-material/TurnedIn";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import HandymanIcon from "@mui/icons-material/Handyman";
@@ -14,6 +14,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import GroupIcon from '@mui/icons-material/Group';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { Authority } from "@/auth/interfaces/Authority.interface";
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 
 export interface SidebarLink {
   href?: string;
@@ -30,10 +31,30 @@ export interface SidebarLink {
 
 export const sidebarLinks: SidebarLink[] = [
   {
-    href: "/",
-    label: "Inicio",
-    icon: <HomeIcon />,
-    roles: ["ADMIN", "USER"]
+    href: "/dashboard",
+    label: "Dashboard",
+    icon: <DashboardIcon />,
+    roles: ["ADMIN", "USER"],
+    children: [
+      {
+        href: "/dashboard/hardware",
+        label: "Hardware",
+        icon: <DashboardCustomizeIcon />,
+        roles: ["ADMIN", "USER"],
+      },
+      {
+        href: "/dashboard/equipos",
+        label: "Equipos",
+        icon: <DashboardCustomizeIcon />,
+        roles: ["ADMIN", "USER"],
+      },
+      {
+        href: "/dashboard/equipos-de-trabajo",
+        label: "Equipos de trabajo",
+        icon: <DashboardCustomizeIcon />,
+        roles: ["ADMIN", "USER"],
+      }
+    ]
   },
   {
     href: "/categorias",
@@ -60,8 +81,8 @@ export const sidebarLinks: SidebarLink[] = [
     roles: ["ADMIN", "USER"]
   },
   {
-    href: "equipos-de-trabajo",
-    label: "Equipos de Trabajo",
+    href: "/equipos-de-trabajo",
+    label: "Equipos de Trabajos",
     icon: <WorkIcon/>,
     roles: ["ADMIN", "USER"]
   },

@@ -48,7 +48,7 @@ export default function ResponsiveDrawer(props: Props) {
       </Toolbar>
       <Divider />
       <List>
-        {sidebarLinks?.map(link => <SidebarItem key={link.label} item={link} handleDrawerClose={handleDrawerToggle}/>)}
+        {sidebarLinks?.map((link, index) => <SidebarItem key={index} item={link} handleDrawerClose={handleDrawerToggle}/>)}
       </List>
       <Divider />
     </div>

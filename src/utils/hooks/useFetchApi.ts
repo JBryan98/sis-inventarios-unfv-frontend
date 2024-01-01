@@ -67,30 +67,28 @@ export function useFetchApi<T>(fetchRequest: FetchRequest<T>) {
   };
 }
 
-export function useFetchApi2<T>(url: string){
+type SingleFetchRequest<K> = {
+  service: {
+    [key: string]: () => Promise<any>
+  };
+  fetchMethod: keyof K;
+}
+
+export function useFetchData<T, K>(singleFetchRequest: SingleFetchRequest<K>) {
   const [data, setData] = useState<T | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(url);
-        if(!response.ok){
-          throw new Error(response.statusText);
-        }
-        const json = await response.json();
-        setData(json);
-      } catch (error: any) {
-        setError(error);
-      } finally{
-        setIsLoading(false);
-      }
-    }
-    fetchData();
-  }, [url])
+      singleFetchRequest.service[singleFetchRequest.fetchMethod as keyof typeof singleFetchRequest.service]()
+      .then((response) => {
+        setData(response);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setIsLoading(false))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return {data, setData, isLoading, error}
+  return { data, setData, isLoading, error };
 }
 
 export const useFetchFindAllPromiseAllSettled = (

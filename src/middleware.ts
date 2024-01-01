@@ -18,6 +18,7 @@ export default withAuth(
 
 export const config = {
   matcher: [
+    "/dashboard/:path*",
     "/categorias/:path*",
     "/subcategorias/:path*",
     "/marcas/:path*",
