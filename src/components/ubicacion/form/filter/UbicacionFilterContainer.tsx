@@ -27,14 +27,16 @@ const UbicacionFilterContainer = ({modalState, dispatchModal, ubicacionParams}: 
     }
 
     return (
-      <div>
-        <UbicacionFilterForm
-          modalState={modalState}
-          dispatchModal={dispatchModal}
-          ubicacionParams={ubicacionParams}
-          facultades={facultades.data?.content!}
-        />
-      </div>
+      <>
+        {facultades.data && (
+          <UbicacionFilterForm
+            modalState={modalState}
+            dispatchModal={dispatchModal}
+            ubicacionParams={ubicacionParams}
+            facultades={facultades.data?.content!}
+          />
+        )}
+      </>
     );
 }
 

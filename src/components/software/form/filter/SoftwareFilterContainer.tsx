@@ -22,6 +22,7 @@ const SoftwareFilterContainer = ({softwareParams, modalState, dispatchModal}: Pr
       categoria: "Software"
     }});
 
+
     if (subcategorias.isLoading) {
       return <LoadingFilter />;
     }
@@ -31,14 +32,16 @@ const SoftwareFilterContainer = ({softwareParams, modalState, dispatchModal}: Pr
     }
 
     return (
-      <div>
-        <SoftwareFilterForm
-          modalState={modalState}
-          dispatchModal={dispatchModal}
-          softwareParams={softwareParams}
-          subcategorias={subcategorias.data?.content!}
-        />
-      </div>
+      <>
+        {subcategorias.data && (
+          <SoftwareFilterForm
+            modalState={modalState}
+            dispatchModal={dispatchModal}
+            softwareParams={softwareParams}
+            subcategorias={subcategorias.data.content}
+          />
+        )}
+      </>
     );
 }
 

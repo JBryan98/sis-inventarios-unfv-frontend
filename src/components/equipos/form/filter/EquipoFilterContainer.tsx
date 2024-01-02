@@ -26,14 +26,16 @@ const EquipoFilterContainer = ({equipoParams, modalState, dispatchModal}: Props)
       return <ErrorFilter />;
     }
     return (
-      <div>
-        <EquipoFilterForm
-          dispatchModal={dispatchModal}
-          modalState={modalState}
-          equipoParams={equipoParams}
-          ubicaciones={ubicaciones.data?.content!}
-        />
-      </div>
+      <>
+        {ubicaciones.data && (
+          <EquipoFilterForm
+            dispatchModal={dispatchModal}
+            modalState={modalState}
+            equipoParams={equipoParams}
+            ubicaciones={ubicaciones.data?.content!}
+          />
+        )}
+      </>
     );
 }
 

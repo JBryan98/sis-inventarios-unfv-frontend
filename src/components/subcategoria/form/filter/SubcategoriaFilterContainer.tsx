@@ -29,14 +29,16 @@ const SubcategoriaFilterContainer = ({modalState, dispatchModal, subcategoriaPar
         return <ErrorFilter/>
     }
   return (
-    <div>
-      <SubcategoriaFilterForm
-        modalState={modalState}
-        dispatchModal={dispatchModal}
-        subcategoriaParams={subcategoriaParams}
-        categorias={categorias.data?.content!}
-      />
-    </div>
+    <>
+      {categorias.data && (
+        <SubcategoriaFilterForm
+          modalState={modalState}
+          dispatchModal={dispatchModal}
+          subcategoriaParams={subcategoriaParams}
+          categorias={categorias.data?.content!}
+        />
+      )}
+    </>
   );
 }
 
