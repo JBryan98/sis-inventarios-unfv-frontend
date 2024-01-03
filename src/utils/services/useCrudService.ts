@@ -7,15 +7,11 @@ export const useCrudService = <T, C>(url: string) => {
     const bearerToken = "Bearer " + session?.user.token;
     
     async function findAll(params: Record<string, string>): Promise<ApiResponse<T>>{
-        //Si page = undefined y size = undefined
-        if(params.page === undefined){
-          params.page = "1"
-        }
-        if(params.size === undefined){
-          params.size = "10"
-        }
-  
-        const response = await fetch(url + "?" + new URLSearchParams(params), {
+        const response = await fetch(url + "?" + new URLSearchParams({
+          ...params,
+          page: params.page || "1",
+          size: params.size || "10"
+        }), {
           headers: {
               Authorization: bearerToken,
           }

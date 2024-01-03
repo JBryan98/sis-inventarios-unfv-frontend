@@ -7,7 +7,7 @@ import { ModalReducerActions, ModalState } from '@/utils/reducers/CrudModalReduc
 import { Grid } from '@mui/material';
 import React, { Dispatch } from 'react'
 import { useForm } from 'react-hook-form';
-import { object, InferType} from "Yup";
+import { object, InferType, number, string} from "Yup";
 
 interface Props {
     modalState: ModalState;
@@ -20,7 +20,10 @@ const UsuarioFilterForm = ({modalState, dispatchModal, usuarioParams, roles}: Pr
     const { pushParamsToUrl } = useParamsHandler();
 
     const defaultValues = object({
-        rol: object().nullable().default(usuarioParams.rol ? roles.find(r => r.nombre === usuarioParams.rol) : null)
+        rol: object({
+          id: number(),
+          nombre: string()
+        }).nullable().default(usuarioParams.rol ? roles.find(r => r.nombre === usuarioParams.rol) : null)
     })
 
     type RolFilterForm = InferType<typeof defaultValues>;
@@ -29,10 +32,10 @@ const UsuarioFilterForm = ({modalState, dispatchModal, usuarioParams, roles}: Pr
       defaultValues: defaultValues.getDefault(),
     });
 
-    const onSubmit = (values: any) => {
-      pushParamsToUrl({
-        rol: values.rol?.nombre,
-      });
+    const onSubmit = (values: RolFilterForm) => {
+        pushParamsToUrl({
+          rol: values.rol?.nombre || "",
+        });
       dispatchModal({ type: "CLOSE" });
     };
 

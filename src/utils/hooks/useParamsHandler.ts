@@ -1,4 +1,4 @@
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 /***
  * Hook personalizado para manipular los params hacia la URL
  * No se declaro useSearchParams aquí porque es necesario hacer un filtro antes de hacer el push
@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation"
 export const useParamsHandler = () => {
     const router = useRouter();
     const pathname = usePathname();
-
+    const searchParams = useSearchParams();
     /**
      * Método que se encarga de pushear los params hacia la URL
      * @param searchParams Record de strings para enviar a la url
@@ -31,12 +31,12 @@ export const useParamsHandler = () => {
      * Si el param size es igual a 10, no se debe mostrar en la URL
      */
     const handlePageAndSizeParams = (searchParams: Record<string, string>) => {
-        if(searchParams.page === "1"){
-            delete searchParams.page;
-        }
-        if(searchParams.size === "10"){
-            delete searchParams.size;
-        }
+      if (searchParams.page && searchParams.page === "1") {
+        delete searchParams.page;
+      }
+      if (searchParams.size && searchParams.size === "10") {
+        delete searchParams.size;
+      }
     }
 
     /**
@@ -54,15 +54,16 @@ export const useParamsHandler = () => {
      * Método para limpiar los filtros de la url
      * @param params params
      */
-    const cleanFilterParamsFromUrl = (params: Record<string, string>) => {
-      if (Object.keys(params).length > 2) {
-        Object.entries(params).forEach(([key, value]) => {
-          if (key !== "page" && key !== "size") {
-            delete params[key];
-          }
-        });
-        pushParamsToUrl({ ...params, page: "1", size: "10" });
+    const cleanFilterParamsFromUrl = () => {
+      const paramsFromUrl = new URLSearchParams(searchParams);
+      if(paramsFromUrl.size > 0){
+        while(paramsFromUrl.size > 0){
+          paramsFromUrl.forEach((value, key) => {
+            paramsFromUrl.delete(key);
+          });
+        }
       }
+      router.push(`${pathname}?${paramsFromUrl}`)
     };
 
     return {

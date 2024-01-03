@@ -51,7 +51,7 @@ const FilterForm = <TField extends FieldValues>({children, title, modalState, ha
                 startIcon={<FilterAltOffIcon/>}
                 fullWidth
                 onClick={() => {
-                  cleanFilterParamsFromUrl(params);
+                  cleanFilterParamsFromUrl();
                   reset(resetValues(defaultValues));
                 }}
               >
@@ -66,7 +66,7 @@ const FilterForm = <TField extends FieldValues>({children, title, modalState, ha
                 startIcon={<FilterAltOffIcon/>}
                 fullWidth
                 onClick={() => {
-                    cleanFilterParamsFromUrl(params);
+                    cleanFilterParamsFromUrl();
                     reset(resetValues(defaultValues));
                     handleClose();
                 }}

@@ -43,7 +43,7 @@ const FilterContainer = <T extends Pageable, TField extends FieldValues>({ modal
             variant="contained"
             startIcon={<FilterAltOffIcon />}
             onClick={() => {
-              cleanFilterParamsFromUrl(searchParams);
+              cleanFilterParamsFromUrl();
               reset(resetValues(defaultValues));
             }}
             color="secondary"

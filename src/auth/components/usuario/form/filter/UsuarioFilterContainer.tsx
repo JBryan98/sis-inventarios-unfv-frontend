@@ -18,7 +18,6 @@ const UsuarioFilterContainer = ({usuarioParams, modalState, dispatchModal}: Prop
   const rolService = useRolService();
   const roles = useFetchApi<Rol>({service: rolService, params: { size: "100" }});
 
-  console.log(roles.isLoading)
 
   if (roles.isLoading) {
     return <LoadingFilter />;
