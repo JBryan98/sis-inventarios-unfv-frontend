@@ -43,7 +43,7 @@ const EquiposTrabajoFilterForm = ({modalState, dispatchModal, equiposTrabajoPara
             estado: values.estado,
             marca: values.marca?.nombre,
             modelo: values.modelo?.nombre,
-            subcategorias: values.subcategoria?.nombre
+            subcategoria: values.subcategoria?.nombre
         })
         dispatchModal({type: "CLOSE"})
     }
