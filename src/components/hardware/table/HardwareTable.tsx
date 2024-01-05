@@ -19,13 +19,6 @@ const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => 
     const hardwareService = useHardwareService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Hardware>({params: urlSearchParams, service: hardwareService});
-    const { tableActions } = useTableActions(
-        urlSearchParams,
-        dataState.isLoading,
-        dataState.data?.totalElements!,
-        dispatchModal,
-    )
-
     const {setPageAfterDelete, setPageOnPersist} = usePageActionsHandler(urlSearchParams, dataState.data);
 
     const onPersist = (entityPersisted: Hardware, insert: boolean) => {
@@ -38,6 +31,17 @@ const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => 
       }
     };
 
+    const onExportReport = () => {
+      hardwareService.downloadReportExcel(urlSearchParams);
+    }
+
+    const { tableActions } = useTableActions(
+      urlSearchParams,
+      dataState.isLoading,
+      dataState.data?.totalElements!,
+      dispatchModal,
+      onExportReport
+  )
 
     return (
       <Stack flexDirection="column" gap={2}>

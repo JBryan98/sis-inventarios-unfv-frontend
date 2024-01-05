@@ -81,11 +81,35 @@ export const useCrudService = <T, C>(url: string) => {
         });
     }
 
+    async function downloadReportExcel(params: Record<string, string>): Promise<void>{
+      const response = await fetch(url + "/descargar-excel?" + new URLSearchParams(params), {
+        headers: {
+          Authorization: bearerToken,
+        }
+      })
+      if(response.status !== HttpStatus.OK){
+        const error = await response.json();
+        throw error;
+      }
+      const headers = response.headers.get("Content-Disposition");
+      const filename = headers?.split(";")[1].slice(10);
+      const blob = await response.blob();
+      const donwloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = donwloadUrl;
+      a.download = filename!;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(donwloadUrl);
+    }
+
     return {
         findAll,
         findById,
         update,
         create,
-        deleteById
+        deleteById,
+        downloadReportExcel
     }
 }

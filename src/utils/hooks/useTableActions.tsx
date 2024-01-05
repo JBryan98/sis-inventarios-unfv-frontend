@@ -4,17 +4,20 @@ import { PAGEABLE_DEFAULT_VALUES } from "../constants/QueryParams";
 import { MUIDataTableOptions, MUIDataTableState } from "mui-datatables";
 import { options } from "@/utils/DataTableConfig";
 import Spinner from "@/components/ui/Spinner";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CustomTableFooter from "../components/CustomTableFooter";
 import { Pageable } from "../interface/Pageable";
 import { useParamsHandler } from "./useParamsHandler";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export const useTableActions = <T extends Pageable>(
   params: T,
   isLoading: boolean,
   totalElements: number,
-  dispatchModal: Dispatch<ModalReducerActions>
+  dispatchModal: Dispatch<ModalReducerActions>,
+  onExportReport?: () => void
 ) => {
   const { size } = PAGEABLE_DEFAULT_VALUES;
   const {pushParamsToUrl} = useParamsHandler();
@@ -62,17 +65,30 @@ export const useTableActions = <T extends Pageable>(
     rowsPerPage: +params.size || 10,
     customToolbar: () => {
       return (
-        <>
+        <Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
+          {onExportReport && (
+            <Button
+              variant="contained"
+              color="warning"
+              startIcon={<FileDownloadIcon />}
+              onClick={() => {
+                onExportReport();
+              }}
+            >
+              Exportar
+            </Button>
+          )}
           <Button
             variant="contained"
             color="success"
             onClick={() => {
               dispatchModal({ type: "CREATE" });
             }}
+            startIcon={<AddCircleIcon />}
           >
-            <AddIcon /> Nuevo
+            Nuevo
           </Button>
-        </>
+        </Box>
       );
     },
     customFooter: (rowCount: number, page: number, rowsPerPage: number) => (
