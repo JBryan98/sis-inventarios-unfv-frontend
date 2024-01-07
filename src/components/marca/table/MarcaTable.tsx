@@ -17,12 +17,6 @@ const MarcaTable = ({urlSearchParams}: {urlSearchParams: MarcaParams}) => {
     const marcaService = useMarcaService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Marca>({params: urlSearchParams, service: marcaService});
-    const { tableActions } = useTableActions(
-        urlSearchParams,
-        dataState.isLoading,
-        dataState.data?.totalElements!,
-        dispatchModal,
-    )
 
     const {setPageAfterDelete, setPageOnPersist} = usePageActionsHandler(urlSearchParams, dataState.data);
 
@@ -36,7 +30,18 @@ const MarcaTable = ({urlSearchParams}: {urlSearchParams: MarcaParams}) => {
           setPageAfterDelete(modalState.id!, "nombre");
         }
       };
+
+      const onExportReport = () => {
+        marcaService.downloadReportExcel(urlSearchParams);
+      }
   
+      const { tableActions } = useTableActions(
+        urlSearchParams,
+        dataState.isLoading,
+        dataState.data?.totalElements!,
+        dispatchModal,
+        onExportReport
+    )
 
   return (
     <div>

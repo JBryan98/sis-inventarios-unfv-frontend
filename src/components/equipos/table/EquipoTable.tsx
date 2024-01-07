@@ -8,14 +8,15 @@ import React, { useReducer } from 'react'
 import DeleteDialogAlert from '@/components/ui/table/DeleteDialogAlert';
 import { EquipoColumns } from './EquiposColumns';
 import EquipoModalForm from '../form/EquipoModalForm';
-import { Button, Stack } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, Stack } from "@mui/material";
 import { useRouter } from 'next/navigation';
 import { Equipo } from '@/interface/Equipo.interface';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import EquipoFilterContainer from '../form/filter/EquipoFilterContainer';
 import { EquipoParams } from '@/app/(application)/equipos/page';
 import { useEquipoService } from '@/services/Equipo.service';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
     const equipoService = useEquipoService();
@@ -41,21 +42,36 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
       }
     };
 
+    const onExportReport = () => {
+      equipoService.downloadReportExcel(urlSearchParams);
+    }
+
     const equipoTableActions = {
       ...tableActions,
       customToolbar: () => {
         return (
-          <>
+          <Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>
             <Button
               variant="contained"
-              color="success"
+              color="warning"
+              startIcon={<FileDownloadIcon />}
               onClick={() => {
-                router.push("/equipos/crear-equipo")
+                onExportReport();
               }}
             >
-              <AddIcon /> Nuevo
+              Exportar
             </Button>
-          </>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              router.push("/equipos/crear-equipo")
+            }}
+            startIcon={<AddCircleIcon />}
+          >
+            Nuevo
+          </Button>
+        </Box>
         );
       },
     }

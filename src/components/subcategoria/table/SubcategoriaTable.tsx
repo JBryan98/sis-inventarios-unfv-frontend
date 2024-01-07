@@ -19,12 +19,6 @@ const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaPara
     const subcategoriaService = useSubcategoriaService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Subcategoria>({params: urlSearchParams, service: subcategoriaService});
-    const { tableActions } = useTableActions(
-        urlSearchParams,
-        dataState.isLoading,
-        dataState.data?.totalElements!,
-        dispatchModal,
-    )
 
     const {setPageAfterDelete, setPageOnPersist} = usePageActionsHandler(urlSearchParams, dataState.data);
 
@@ -37,6 +31,18 @@ const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaPara
         setPageAfterDelete(modalState.id!, "nombre");
       }
     };
+
+    const onExportReport = () => {
+      subcategoriaService.downloadReportExcel(urlSearchParams);
+    }
+
+    const { tableActions } = useTableActions(
+      urlSearchParams,
+      dataState.isLoading,
+      dataState.data?.totalElements!,
+      dispatchModal,
+      onExportReport
+  )
 
   return (
     <Stack spacing={2}>
