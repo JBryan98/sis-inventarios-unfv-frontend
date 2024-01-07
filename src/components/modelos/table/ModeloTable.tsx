@@ -19,12 +19,6 @@ const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
     const modeloService = useModeloService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<Modelo>({params: urlSearchParams, service: modeloService});
-    const { tableActions } = useTableActions(
-      urlSearchParams,
-      dataState.isLoading,
-      dataState.data?.totalElements!,
-      dispatchModal
-      );
     const {setPageAfterDelete, setPageOnPersist} = usePageActionsHandler(urlSearchParams, dataState.data);
     const onPersist = (entityPersisted: Modelo, insert: boolean) => {
       setPageOnPersist(insert, entityPersisted);
@@ -35,6 +29,18 @@ const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
         setPageAfterDelete(modalState.id!, "id");
       }
     };
+
+    const onExportReport = () => {
+      modeloService.downloadReportExcel(urlSearchParams)
+    }
+
+    const { tableActions } = useTableActions(
+      urlSearchParams,
+      dataState.isLoading,
+      dataState.data?.totalElements!,
+      dispatchModal,
+      onExportReport
+    );
   
   return (
     <Stack flexDirection="column" gap={2}>

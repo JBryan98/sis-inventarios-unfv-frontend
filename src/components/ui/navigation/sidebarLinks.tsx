@@ -82,7 +82,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     href: "/equipos-de-trabajo",
-    label: "Equipos de Trabajos",
+    label: "Equipos de Trabajo",
     icon: <WorkIcon/>,
     roles: ["ADMIN", "USER"]
   },

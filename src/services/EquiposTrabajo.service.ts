@@ -2,5 +2,5 @@ import { EquiposTrabajo, EquiposTrabajoRequest } from "@/interface/EquiposTrabaj
 import { useCrudService } from "@/utils/services/useCrudService";
 
 export const useEquiposTrabajoService = () => {
-    return useCrudService<EquiposTrabajo, EquiposTrabajoRequest>(`${process.env.NEXT_PUBLIC_API_URL}/equiposTrabajo`);
+    return useCrudService<EquiposTrabajo, EquiposTrabajoRequest>(`${process.env.NEXT_PUBLIC_API_URL}/equipos-de-trabajo`);
 }

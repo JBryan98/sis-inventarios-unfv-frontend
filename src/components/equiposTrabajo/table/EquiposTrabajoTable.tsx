@@ -19,12 +19,6 @@ const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajo
     const equiposTrabajoService = useEquiposTrabajoService();
     const [modalState, dispatchModal ] = useReducer(modalReducer, modalInitialState);
     const dataState = useFetchUrlApi<EquiposTrabajo>({params: urlSearchParams, service: equiposTrabajoService});
-    const { tableActions } = useTableActions(
-        urlSearchParams,
-        dataState.isLoading,
-        dataState.data?.totalElements!,
-        dispatchModal,
-    )
 
     const {setPageAfterDelete, setPageOnPersist} = usePageActionsHandler(urlSearchParams, dataState.data);
 
@@ -37,6 +31,18 @@ const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajo
         setPageAfterDelete(modalState.id!, "serie");
       }
     };
+
+    const onExportReport = () => {
+      equiposTrabajoService.downloadReportExcel(urlSearchParams);
+    }
+
+    const { tableActions } = useTableActions(
+      urlSearchParams,
+      dataState.isLoading,
+      dataState.data?.totalElements!,
+      dispatchModal,
+      onExportReport
+  )
   
   
     return (

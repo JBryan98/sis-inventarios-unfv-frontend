@@ -23,7 +23,7 @@ export const config = {
     "/subcategorias/:path*",
     "/marcas/:path*",
     "/modelos/:path*",
-    "/equipos-trabajo/:path*",
+    "/equipos-de-trabajo/:path*",
     "/equipos/:path*",
     "/hardware/:path*",
     "/software/:path*",
