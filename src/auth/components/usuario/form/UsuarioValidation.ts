@@ -1,13 +1,13 @@
-import { InferType, string, object, array } from "Yup";
-import "@/utils/validations/YupLocale";
+import { InferType, string, object, array, number } from "Yup";
 import "@/utils/validations/YupCustomMethods";
+import "@/utils/validations/YupLocale";
 
 const baseSchema = {
     nombres: string().trim().required(),
     apellidos: string().trim().required(),
-    dni: string().numeric().min(8).required(),
+    dni: string().required().numeric().min(8).max(8),
     email: string().email().required(),
-    roles: array().required(),
+    roles: array().min(1, "Debe elegir por lo menos un rol").required("Campo obligatorio"),
 }
 
 export const crearUsuarioSchema = object({
