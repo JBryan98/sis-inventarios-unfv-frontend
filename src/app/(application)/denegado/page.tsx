@@ -1,6 +1,11 @@
 import { Box, Container, Paper, Typography } from '@mui/material'
 import GppBadIcon from '@mui/icons-material/GppBad';
 import React from 'react'
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Error",
+}
 
 const AccessDeniedPage = () => {
   return (
