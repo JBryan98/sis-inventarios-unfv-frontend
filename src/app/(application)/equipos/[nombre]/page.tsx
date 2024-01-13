@@ -1,9 +1,9 @@
-import React from "react";
-import AdministrarEquipoForm from "@/components/equipos/administracion/AdministrarEquipoForm";
-import { EquipoConComponentes } from "@/interface/EquipoConComponentes";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { Metadata } from "next";
+
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
+import { EquipoConComponentes } from '@/interface/EquipoConComponentes';
+import EquipoDetails from '@/components/equipos/details/EquipoDetails';
+import { Metadata } from 'next';
 
 const getEquipo = async (nombre: string): Promise<EquipoConComponentes> => {
   const session = await getServerSession(authOptions);
@@ -27,16 +27,13 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const equipo = await getEquipo(params.nombre);
   return {
-    title: `Administrar Equipo ${equipo.nombre}`,
+    title: `Detalles del Equipo ${equipo.nombre}`,
   };
 }
 
-const AdministrarEquipoPage = async ({params}: Props) => {
+const EquipoDetallesPage = async ({ params }: Props) => {
   const data = await getEquipo(params.nombre);
-
-  return (
-    <AdministrarEquipoForm equipo={data}/>
-  );
+  return <EquipoDetails data={data} />;
 };
 
-export default AdministrarEquipoPage;
+export default EquipoDetallesPage;
