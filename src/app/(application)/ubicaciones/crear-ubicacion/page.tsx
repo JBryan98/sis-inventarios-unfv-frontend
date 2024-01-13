@@ -32,7 +32,7 @@ const CrearUbicacion = () => {
     const { notiSuccess, notiApiResponseError } = useNotification();
     const router = useRouter();
     const [state, dispatch] = useReducer(ubicacionReducer, ubicacionReducerInitialState);
-    const { control, handleSubmit, setError, setValue, reset, getValues } = useForm<CrearUbicacionForm>({
+    const { control, handleSubmit, getValues } = useForm<CrearUbicacionForm>({
         defaultValues: {
           nombre: "",
           facultad: undefined,

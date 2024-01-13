@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@mui/material";
 import KeyboardReturnSharpIcon from "@mui/icons-material/KeyboardReturnSharp";
 import React from "react";
