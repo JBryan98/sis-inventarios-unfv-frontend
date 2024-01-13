@@ -1,3 +1,5 @@
+"use client"
+
 import { Avatar, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react'
 
@@ -9,7 +11,7 @@ interface Props {
   iconBackgroundColor: string;
 }
 
-const DashboardCard = ({title, subtitle, icon, cardBackgroundColor, iconBackgroundColor}: Props) => {
+const DashboardCard = ({ title, subtitle, icon, cardBackgroundColor, iconBackgroundColor }: Props) => {
   return (
     <Card
       elevation={2}
@@ -20,7 +22,7 @@ const DashboardCard = ({title, subtitle, icon, cardBackgroundColor, iconBackgrou
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "8px"
+        padding: "8px",
       }}
     >
       <CardContent>
@@ -28,8 +30,10 @@ const DashboardCard = ({title, subtitle, icon, cardBackgroundColor, iconBackgrou
         <Typography variant="body1">{subtitle}</Typography>
       </CardContent>
       <CardMedia>
-        <Avatar sx={{ bgcolor: iconBackgroundColor, height: "72px", width: "72px"}}>
-            {icon}
+        <Avatar
+          sx={{ bgcolor: iconBackgroundColor, height: "72px", width: "72px" }}
+        >
+          {icon}
         </Avatar>
       </CardMedia>
     </Card>

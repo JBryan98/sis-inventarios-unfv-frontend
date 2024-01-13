@@ -1,3 +1,5 @@
+"use client"
+
 import { Top5ByFacultadesByEquipoCount } from '@/interface/Dashboard.interface'
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@mui/material'
 import React from 'react'

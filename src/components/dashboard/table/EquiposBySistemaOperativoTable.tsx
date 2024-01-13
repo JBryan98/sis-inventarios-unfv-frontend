@@ -1,13 +1,15 @@
+"use client"
+
 import { EquiposCountBySistemaOperativo } from '@/interface/Dashboard.interface';
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 
 interface Props {
-    data: EquiposCountBySistemaOperativo[] | undefined;
-    title: string;
-    subtitle: string;
+  data: EquiposCountBySistemaOperativo[];
+  title: string;
+  subtitle: string;
 }
-const EquiposBySistemaOperativoTable = ({data, title, subtitle}: Props) => {
+const EquiposBySistemaOperativoTable = ({ data, title, subtitle }: Props) => {
   return (
     <Paper elevation={2}>
       <Box sx={{ paddingX: "16px", paddingY: "10px" }}>
@@ -32,7 +34,8 @@ const EquiposBySistemaOperativoTable = ({data, title, subtitle}: Props) => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Paper>  )
-}
+    </Paper>
+  );
+};
 
-export default EquiposBySistemaOperativoTable
+export default EquiposBySistemaOperativoTable;

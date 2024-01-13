@@ -1,56 +1,56 @@
-import { EquiposDashboard, EquiposTrabajoDashboard, HardwareDashboard } from "@/interface/Dashboard.interface";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import {
+  EquiposDashboard,
+  EquiposTrabajoDashboard,
+  HardwareDashboard,
+} from "@/interface/Dashboard.interface";
 import { HttpStatus } from "@/utils/constants/HttpResponse";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 
-export const useDashboardService = () => {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/dashboard`;
-    const {data: session} = useSession();
+const url = `${process.env.NEXT_PUBLIC_API_URL}/dashboard`;
 
-    async function getHardwareDashboard(): Promise<HardwareDashboard>{
-        const response = await fetch(url + "/hardware", {
-            headers: {
-                Authorization: "Bearer " + session?.user.token
-            }
-        });
-        if(response.status !== HttpStatus.OK){
-            const error = await response.json();
-            throw error;
-        }
-        const data = await response.json();
-        return data;
-    }
+export async function getHardwareDashboard(): Promise<HardwareDashboard> {
+  const session = await getServerSession(authOptions);
+  const response = await fetch(url + "/hardware", {
+    headers: {
+      Authorization: "Bearer " + session?.user.token,
+    },
+  });
+  if (response.status !== HttpStatus.OK) {
+    const error = await response.json();
+    throw error;
+  }
+  const data = await response.json();
+  return data;
+}
 
-    async function getEquiposTrabajoDashboard(): Promise<EquiposTrabajoDashboard>{
-        const response = await fetch(url + "/equipos-de-trabajo", {
-            headers: {
-                Authorization: "Bearer " + session?.user.token
-            }
-        });
-        if(response.status !== HttpStatus.OK){
-            const error = await response.json();
-            throw error;
-        }
-        const data = await response.json();
-        return data;
-    }
+export async function getEquiposTrabajoDashboard(): Promise<EquiposTrabajoDashboard> {
+  const session = await getServerSession(authOptions);
+  const response = await fetch(url + "/equipos-de-trabajo", {
+    headers: {
+      Authorization: "Bearer " + session?.user.token,
+    },
+  });
+  if (response.status !== HttpStatus.OK) {
+    const error = await response.json();
+    throw error;
+  }
+  const data = await response.json();
+  return data;
+}
 
-    async function getEquiposDasboard(): Promise<EquiposDashboard>{
-        const response = await fetch(url + "/equipos", {
-            headers: {
-                Authorization: "Bearer " + session?.user.token
-            }
-        });
-        if(response.status !== HttpStatus.OK){
-            const error = await response.json();
-            throw error;
-        }
-        const data = await response.json();
-        return data;
-    }
+export async function getEquiposDasboard(): Promise<EquiposDashboard> {
+  const session = await getServerSession(authOptions);
 
-    return {
-        getHardwareDashboard,
-        getEquiposTrabajoDashboard,
-        getEquiposDasboard
-    }
+  const response = await fetch(url + "/equipos", {
+    headers: {
+      Authorization: "Bearer " + session?.user.token,
+    },
+  });
+  if (response.status !== HttpStatus.OK) {
+    const error = await response.json();
+    throw error;
+  }
+  const data = await response.json();
+  return data;
 }

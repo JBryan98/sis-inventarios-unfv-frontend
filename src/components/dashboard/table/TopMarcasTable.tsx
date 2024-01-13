@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@mui/material'
 import { Top5ByMarca } from '@/interface/Dashboard.interface';
