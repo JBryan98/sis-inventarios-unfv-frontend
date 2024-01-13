@@ -57,7 +57,7 @@ const LoginPage = () => {
     >
       <Box component={Grid} item lg={8} display={{ xs: "none", lg: "block" }}>
         <Image
-          src={"/UNFV_FIIS.png"}
+          src={"/UNFV_FIIS.jpg"}
           alt="LOGIN_IMG"
           width={1920}
           height={1080}
