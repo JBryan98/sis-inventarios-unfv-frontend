@@ -8,6 +8,7 @@ import Link from "next/link";
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { useRouter } from "next/navigation";
 import EstadoChip from "@/components/ui/chip/EstadoChip";
+import { Estado } from "@/utils/constants/Estado";
 
 export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
   const router = useRouter();
@@ -31,7 +32,7 @@ export const EquipoColumns = (dispatchModal: Dispatch<ModalReducerActions>) => {
       label: "ESTADO",
       options: {
         sort: true,
-        customBodyRender: (value: string, tableMeta: MUIDataTableMeta) => (
+        customBodyRender: (value: Estado, tableMeta: MUIDataTableMeta) => (
           <EstadoChip label={value}/>
         )
       },

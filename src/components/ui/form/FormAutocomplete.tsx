@@ -44,7 +44,7 @@ const FormAutocomplete = <T, TField extends FieldValues>({control, label, fetchD
           loading={fetchData?.isLoading}
           options={fetchData?.data?.content || data || []}
           getOptionLabel={optionLabel}
-          isOptionEqualToValue={(option, value) => optionId(option) === optionId(value)}
+          isOptionEqualToValue={(option: T, value) => optionId(option) === optionId(value)}
           onChange={(_, value) => {
             onChange(value);
           }}

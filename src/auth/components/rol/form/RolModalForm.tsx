@@ -1,3 +1,4 @@
+import { Authority } from '@/auth/interfaces/Authority.interface';
 import { Rol } from '@/auth/interfaces/Rol.interface';
 import FormButtons from '@/components/ui/form/FormButtons';
 import InputForm from '@/components/ui/form/InputForm';
@@ -23,7 +24,7 @@ const RolModalForm = ({ modalState, dispatchModal, onPersist}: Props) => {
     const { notiSuccess, notiApiResponseError } = useNotification();
 
     const rolSchema = object({
-        nombre: string().trim().required().default("")
+        nombre: string().oneOf<Authority>(["ADMIN", "USER"]).trim().required().default(undefined)
     })
 
     type RolForm = InferType<typeof rolSchema>;

@@ -1,10 +1,11 @@
+import { Estado } from "@/utils/constants/Estado";
 import { Equipo } from "./Equipo.interface";
 import { Modelo } from "./Modelo.interface";
 
 export interface Hardware{
     id: number;
     serie: string;
-    estado: string;
+    estado: Estado;
     modelo: Modelo;
     equipo: Equipo | null;
 }
