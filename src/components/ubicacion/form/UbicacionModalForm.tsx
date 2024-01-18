@@ -44,7 +44,6 @@ const UbicacionModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
   }, [modalState.id]);
 
   const onSubmit = (values: EditarUbicacionForm) => {
-    alert(JSON.stringify(values, null, 2))
     if(modalState.id){
       ubicacionService
       .update(modalState.id, values as UbicacionRequest)

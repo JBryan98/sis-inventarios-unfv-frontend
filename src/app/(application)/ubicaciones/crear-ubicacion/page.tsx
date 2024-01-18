@@ -83,7 +83,6 @@ const CrearUbicacion = () => {
           equipos: state.equipos,
           equiposTrabajo: state.equiposTrabajo,
         };
-        alert(JSON.stringify(finalObj, null, 2))
         ubicacionService
           .create(finalObj as UbicacionRequest)
           .then(() => {

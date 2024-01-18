@@ -85,7 +85,6 @@ const CrearEquipo = () => {
       hardware: state.hardware,
       software: state.software
     }
-    alert(JSON.stringify({finalObj}, null, 2))
     equipoService
     .create(finalObj as EquipoRequest)
     .then(() => {
