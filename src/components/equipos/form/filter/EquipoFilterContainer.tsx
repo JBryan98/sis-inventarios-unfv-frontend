@@ -16,7 +16,7 @@ interface Props {
 
 const EquipoFilterContainer = ({equipoParams, modalState, dispatchModal}: Props) => {
     const ubicacionService = useUbicacionService();
-    const ubicaciones = useFetchApi<Ubicacion>({service: ubicacionService, params: {size: "100"}})
+    const ubicaciones = useFetchApi<Ubicacion>({service: ubicacionService, params: {size: "999"}})
 
     if (ubicaciones.isLoading) {
       return <LoadingFilter />;

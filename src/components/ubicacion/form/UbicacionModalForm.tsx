@@ -79,7 +79,7 @@ const UbicacionModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     }
   }
 
-  const facultadData = useFetchApi<Facultad>({service: facultadService, params: {size: "100", page: "1"}})
+  const facultadData = useFetchApi<Facultad>({service: facultadService, params: {size: "999", page: "1"}})
 
   return (
     <ModalForm

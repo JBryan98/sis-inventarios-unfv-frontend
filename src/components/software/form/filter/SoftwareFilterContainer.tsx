@@ -17,7 +17,7 @@ interface Props {
 const SoftwareFilterContainer = ({softwareParams, modalState, dispatchModal}: Props) => {
     const subcategoriaService = useSubcategoriaService();
     const subcategorias = useFetchApi<Subcategoria>({service: subcategoriaService, params: {
-      size: "100",
+      size: "999",
       page: "1",
       categoria: "Software"
     }});

@@ -78,7 +78,7 @@ const SoftwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     }
 
     const subcategoriaData = useFetchApi<Subcategoria>({service: subcategoriaService, params: {
-      size: "100",
+      size: "999",
       page: "1",
       categoria: "Software"
     }});

@@ -24,15 +24,15 @@ const HardwareFilterContainer = ({hardwareParams, modalState, dispatchModal}: Pr
     const fetchFilter = useFetchFindAllPromiseAllSettled([
       () =>
         modeloService.findAll({
-          size: "100",
+          size: "999",
           page: "1",
           categoria: "Hardware",
           sort: "subcategoria.nombre,asc",
         }),
-      () => marcaService.findAll({ size: "100" }),
+      () => marcaService.findAll({ size: "999" }),
       () =>
         subcategoriaService.findAll({
-          size: "100",
+          size: "999",
           categoria: "Hardware",
         }),
     ]);

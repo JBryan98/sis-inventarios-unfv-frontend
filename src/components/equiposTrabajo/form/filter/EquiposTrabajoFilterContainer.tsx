@@ -21,14 +21,14 @@ const EquiposTrabajoFilterContainer = ({equiposTrabajoParams, modalState, dispat
     const subcategoriaService = useSubcategoriaService();
     const fetchFilter = useFetchFindAllPromiseAllSettled([
       () => modeloService.findAll({
-          size: "100",
+          size: "999",
           page: "1",
           categoria: "Equipos de Trabajo",
           sort: "subcategoria.nombre,asc",
         }),
-      () => marcaService.findAll({ size: "100" }),
+      () => marcaService.findAll({ size: "999" }),
       () => subcategoriaService.findAll({
-          size: "100",
+          size: "999",
           categoria: "Equipos de Trabajo",
         }),
     ]);

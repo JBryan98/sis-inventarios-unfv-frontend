@@ -78,9 +78,9 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Sistema de inventarios de TI UNFV
+            Sistema de Control De Inventarios de Equipos de TI
           </Typography>
-          <AccountMenu/>
+          <AccountMenu />
         </Toolbar>
       </AppBar>
       <Box

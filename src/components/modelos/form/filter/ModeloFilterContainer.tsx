@@ -21,9 +21,9 @@ const ModeloFilterContainer = ({modeloParams, modalState, dispatchModal}: Props)
     const categoriaService = useCategoriaService();
     
     const fetchFilter = useFetchFindAllPromiseAllSettled([
-      () => marcaService.findAll({ size: "100" }),
-      () => subcategoriaService.findAll({ size: "100" }),
-      () => categoriaService.findAll({ size: "100" }),
+      () => marcaService.findAll({ size: "999" }),
+      () => subcategoriaService.findAll({ size: "999" }),
+      () => categoriaService.findAll({ size: "999" }),
     ]);
 
     if (fetchFilter.isLoading) {

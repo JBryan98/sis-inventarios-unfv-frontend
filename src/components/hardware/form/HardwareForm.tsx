@@ -88,7 +88,7 @@ const HardwareModalForm = ({modalState, dispatchModal, onPersist}: Props) => {
     }
 
     const modelosData = useFetchApi<Modelo>({service: modeloService, params: {
-      size: "100",
+      size: "999",
       page: "1",
       categoria: "Hardware",
       sort: "subcategoria.nombre,asc"

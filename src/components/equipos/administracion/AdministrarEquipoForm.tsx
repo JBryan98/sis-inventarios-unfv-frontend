@@ -97,7 +97,7 @@ const AdministrarEquipoForm = ({ equipo }: { equipo: EquipoConComponentes }) => 
     };
   
     const softwareData = useFetchApi<Software>({service: softwareService, params: {size: "100"}});
-    const hardwareData = useFetchApi<Hardware>({service: hardwareService, params: {estado: "Stock", size: "500"}});
+    const hardwareData = useFetchApi<Hardware>({service: hardwareService, params: {estado: "Stock", size: "999"}});
   
     const onSubmit = (values: any) => {
       equipoService

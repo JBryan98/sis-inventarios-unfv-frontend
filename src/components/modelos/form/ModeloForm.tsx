@@ -92,7 +92,7 @@ const ModeloForm = ({modalState, dispatchModal, onPersist}: Props) => {
 
     const params: Record<string, string> = {
         page: "1",
-        size: "100",
+        size: "999",
     }
     const subcategoriaData = useFetchApi<Subcategoria>({service: subcategoriaService, params: params})
     const marcaData = useFetchApi<Marca>({service: marcaService, params: params})

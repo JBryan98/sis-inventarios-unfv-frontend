@@ -94,9 +94,9 @@ const CrearUbicacion = () => {
           });
       };
 
-      const equiposData = useFetchApi<Equipo>({service: equipoService, params: {estado: "Stock", size: "500"}})
-      const equiposTrabajoData = useFetchApi<EquiposTrabajo>({service: equiposTrabajoService, params: {estado: "Stock", size: "500"}})
-      const facultadData = useFetchApi<Facultad>({service: facultadService, params: {size: "100"}})
+      const equiposData = useFetchApi<Equipo>({service: equipoService, params: {estado: "Stock", size: "999"}})
+      const equiposTrabajoData = useFetchApi<EquiposTrabajo>({service: equiposTrabajoService, params: {estado: "Stock", size: "999"}})
+      const facultadData = useFetchApi<Facultad>({service: facultadService, params: {size: "999"}})
 
   return (
     <Container>

@@ -110,12 +110,6 @@ export const sidebarLinks: SidebarLink[] = [
     icon: <ApartmentIcon />,
     roles: ["ADMIN", "USER"]
   },
-  // {
-  //   href: "/mantenimiento",
-  //   label: "Mantenimientos",
-  //   icon: <HandymanIcon />,
-  //   roles: ["ADMIN", "USER"]
-  // },
   {
     href: "/ubicaciones",
     label: "Ubicaciones",

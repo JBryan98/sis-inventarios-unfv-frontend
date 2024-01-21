@@ -96,8 +96,8 @@ const AdministrarUbicacionForm = ({ ubicacion }: { ubicacion: UbicacionConEquipo
       }
     }
 
-    const equiposData = useFetchApi<Equipo>({service: equipoService, params: {size: "100", estado: "Stock"}});
-    const equiposTrabajoData = useFetchApi<EquiposTrabajo>({service: equiposTrabajoService, params: {size: "100", estado: "Stock"}});
+    const equiposData = useFetchApi<Equipo>({service: equipoService, params: {size: "999", estado: "Stock"}});
+    const equiposTrabajoData = useFetchApi<EquiposTrabajo>({service: equiposTrabajoService, params: {size: "999", estado: "Stock"}});
 
     const onSubmit = (values: any) => {
       ubicacionService.administrarUbicacion(data)

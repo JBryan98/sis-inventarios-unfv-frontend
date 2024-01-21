@@ -16,7 +16,7 @@ interface Props {
 
 const UsuarioFilterContainer = ({usuarioParams, modalState, dispatchModal}: Props) => {
   const rolService = useRolService();
-  const roles = useFetchApi<Rol>({service: rolService, params: { size: "100" }});
+  const roles = useFetchApi<Rol>({service: rolService, params: { size: "999" }});
 
 
   if (roles.isLoading) {

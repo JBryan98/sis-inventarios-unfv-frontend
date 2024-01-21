@@ -16,7 +16,7 @@ interface Props {
 
 const UbicacionFilterContainer = ({modalState, dispatchModal, ubicacionParams}: Props) => {
     const facultadService = useFacultadService();
-    const facultades = useFetchApi<Facultad>({service: facultadService, params: {size: "100", page: "1"}})
+    const facultades = useFetchApi<Facultad>({service: facultadService, params: {size: "999", page: "1"}})
     
     if (facultades.isLoading) {
       return <LoadingFilter />;
