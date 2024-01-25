@@ -14,6 +14,7 @@ import { Stack } from '@mui/material';
 import HardwareFilterContainer from '../form/filter/HardwareFilterContainer';
 import { HardwareParams } from '@/app/(application)/hardware/page';
 import { useHardwareService } from '@/services/Hardaware.service';
+import { useParamsHandler } from '@/utils/hooks/useParamsHandler';
 
 const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => {
     const hardwareService = useHardwareService();
@@ -31,8 +32,10 @@ const HardwareTable = ({urlSearchParams}: {urlSearchParams: HardwareParams}) => 
       }
     };
 
+    const { validateNotEmptyParams } = useParamsHandler();
+
     const onExportReport = () => {
-      hardwareService.downloadReportExcel(urlSearchParams);
+      hardwareService.downloadReportExcel(validateNotEmptyParams(urlSearchParams));
     }
 
     const { tableActions } = useTableActions(

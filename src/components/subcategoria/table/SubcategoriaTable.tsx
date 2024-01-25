@@ -14,6 +14,7 @@ import SubcategoriaModalForm from '../form/SubcategoriaModalForm';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import { Stack } from '@mui/material';
 import SubcategoriaFilterContainer from '../form/filter/SubcategoriaFilterContainer';
+import { useParamsHandler } from '@/utils/hooks/useParamsHandler';
 
 const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaParams}) => {
     const subcategoriaService = useSubcategoriaService();
@@ -32,8 +33,10 @@ const SubcategoriaTable = ({urlSearchParams}: {urlSearchParams: SubcategoriaPara
       }
     };
 
+    const { validateNotEmptyParams } = useParamsHandler();
+
     const onExportReport = () => {
-      subcategoriaService.downloadReportExcel(urlSearchParams);
+      subcategoriaService.downloadReportExcel(validateNotEmptyParams(urlSearchParams));
     }
 
     const { tableActions } = useTableActions(

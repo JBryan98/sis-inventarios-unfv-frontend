@@ -12,6 +12,7 @@ import MUIDataTable from 'mui-datatables';
 import React, { useReducer } from 'react'
 import MarcaForm from '../form/MarcaForm';
 import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
+import { useParamsHandler } from '@/utils/hooks/useParamsHandler';
 
 const MarcaTable = ({urlSearchParams}: {urlSearchParams: MarcaParams}) => {
     const marcaService = useMarcaService();
@@ -22,26 +23,28 @@ const MarcaTable = ({urlSearchParams}: {urlSearchParams: MarcaParams}) => {
 
 
     const onPersist = (entityPersisted: Marca, insert: boolean) => {
-        setPageOnPersist(insert, entityPersisted);
-      };
-  
-      const onDelete = () => {
-        if (dataState.data) {
-          setPageAfterDelete(modalState.id!, "nombre");
-        }
-      };
+      setPageOnPersist(insert, entityPersisted);
+    };
 
-      const onExportReport = () => {
-        marcaService.downloadReportExcel(urlSearchParams);
+    const onDelete = () => {
+      if (dataState.data) {
+        setPageAfterDelete(modalState.id!, "nombre");
       }
-  
-      const { tableActions } = useTableActions(
-        urlSearchParams,
-        dataState.isLoading,
-        dataState.data?.totalElements!,
-        dispatchModal,
-        onExportReport
-    )
+    };
+
+    const { validateNotEmptyParams } = useParamsHandler();
+
+    const onExportReport = () => {
+      marcaService.downloadReportExcel(validateNotEmptyParams(urlSearchParams));
+    };
+
+    const { tableActions } = useTableActions(
+      urlSearchParams,
+      dataState.isLoading,
+      dataState.data?.totalElements!,
+      dispatchModal,
+      onExportReport
+    );
 
   return (
     <div>

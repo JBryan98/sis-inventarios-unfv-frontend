@@ -17,6 +17,7 @@ import { EquipoParams } from '@/app/(application)/equipos/page';
 import { useEquipoService } from '@/services/Equipo.service';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useParamsHandler } from '@/utils/hooks/useParamsHandler';
 
 const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
     const equipoService = useEquipoService();
@@ -42,8 +43,10 @@ const EquipoTable = ({urlSearchParams}: {urlSearchParams: EquipoParams}) => {
       }
     };
 
+    const { validateNotEmptyParams } = useParamsHandler();
+
     const onExportReport = () => {
-      equipoService.downloadReportExcel(urlSearchParams);
+      equipoService.downloadReportExcel(validateNotEmptyParams(urlSearchParams));
     }
 
     const equipoTableActions = {

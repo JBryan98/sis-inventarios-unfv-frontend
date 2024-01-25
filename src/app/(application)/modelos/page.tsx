@@ -4,10 +4,10 @@ import { Metadata } from 'next';
 import React from 'react'
 
 export interface ModeloParams extends Pageable {
-  referencia: string;
-  subcategorias: string;
-  categoria: string;
-  marca: string;
+  referencia?: string;
+  subcategorias?: string;
+  categoria?: string;
+  marca?: string;
 }
 
 export const metadata: Metadata = {

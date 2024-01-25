@@ -14,6 +14,7 @@ import { usePageActionsHandler } from '@/utils/hooks/usePageActionsHandler';
 import { Stack } from '@mui/material';
 import ModeloFilterContainer from '../form/filter/ModeloFilterContainer';
 import { ModeloParams } from '@/app/(application)/modelos/page';
+import { useParamsHandler } from '@/utils/hooks/useParamsHandler';
 
 const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
     const modeloService = useModeloService();
@@ -30,8 +31,10 @@ const ModeloTable = ({urlSearchParams}: {urlSearchParams: ModeloParams}) => {
       }
     };
 
+    const { validateNotEmptyParams } = useParamsHandler();
+
     const onExportReport = () => {
-      modeloService.downloadReportExcel(urlSearchParams)
+      modeloService.downloadReportExcel(validateNotEmptyParams(urlSearchParams))
     }
 
     const { tableActions } = useTableActions(

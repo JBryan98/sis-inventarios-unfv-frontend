@@ -14,6 +14,7 @@ import { Stack } from '@mui/material';
 import EquiposTrabajoFilterContainer from '../form/filter/EquiposTrabajoFilterContainer';
 import { EquiposTrabajoParams } from '@/app/(application)/equipos-de-trabajo/page';
 import { useEquiposTrabajoService } from '@/services/EquiposTrabajo.service';
+import { useParamsHandler } from '@/utils/hooks/useParamsHandler';
 
 const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajoParams}) => {
     const equiposTrabajoService = useEquiposTrabajoService();
@@ -31,9 +32,11 @@ const EquiposTrabajoTable = ({urlSearchParams}: {urlSearchParams: EquiposTrabajo
         setPageAfterDelete(modalState.id!, "serie");
       }
     };
-
+    
+    const { validateNotEmptyParams } = useParamsHandler();
+    
     const onExportReport = () => {
-      equiposTrabajoService.downloadReportExcel(urlSearchParams);
+      equiposTrabajoService.downloadReportExcel(validateNotEmptyParams(urlSearchParams));
     }
 
     const { tableActions } = useTableActions(

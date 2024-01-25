@@ -23,7 +23,7 @@ export const useTableActions = <T extends Pageable>(
   const {pushParamsToUrl} = useParamsHandler();
   const tableActions: MUIDataTableOptions = {
     ...options,
-    page: (+params.page - 1) || 0 ,
+    page: (Number(params.page) - 1) || 0 ,
     textLabels: {
       ...options.textLabels,
       body: {
@@ -62,7 +62,7 @@ export const useTableActions = <T extends Pageable>(
       }
     },
     count: totalElements,
-    rowsPerPage: +params.size || 10,
+    rowsPerPage: Number(params.size) || 10,
     customToolbar: () => {
       return (
         <Box sx={{ display: "flex", gap: 1, justifyContent: "flex-end" }}>

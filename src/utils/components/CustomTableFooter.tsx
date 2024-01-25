@@ -34,7 +34,7 @@ const CustomTableFooter = <T extends Pageable>({rowCount, page, rowsPerPage, par
         <TablePagination
           count={rowCount}
           rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={Array.from(new Set([+params.size || 10, 5, 10, 25, 50])).sort((a, b) => a - b)}
+          rowsPerPageOptions={Array.from(new Set([Number(params.size) || 10, 5, 10, 25, 50])).sort((a, b) => a - b)}
           page={!rowCount || rowCount <= 0 ? 0: page}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleChangeRowsPerPage}

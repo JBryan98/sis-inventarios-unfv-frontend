@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 import React from 'react'
 
 export interface SubcategoriaParams extends Pageable {
-  referencia: string;
-  categoria: string;
+  referencia?: string;
+  categoria?: string;
 }
 
 export const metadata: Metadata = {

@@ -1,4 +1,6 @@
-export interface Pageable extends Record<string, string>{
-    page: string;
-    size: string;
+export type SearchParams = Record<string, string | undefined>;
+
+export interface Pageable extends SearchParams{
+    page?: string;
+    size?: string;
 }

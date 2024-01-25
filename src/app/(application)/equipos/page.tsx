@@ -4,9 +4,9 @@ import { Metadata } from 'next';
 import React from 'react'
 
 export interface EquipoParams extends Pageable {
-  referencia: string;
-  estado: string;
-  ubicacion: string;
+  referencia?: string;
+  estado?: string;
+  ubicacion?: string;
 }
 
 export const metadata: Metadata = {

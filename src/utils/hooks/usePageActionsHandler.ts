@@ -12,9 +12,14 @@ import { useParamsHandler } from "./useParamsHandler";
 
 export const usePageActionsHandler = <E extends {id: number | string}, T extends Pageable>(urlSearchParams: T, data: ApiResponse<E> | null) => {
   const { pushParamsToUrl } = useParamsHandler();
-  const currentPage = +urlSearchParams.page || 1;
+  const currentPage = Number(urlSearchParams.page) || 1;
 
-  
+  /**
+   * Método para eliminar datos de la tabla
+   * @param id Identificador de la fila a eliminar
+   * @param key Key del identificador de la fila
+   * @example {nombre:: "1"} entonces la key sería 'nombre'
+   */
   const setPageAfterDelete = (id: string | number, key: string) => {
     let newPage = data?.content.length == 1 ? currentPage - 1 : currentPage;
     if (newPage < 1) {
@@ -57,7 +62,7 @@ export const usePageActionsHandler = <E extends {id: number | string}, T extends
    * @param entityPersisted Respuesta de la api con el registro creado
    */
   const updateDataAfterCreate = (entityPersisted: E) => {
-    const tableRowsPerPage = +urlSearchParams.size || 10;
+    const tableRowsPerPage = Number(urlSearchParams.size) || 10;
     if (data) {
       if (data.content.length < tableRowsPerPage) {
         data.content.push(entityPersisted);

@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import React from 'react'
 
 export interface RolParams extends Pageable{
-  referencia: string;
+  referencia?: string;
 }
 
 export const metadata: Metadata = {

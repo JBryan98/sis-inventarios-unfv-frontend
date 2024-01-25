@@ -7,13 +7,14 @@ import { ModalState } from '../reducers/CrudModalReducer';
 import ModalForm from '@/components/ui/form/ModalForm';
 import { FieldValues, UseFormHandleSubmit, UseFormReset } from 'react-hook-form';
 import { useForceResetForm } from '../hooks/useForceResetForm';
+import { SearchParams } from '../interface/Pageable';
 
 interface Props<TField extends FieldValues> {
     title: string;
-    params: Record<string, string>;
+    params: SearchParams;
     modalState: ModalState;
     handleSubmit: UseFormHandleSubmit<TField>;
-    onSubmit: (values: any) => void;
+    onSubmit: (values: SearchParams) => void;
     defaultValues: FieldValues;
     reset: UseFormReset<TField>;
     handleClose: () => void;

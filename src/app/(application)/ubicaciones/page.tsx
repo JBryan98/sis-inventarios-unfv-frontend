@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 import React from 'react'
 
 export interface UbicacionParams extends Pageable {
-  referencia: string;
-  facultad: string;
+  referencia?: string;
+  facultad?: string;
 }
 
 export const metadata: Metadata = {

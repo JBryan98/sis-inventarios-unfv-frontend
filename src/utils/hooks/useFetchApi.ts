@@ -16,11 +16,12 @@ export function useFetchUrlApi<T>(fetchRequest: FetchRequest<T>){
     const searchParams = useSearchParams();
     const fetchMethod = fetchRequest.fetchMethod || "findAll";
     useEffect(() => {
-      //router.push(pathname + "?" + validateBaseParams(fetchRequest.params));
       dispatch({ type: "LOADING_START", payload: null });
-      fetchRequest.service[fetchMethod as keyof typeof fetchRequest.service](
-        fetchRequest.params
-      )
+      fetchRequest.service[fetchMethod as keyof typeof fetchRequest.service]({
+        ...fetchRequest.params,
+        page: fetchRequest.params.page || "1",
+        size: fetchRequest.params.size || "10",
+      })
         .then((response) => {
           dispatch({ type: "FETCH_SUCCESS", payload: response });
         })
@@ -46,9 +47,11 @@ export function useFetchApi<T>(fetchRequest: FetchRequest<T>) {
 
   useEffect(() => {
     dispatch({ type: "LOADING_START", payload: null });
-    fetchRequest.service[fetchMethod as keyof typeof fetchRequest.service](
-      fetchRequest.params
-    )
+    fetchRequest.service[fetchMethod as keyof typeof fetchRequest.service]({
+      ...fetchRequest.params,
+      page: fetchRequest.params.page || "1",
+      size: fetchRequest.params.size || "10",
+    })
       .then((response) => {
         dispatch({ type: "FETCH_SUCCESS", payload: response });
       })
