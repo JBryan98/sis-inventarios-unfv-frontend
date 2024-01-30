@@ -93,6 +93,7 @@ export const usePageActionsHandler = <E extends {id: number | string}, T extends
       let index = data.content.findIndex(item => item[key as keyof typeof item] === id);
       if(index !== -1) {
         data.content.splice(index, 1)
+        data.totalElements - 1;
       }
     }
   }
