@@ -16,7 +16,7 @@ import "@/utils/validations/YupLocale";
 
 
 const LoginPage = () => {
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
 
   const authSchema = object({
@@ -44,7 +44,12 @@ const LoginPage = () => {
         router.push("/hardware");
       }else{
         setIsAuthenticating(false);
-        setError(true);
+        if(response?.error === "Credenciales incorrectas"){
+          setError("Usuario o contraseña incorrectos");
+        }
+        if(response?.error === "fetch failed"){
+          setError("¡Error de conexión con el servidor, comuniquese con el administrador!")
+        }
       }
     })
   }
@@ -127,7 +132,7 @@ const LoginPage = () => {
               ¡Bienvenido!
             </Typography>
             <Box sx={{ width: "100%" }}>
-              <Collapse in={error}>
+              <Collapse in={error !== ""}>
                 <Alert
                   severity="error"
                   action={
@@ -135,14 +140,14 @@ const LoginPage = () => {
                       aria-label="close"
                       color="inherit"
                       size="small"
-                      onClick={() => setError(false)}
+                      onClick={() => setError("")}
                     >
                       <CloseIcon fontSize="inherit" />
                     </IconButton>
                   }
                   sx={{ mb: 2 }}
                 >
-                  Usuario o contraseña incorrectos
+                  {error}
                 </Alert>
               </Collapse>
               <Collapse in={isAuthenticating}>
@@ -190,7 +195,7 @@ const LoginPage = () => {
                 "&:hover": { background: "black" },
               }}
               fullWidth
-              onClick={() => setError(false)}
+              onClick={() => setError("")}
             >
               Iniciar Sesión
             </Button>
